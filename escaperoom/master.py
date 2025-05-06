@@ -9,6 +9,8 @@ from clemcore.clemgame import metrics as ms
 from clemcore.backends import Model
 from clemcore.utils import file_utils
 from engine.utils import get_next_moves, get_next_image, get_node
+from engine.environment import MapWorldEnv
+from engine.ade_maps import ADEMap
 
 from typing import List, Dict, Tuple, Union
 import os
@@ -53,8 +55,11 @@ class EscapeRoom(DialogueGameMaster):
 
 
     def _on_setup(self, **game_instance):
+
         # Initialize Game Instance
         self.game_instance = game_instance
+        self.m = game_instance["m"]
+        self.game_map = MapWorldEnv(render_mode="human", size=self.m, map_metadata=self.game_instance)
 
         # Prompts
         self.explorer_prompt: str = self.game_instance["explorer_prompt"]
@@ -68,21 +73,22 @@ class EscapeRoom(DialogueGameMaster):
         self.guide = Guide(self.player_models[1])
 
         # Setup for Explorer/Player1
-        self.explorer_pos = self.game_instance["start"]
-        self.explorer_image = self.game_instance["images"][self.explorer_pos]
+        self.explorer_pos = self.game_instance["start_node"]
+        self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
-        moves = get_next_moves(self.game_instance, ast.literal_eval(self.explorer_pos))
+
+        moves = self.game_map.get_next_moves()
         # Name of the room category - bedroom, for example
-        self.explorer_room = self.game_instance["mapping"][self.explorer_pos]
+        self.explorer_room = self.game_instance["node_to_category"][self.explorer_pos]
         # Set possible Moves for Explorer
         # TODO: Do this via API (for each possible direction, get the response and let the explorer build the list)
         self.explorer_prompt = self.explorer_prompt.replace("$ROOMS", moves)
-        self.explorer_target = self.game_instance["target"]
+        self.explorer_target = self.game_instance["target_node"]
 
         # Setup for Guide/Player2
-        self.escape_pos = self.game_instance["target"]
-        self.escape_room = self.game_instance["mapping"][self.escape_pos]
-        self.guide_image = self.game_instance["images"][self.escape_pos]
+        self.escape_pos = self.game_instance["target_node"]
+        self.escape_room = self.game_instance["node_to_category"][self.escape_pos]
+        self.guide_image = self.game_instance["node_to_image"][self.escape_pos]
 
         # Add players
         # NOTE: Player calls will be made in the order below

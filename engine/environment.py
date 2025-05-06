@@ -240,6 +240,54 @@ class MapWorldEnv(gym.Env):
                 np.array(pygame.surfarray.pixels3d(canvas)), axes=(1, 0, 2)
             )
 
+    @staticmethod
+    def _get_direction(start_pos: Tuple, next_pos: Tuple) -> str:
+
+        """
+        Get the direction of next move
+        Args:
+            start_pos: current node of the agent inside mapworld
+            next_pos: next possible node of the agent inside mapworld
+
+        Returns:
+            direction: direction of the next move as a string item
+        """
+        if next_pos[0] == start_pos[0] and next_pos[1] == start_pos[1] + 1:
+            return "north"
+        elif next_pos[0] == start_pos[0] and next_pos[1] == start_pos[1] - 1:
+            return "south"
+        elif next_pos[1] == start_pos[1] and next_pos[0] == start_pos[0] + 1:
+            return "east"
+        elif next_pos[1] == start_pos[1] and next_pos[0] == start_pos[0] - 1:
+            return "west"
+        else:
+            raise ValueError("Invalid move! Check the node positions!")
+
+    def get_next_moves(self):
+
+        moves = []
+        edges = self.map_metadata['unnamed_edges']
+
+        for edge in edges:
+            start_pos = None
+            next_pos = None
+            # Check edges from current agent position
+            # TODO: Save metadata containing edge from n1 to n2 and n2 to n1, instead of only one of em
+            if edge[0] == self._agent_location:
+                start_pos = edge[0]
+                next_pos = edge[1]
+            elif edge[1] == self._agent_location:
+                start_pos = edge[1]
+                next_pos = edge[0]
+
+            if start_pos:
+                direction = self._get_direction(start_pos, next_pos)
+                room = self.map_metadata['node_to_category'][str(next_pos)]
+                moves.append((room, direction))
+
+        return str(moves)
+
+
     def close(self):
         if self.window is not None:
             pygame.display.quit()

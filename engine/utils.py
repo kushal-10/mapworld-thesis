@@ -62,6 +62,7 @@ def get_next_moves(game_instance: Dict, agent_pos: Tuple) -> str:
 
     moves = []
     edges = [ast.literal_eval(e) for e in game_instance['edges']]
+
     for e in edges:
         if e[0] == agent_pos:
             direction = get_direction(agent_pos, e[1])
