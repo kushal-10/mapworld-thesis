@@ -266,14 +266,14 @@ class EscapeRoom(DialogueGameMaster):
                 self.set_context_for(self.guide, utterance)
         else:
             move = ast.literal_eval(utterance)['move'] # Parse validation is already handled in _validate_player_response
-            self.explorer_image = get_next_image(self.game_instance, self.explorer_pos, move)
-            next_node = get_node(ast.literal_eval(self.explorer_pos), move)
-            next_moves = get_next_moves(self.game_instance, next_node)
+            explorer_action = self.game_map.move_to_action(move)
+            self.game_map.step(explorer_action) # Update Explorer state
+            # Update explorer image
+            self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
+            next_moves = self.game_map.get_next_moves() # Update next possible moves
+
             self.explorer_reprompt = self.explorer_reprompt.replace("$ROOMS", next_moves)
             self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
-            # Update explorer pos
-            self.explorer_pos = str(next_node)
-
 
     def _on_after_game(self):
         # record final results once game episode has ended:

@@ -178,3 +178,4 @@ cython_debug/
 EXP
 NOTES
 escaperoom/clean_instances.py
+key.json

@@ -33,6 +33,8 @@ class MapWorldEnv(gym.Env):
 
         self.agent_pos = agent_pos if agent_pos is not None else np.array(self.map_metadata["start_node"])
         self.target_pos = target_pos if target_pos is not None else np.array(self.map_metadata["target_node"])
+        self._agent_location = self.agent_pos
+        self._target_location = self.target_pos
 
         # Observations are dictionaries with the agent's and the target's location.
         # Each location is encoded as an element of {0, ..., `size`}^2
@@ -273,10 +275,10 @@ class MapWorldEnv(gym.Env):
             next_pos = None
             # Check edges from current agent position
             # TODO: Save metadata containing edge from n1 to n2 and n2 to n1, instead of only one of em
-            if edge[0] == self._agent_location:
+            if np.array_equal(edge[0], self._agent_location):
                 start_pos = edge[0]
                 next_pos = edge[1]
-            elif edge[1] == self._agent_location:
+            elif np.array_equal(edge[1], self._agent_location):
                 start_pos = edge[1]
                 next_pos = edge[0]
 
