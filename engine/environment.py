@@ -5,7 +5,7 @@ from gymnasium import spaces
 import pygame
 import numpy as np
 from typing import Dict, Tuple
-
+import ast
 import os
 
 from engine.ade_maps import ADEMap
@@ -68,8 +68,8 @@ class MapWorldEnv(gym.Env):
         self._action_to_move = {
             0: "east",
             1: "south",
-            2: "north",
-            3: "west",
+            2: "west",
+            3: "north",
             4: "<explore>",
             5: "<escape>"
         }
@@ -77,8 +77,8 @@ class MapWorldEnv(gym.Env):
         self.move_to_action = {
             "east": 0,
             "south": 1,
-            "north": 2,
-            "west": 3,
+            "west": 2,
+            "north": 3,
             "<explore>": 4,
             "<escape>": 5
         }
@@ -213,7 +213,7 @@ class MapWorldEnv(gym.Env):
         # Draw Pieces
         for node in self.map_metadata["unnamed_nodes"]:
             self._draw_rect(canvas, (255,0,0), np.array(node), pix_square_size,
-                            room_ratio, self.map_metadata["node_to_category"][node])
+                            room_ratio, self.map_metadata["node_to_category"][str(node)])
 
         # Now we draw the agent
         self.robot_img = pygame.image.load(os.path.join("engine", "resources", "robot.png")).convert_alpha()
@@ -266,7 +266,7 @@ class MapWorldEnv(gym.Env):
             raise ValueError("Invalid move! Check the node positions!")
 
     def get_next_moves(self):
-
+        agent_node = ast.literal_eval(self._agent_location.item())
         moves = []
         edges = self.map_metadata['unnamed_edges']
 
@@ -275,16 +275,16 @@ class MapWorldEnv(gym.Env):
             next_pos = None
             # Check edges from current agent position
             # TODO: Save metadata containing edge from n1 to n2 and n2 to n1, instead of only one of em
-            if np.array_equal(edge[0], self._agent_location):
+            if np.array_equal(edge[0], agent_node):
                 start_pos = edge[0]
                 next_pos = edge[1]
-            elif np.array_equal(edge[1], self._agent_location):
+            elif np.array_equal(edge[1], agent_node):
                 start_pos = edge[1]
                 next_pos = edge[0]
 
             if start_pos:
                 direction = self._get_direction(start_pos, next_pos)
-                room = self.map_metadata['node_to_category'][str(next_pos)]
+                room = self.map_metadata['node_to_category'][str(tuple(next_pos))]
                 moves.append((room, direction))
 
         return str(moves)
@@ -309,10 +309,8 @@ if __name__ == '__main__':
 
     env.reset()
     env.render()
-    print(env._agent_location)
-    for i in range(10):
+    moves = [3,3,1,1,2,0,2,0,3,3,1,1]
+    for i in moves:
         env.render()
-        random_action = env.action_space.sample()
-        env.step(random_action)
-        print(env._agent_location, random_action)
+        env.step(i)
     env.close()
