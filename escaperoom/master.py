@@ -138,13 +138,14 @@ class EscapeRoom(DialogueGameMaster):
         stdout_logger.info(f"Player response {player.tag}: {utterance}")
         utterance = self.clean_agent_response(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
+        stdout_logger.info(f"Cleaned Response Type: {type(utterance)}")
 
-        if not utterance.startswith('{') or not utterance.endswith('}'):
-            self.aborted = True
-            self.log_to_self(f"invalid format", f"{player.tag}")
+        try:
+            response_dict = ast.literal_eval(utterance)
+        except (ValueError, SyntaxError):
+            stdout_logger.info(f"Invalid Response. Could not parse the utterance as JSON: {utterance}")
             return False
 
-        response_dict = ast.literal_eval(utterance)
 
         if type(response_dict) != dict:
             self.aborted = True
@@ -187,6 +188,7 @@ class EscapeRoom(DialogueGameMaster):
                     return False
 
             # Success case
+            stdout_logger.info(f"Valid Response for Explorer: {utterance}")
             self.log_to_self("success", "explorer")
             return True
 
@@ -211,6 +213,7 @@ class EscapeRoom(DialogueGameMaster):
                 return False
 
             # Success case
+            stdout_logger.info(f"Valid Response for Guide: {utterance}")
             self.log_to_self("success", "guide")
             return True
 

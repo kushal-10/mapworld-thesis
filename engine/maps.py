@@ -156,6 +156,33 @@ class BaseMap:
             f" Try reducing n_loops or increasing grid size (m x n)."
         )
 
+    def create_star_graph(self):
+        """
+        Returns:
+            star_graph: A networkx graph containing exactly 1 central node that has nodes connected in each direction.
+            Valid for only 5 nodes
+        """
+
+        if self.m < 3 or self.n < 3:
+            raise ValueError(f"Graph size should be >= 3x3 for a star config! Passed values - {self.m, self.n}")
+
+        if self.n_nodes != 5:
+            raise ValueError(f"Graph nodes should be == 5 for star config! Passed values - {self.n_nodes}")
+
+        G = nx.Graph()
+
+        # Pick a random node (not on the edges) as a central node
+        r = np.random.randint(1, self.m)
+        c = np.random.randint(1, self.n)
+        G.add_node((r, c))
+
+        valid_neighbors = self.get_valid_neighbors((r, c), [], self.m, self.n)
+        for neighbor in valid_neighbors:
+            G.add_node(neighbor)
+            G.add_edge((r, c), neighbor)
+
+        return G
+
     def plot_graph(self, G):
         nx.draw_networkx(G, pos={n: n for n in G.nodes()})
         plt.show()

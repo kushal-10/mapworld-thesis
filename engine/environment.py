@@ -309,7 +309,9 @@ if __name__ == '__main__':
 
     env.reset()
     env.render()
+
     moves = [3,3,1,1,2,0,2,0,3,3,1,1]
+
     for i in moves:
         env.render()
         env.step(i)
