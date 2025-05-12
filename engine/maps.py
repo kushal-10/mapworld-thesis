@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-
+import random
 
 class BaseMap:
 
@@ -43,7 +43,7 @@ class BaseMap:
 
         return valid_neighbors
 
-    def create_acyclic_graph(self, current_node=None):
+    def create_tree_graph(self, current_node=None):
         """
         Create an Acyclic graph
 
@@ -158,30 +158,183 @@ class BaseMap:
 
     def create_star_graph(self):
         """
+        Create a “star” configuration:
+          - Pick one central node at random.
+          - Add its 4 orthogonal neighbors.
+          - If n_nodes > 5, iteratively attach the remaining nodes by
+            choosing one of the 4 “arm” endpoints at random and extending
+            to an unvisited neighbor.
+
         Returns:
-            star_graph: A networkx graph containing exactly 1 central node that has nodes connected in each direction.
-            Valid for only 5 nodes
+            star_graph: networkx Graph with exactly self.n_nodes nodes.
+
+        Raises:
+            ValueError: If the grid or n_nodes aren’t compatible.
         """
-
+        # Basic checks
         if self.m < 3 or self.n < 3:
-            raise ValueError(f"Graph size should be >= 3x3 for a star config! Passed values - {self.m, self.n}")
-
-        if self.n_nodes != 5:
-            raise ValueError(f"Graph nodes should be == 5 for star config! Passed values - {self.n_nodes}")
+            raise ValueError(f"Grid must be at least 3×3 for a star (got {self.m}×{self.n}).")
+        if self.n_nodes < 5:
+            raise ValueError(f"Need at least 5 nodes for a star (got {self.n_nodes}).")
+        if self.n_nodes > self.m * self.n:
+            raise ValueError(f"Cannot place {self.n_nodes} nodes in a {self.m}×{self.n} grid.")
 
         G = nx.Graph()
+        visited = set()
 
-        # Pick a random node (not on the edges) as a central node
-        r = np.random.randint(1, self.m)
-        c = np.random.randint(1, self.n)
-        G.add_node((r, c))
+        # 1) Pick central node
+        center = (np.random.randint(1, self.m), np.random.randint(1, self.n))
+        G.add_node(center)
+        visited.add(center)
 
-        valid_neighbors = self.get_valid_neighbors((r, c), [], self.m, self.n)
-        for neighbor in valid_neighbors:
-            G.add_node(neighbor)
-            G.add_edge((r, c), neighbor)
+        # 2) Add the 4 orthogonal neighbors
+        arms = []
+        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            nb = (center[0] + dx, center[1] + dy)
+            if 0 <= nb[0] < self.m and 0 <= nb[1] < self.n:
+                G.add_node(nb)
+                G.add_edge(center, nb)
+                visited.add(nb)
+                arms.append(nb)
+        if len(arms) < 4:
+            raise ValueError("Center chosen too close to the border—cannot form 4 arms. Try larger grid.")
+
+        # 3) If more nodes remain, attach them one by one
+        while len(visited) < self.n_nodes:
+            # pick a random endpoint from the current arms
+            endpoint = random.choice(arms)
+            # find its valid unvisited neighbors
+            cands = [tuple(p) for p in self.get_valid_neighbors(endpoint, visited, self.m, self.n)]
+            if not cands:
+                # if this arm is stuck, remove it from arms and continue
+                arms.remove(endpoint)
+                if not arms:
+                    raise ValueError("No more possible extensions; cannot place all nodes.")
+                continue
+            new_node = random.choice(cands)
+            G.add_node(new_node)
+            G.add_edge(endpoint, new_node)
+            visited.add(new_node)
+            arms.append(new_node)
 
         return G
+
+    def create_ladder_graph(self):
+        """
+        Create a 2-row “ladder” configuration with n_cols = n_nodes/2 rungs:
+          - Only works if n_nodes is even, and grid has at least 2 rows and n_cols columns.
+          - Nodes occupy positions (0..1, 0..n_cols-1).
+          - Edges along each row plus vertical “rungs” between rows.
+
+        Returns:
+            ladder_graph: networkx Graph with exactly self.n_nodes nodes.
+
+        Raises:
+            ValueError: If parameters are invalid.
+        """
+        if self.n_nodes % 2 != 0:
+            raise ValueError(f"n_nodes must be even for a ladder (got {self.n_nodes}).")
+        n_cols = self.n_nodes // 2
+        if self.m < 2 or self.n < n_cols:
+            raise ValueError(
+                f"Grid must be at least 2×{n_cols} to fit the ladder "
+                f"(got {self.m}×{self.n})."
+            )
+
+        G = nx.Graph()
+        visited = set()
+
+        # Add all nodes in the 2×n_cols block at top-left
+        for i in (0, 1):
+            for j in range(n_cols):
+                G.add_node((i, j))
+                visited.add((i, j))
+
+        # Add horizontal edges on each row
+        for i in (0, 1):
+            for j in range(n_cols - 1):
+                G.add_edge((i, j), (i, j + 1))
+
+        # Add vertical rungs between the two rows
+        for j in range(n_cols):
+            G.add_edge((0, j), (1, j))
+
+        return G
+
+    def create_cycle_graph(self):
+        """
+        Create a single simple cycle of length self.n_nodes.
+
+        Requirements:
+          - self.n_nodes must be even and >= 4.
+          - The grid must have at least 2 rows and at least self.n_nodes/2 columns.
+
+        Returns:
+            A networkx Graph whose nodes form a single closed loop.
+        Raises:
+            ValueError: if parameters don’t allow embedding such a cycle.
+        """
+        if self.n_nodes < 4 or self.n_nodes % 2 != 0:
+            raise ValueError(f"Need an even number of nodes ≥ 4 for a single cycle (got {self.n_nodes}).")
+        n_cols = self.n_nodes // 2
+        if self.m < 2 or self.n < n_cols:
+            raise ValueError(
+                f"Grid must be at least 2×{n_cols} to fit a cycle of length {self.n_nodes} "
+                f"(got {self.m}×{self.n})."
+            )
+
+        G = nx.Graph()
+        # build a 2×n_cols “ring”: top row left→right, then bottom row right→left
+        cycle_nodes = [(0, j) for j in range(n_cols)] + [(1, j) for j in reversed(range(n_cols))]
+        for node in cycle_nodes:
+            G.add_node(node)
+        # connect successive pairs, then close the loop
+        for u, v in zip(cycle_nodes, cycle_nodes[1:] + cycle_nodes[:1]):
+            G.add_edge(u, v)
+        return G
+
+    def create_path_graph(self):
+        """
+        Create a simple path (chain) of self.n_nodes nodes on the grid.
+
+        Requirements:
+          - self.n_nodes ≥ 1
+          - self.n_nodes ≤ self.m * self.n
+          - The grid must allow a non-branching walk of length n_nodes.
+
+        Returns:
+          A networkx Graph whose nodes form a single chain.
+
+        Raises:
+          ValueError: if it gets stuck before placing all nodes.
+        """
+        if self.n_nodes < 1:
+            raise ValueError(f"Need at least 1 node for a path (got {self.n_nodes}).")
+        if self.n_nodes > self.m * self.n:
+            raise ValueError(f"Cannot place {self.n_nodes} nodes in a {self.m}×{self.n} grid.")
+
+        G = nx.Graph()
+        visited = []
+        # start somewhere random
+        start = (random.randrange(self.m), random.randrange(self.n))
+        visited.append(start)
+        G.add_node(start)
+
+        while len(visited) < self.n_nodes:
+            curr = visited[-1]
+            # orthogonal moves into unvisited
+            nbrs = [tuple(nb) for nb in self.get_valid_neighbors(curr, visited, self.m, self.n)]
+            if not nbrs:
+                raise ValueError(
+                    f"Stuck at {curr} after {len(visited)} nodes; cannot extend to {self.n_nodes}."
+                )
+            nxt = random.choice(nbrs)
+            visited.append(nxt)
+            G.add_node(nxt)
+            G.add_edge(curr, nxt)
+
+        return G
+
 
     def plot_graph(self, G):
         nx.draw_networkx(G, pos={n: n for n in G.nodes()})
@@ -192,6 +345,6 @@ class BaseMap:
 
 
 if __name__ == '__main__':
-    map = BaseMap(2, 8, 10)
-    G = map.create_acyclic_graph()
+    map = BaseMap(4, 4, 8)
+    G = map.create_cycle_graph()
     map.plot_graph(G)
