@@ -51,6 +51,10 @@ class EscapeRoom(DialogueGameMaster):
         # Analyse each player individually
         self.explorer_aborted = False
         self.guide_aborted = False
+        self.success = False # Explorer returned - ESCAPE
+
+        # Pass Turn
+        self.pass_turn = True
 
 
     def _on_setup(self, **game_instance):
@@ -109,10 +113,13 @@ class EscapeRoom(DialogueGameMaster):
         """
         Fail cases for each turn, use init_flags/scorers etc...
         """
-        if self.aborted or self.current_round==10:
+        if self.aborted or self.current_round==10 or self.success:
             return False
         else:
             return True
+
+    def _should_pass_turn(self):
+        return self.pass_turn
 
     @staticmethod
     def clean_agent_response(response: str) -> str:
@@ -165,13 +172,18 @@ class EscapeRoom(DialogueGameMaster):
                 self.log_to_self("invalid format", "explorer")
                 return False
 
+            # TODO: Check if valid move - goes into valid room or not...
+            # i.e move options are "e, w" and move made is north.
+            # TODO: Alternative - Check if move made is in the list of get_moves()
             if tag == "move":
                 move = splits[1]
                 move = move.lower().strip()
+                self.pass_turn = False
                 if move not in valid_directions:
                     self.aborted = True
                     stdout_logger.info(f"Invalid direction {move}")
                     self.log_to_self("invalid value", "explorer")
+
                     return False
 
             # Episodic Success case
@@ -181,7 +193,9 @@ class EscapeRoom(DialogueGameMaster):
                 if str(tuple(self.game_map._agent_location)) == self.game_instance["target_node"]:
                     stdout_logger.info(f"Escape room {self.escape_room} - Reached, Explorer successfully escaped!")
                     self.log_to_self("success", "episode")
+                    self.success = True
                     return True
+
 
             # Valid case
             stdout_logger.info(f"Valid Response for Explorer: {utterance}")
@@ -284,6 +298,7 @@ class EscapeRoom(DialogueGameMaster):
                 self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
             if tag == "question":
                 self.set_context_for(self.guide, utterance) # Pass wo image
+
 
     def _on_after_game(self):
         # record final results once game episode has ended:

@@ -10,6 +10,8 @@ import os
 
 from engine.ade_maps import ADEMap
 
+# TODO: Add video record method
+
 class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 2}
 
