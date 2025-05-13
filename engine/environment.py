@@ -14,7 +14,7 @@ class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 2}
 
     def __init__(self, render_mode: str = "human", size: int = 5, map_metadata: Dict = None,
-                 agent_pos: np.array = None, target_pos: np.array = None):
+                 agent_pos: str = None, target_pos: str = None):
         """
         Initialize mapworld as a Gymnasium environment.
 
@@ -256,9 +256,9 @@ class MapWorldEnv(gym.Env):
             direction: direction of the next move as a string item
         """
         if next_pos[0] == start_pos[0] and next_pos[1] == start_pos[1] + 1:
-            return "north"
-        elif next_pos[0] == start_pos[0] and next_pos[1] == start_pos[1] - 1:
             return "south"
+        elif next_pos[0] == start_pos[0] and next_pos[1] == start_pos[1] - 1:
+            return "north"
         elif next_pos[1] == start_pos[1] and next_pos[0] == start_pos[0] + 1:
             return "east"
         elif next_pos[1] == start_pos[1] and next_pos[0] == start_pos[0] - 1:
@@ -298,20 +298,21 @@ class MapWorldEnv(gym.Env):
 
 
 if __name__ == '__main__':
-    n, m = 3, 3
+    n, m = 4, 4
     rooms = 4
+    # np.random.seed(44)
     ademap = ADEMap(m, n, rooms)
-    graph_a = ademap.create_acyclic_graph()
-    graph_a = ademap.assign_types(graph_a, ambiguity=[2], use_outdoor_categories=False)
+    graph_a = ademap.create_cycle_graph()
+    graph_a = ademap.assign_types(graph_a, ambiguity=[1], use_outdoor_categories=False)
     graph_a = ademap.assign_images(graph_a)
-    metadata = ademap.metadata(graph_a, "random", "random")
-
-    env = MapWorldEnv(render_mode="human", size=5, map_metadata=metadata)
-
+    metadata = ademap.metadata(graph_a, "indoor", "indoor")
+    print(metadata)
+    env = MapWorldEnv(render_mode="human", size=4, map_metadata=metadata)
+    #
     env.reset()
     env.render()
 
-    moves = [3,3,1,1,2,0,2,0,3,3,1,1]
+    moves = [0,1,2,3]
 
     for i in moves:
         env.render()

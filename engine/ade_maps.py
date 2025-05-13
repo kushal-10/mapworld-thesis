@@ -371,8 +371,8 @@ class ADEMap(BaseMap):
             "category_to_node": category_to_node,
             "node_to_image": node_to_image,
             "category_to_image": category_to_image,
-            "start_node": start_pos,
-            "target_node": target_pos,
+            "start_node": str(start_pos),
+            "target_node": str(target_pos),
         }
 
         return graph_metadata
