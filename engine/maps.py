@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+# TODO: Write Tests for each map variant.
+
 class BaseMap:
 
     def __init__(self, m: int = 3, n: int = 3, n_nodes: int = 9):
@@ -263,17 +265,20 @@ class BaseMap:
 
     def create_cycle_graph(self):
         """
-        Create a single simple cycle of length self.n_nodes.
+        Create a single simple cycle of length self.n_nodes, placed at a random
+        2×(n_nodes/2) rectangle within the m×n grid.
 
         Requirements:
           - self.n_nodes must be even and >= 4.
           - The grid must have at least 2 rows and at least self.n_nodes/2 columns.
 
         Returns:
-            A networkx Graph whose nodes form a single closed loop.
+            A networkx Graph whose nodes form a single closed loop somewhere
+            in the grid, in random orientation and starting point.
         Raises:
             ValueError: if parameters don’t allow embedding such a cycle.
         """
+        # sanity checks
         if self.n_nodes < 4 or self.n_nodes % 2 != 0:
             raise ValueError(f"Need an even number of nodes ≥ 4 for a single cycle (got {self.n_nodes}).")
         n_cols = self.n_nodes // 2
@@ -283,15 +288,36 @@ class BaseMap:
                 f"(got {self.m}×{self.n})."
             )
 
+        # choose a random pair of adjacent rows
+        row0 = random.randrange(self.m - 1)
+        row1 = row0 + 1
+
+        # choose a random horizontal offset so we fit n_cols across
+        max_offset = self.n - n_cols
+        col0 = random.randrange(max_offset + 1)
+
+        # build the two “sides” of the rectangle
+        top_row = [(row0, col0 + j) for j in range(n_cols)]
+        bottom_row = [(row1, col0 + j) for j in range(n_cols)][::-1]
+
+        # randomly flip orientation (top↔bottom) half the time
+        if random.choice([True, False]):
+            top_row, bottom_row = bottom_row, top_row
+
+        cycle_nodes = top_row + bottom_row
+
+        # rotate the cycle so it doesn’t always start at index 0
+        k = random.randrange(len(cycle_nodes))
+        cycle_nodes = cycle_nodes[k:] + cycle_nodes[:k]
+
+        # assemble graph
         G = nx.Graph()
-        # build a 2×n_cols “ring”: top row left→right, then bottom row right→left
-        cycle_nodes = [(0, j) for j in range(n_cols)] + [(1, j) for j in reversed(range(n_cols))]
-        for node in cycle_nodes:
-            G.add_node(node)
-        # connect successive pairs, then close the loop
+        G.add_nodes_from(cycle_nodes)
         for u, v in zip(cycle_nodes, cycle_nodes[1:] + cycle_nodes[:1]):
             G.add_edge(u, v)
+
         return G
+
 
     def create_path_graph(self):
         """
@@ -345,6 +371,8 @@ class BaseMap:
 
 
 if __name__ == '__main__':
-    map = BaseMap(4, 4, 8)
+    map = BaseMap(4, 4, 6)
     G = map.create_cycle_graph()
     map.plot_graph(G)
+
+    print(G.nodes())

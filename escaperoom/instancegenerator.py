@@ -6,9 +6,41 @@ import numpy as np
 from typing import Tuple
 
 # TODO: Move this to initial_prompt.template under resources
-EXPL_PROMPT = "You are stuck in a mapworld environment. Your task is to explore this world and reach an escape room.\nStart by describing the image given to you that represents the current room you are in.\nYou can also make moves to the following rooms - $ROOMS, here the first part is the room name and the second part is the direction which leads to\nthe room. You are allowed to respond only in the following format.\n\n{\"description\": A one line description of the current room you are in, \"moves\": [list of tuples of possible moves to rooms]}",
-EXPL_REPROMPT = "Now we made a move to this room, and you can move to these rooms $ROOMS, provide the description and moves.",
-GUIDE_PROMPT = "I need your help, I am stuck in a mapworld environment. Your task is to help me reach an escape room.\nI do not know what the escape room looks like. But fortunately, you have an image of the escape room with you.\nI will explore each room here and give you a description and possible moves in the following format:\n\n{\"description\": A one line description of the current room I am in, \"rooms\": [list of tuples of possible moves to rooms]}\n\nYour task is to compare the description of my room with the image of the room you have been given. Then you have two options\nOption 1) If my description matches the image of the room that you have respond with - {'move': 'escape'} as a string\nOption 2) If my description does not match the image that you have been given, then only respond in the following format \n\n{'move': 'possible_move'}, Here possible_move can be one of the {north, south, east, west}\n\nHere is my initial Description and possible moves :\n$DESCRIPTION\n"
+EXPL_PROMPT = """You are stuck in a mapworld environment containing several rooms. 
+Your task is to explore this world and reach an escape room.
+You are always given an image of the current room you are in. 
+I have an image of the Escape Room, this is an initial description of my image - $INIT_DESCRIPTION.
+
+Based on my description and the image given, you now have three options
+
+First Option - If you think that the description of my image matches the image you have, i.e. you are in the escape room
+then respond with one word - ESCAPE.
+
+Second Option - If you think you need more details from my image - respond in the following format
+QUESTION: Ask details about the image I have to verify if we have the same image or not
+
+Third Option - If you think you are in a different room than what I have, i.e we are seeing different images,
+then you can make a move in following Directions - $DIRECTIONS. Respond in the following format
+MOVE: direction - Here direction can be one of {north, south, east, west}
+"""
+
+EXPL_REPROMPT = """
+Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
+$MOVES
+"""
+
+GUIDE_PROMPT = """I need your help, I am stuck in a mapworld environment. 
+Your task is to help me reach an escape room. I do not know what the escape room looks like. 
+But fortunately, you have an image of the escape room with you. I will explore each room here and ask you a few QUESTIONS
+to verify if we have the same image or not, thus verifying if I am in the Escape Room or not.
+
+First start by describing the image that you have, Respond in the following format
+DESCRIPTION: your description of the image that you have
+
+Then if I ask a QUESTION, the respond appropriately based on your image in the following format
+ANSWER: your Answer
+"""
+
 
 N = 10 # Number of instances per experiment
 
@@ -22,10 +54,9 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
 
     def on_generate(self):
         experiments = {
-            "beginner": {"size": 3, "rooms":4, "cycle": False, "ambiguity": None},
-            "semi-pro": {"size": 4, "rooms": 5, "cycle": True, "ambiguity": [2]},
-            "pro": {"size": 5, "rooms": 10, "cycle": True, "ambiguity": [2,2]},
-            # "expert": {"size": 6, "rooms": 15, "cycle": True, "ambiguity": [3,3]},
+            "small": {"size": 4, "rooms":4, "type": "cycle", "ambiguity": None},
+            "medium": {"size": 6, "rooms": 6, "type": "cycle", "ambiguity": None},
+            "large": {"size":8, "rooms": 8, "type": "cycle", "ambiguity": None}
         }
 
         for exp in experiments.keys():
@@ -33,19 +64,25 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
             game_id = 0
             size = experiments[exp]["size"]
             rooms = experiments[exp]["rooms"]
-            cycle = experiments[exp]["cycle"]
+            graph_type = experiments[exp]["type"]
             ambiguity = experiments[exp]["ambiguity"]
             for i in range(N):
                 ade_map = ADEMap(size, size, rooms)
-
-                if cycle:
-                    ade_graph = ade_map.create_cyclic_graph()
+                if graph_type == "cycle":
+                    ade_graph = ade_map.create_cycle_graph()
+                elif graph_type == "path":
+                    ade_graph = ade_map.create_path_graph()
+                elif graph_type == "star":
+                    ade_graph = ade_map.create_star_graph()
+                elif graph_type == "ladder":
+                    ade_graph = ade_map.create_ladder_graph()
                 else:
-                    ade_graph = ade_map.create_acyclic_graph()
-                ade_graph = ade_map.assign_types(ade_graph, ambiguity=ambiguity)
+                    raise ValueError(f"Invalid graph type! - {graph_type}")
+
+                ade_graph = ade_map.assign_types(ade_graph, ambiguity=ambiguity, use_outdoor_categories=False)
                 ade_graph = ade_map.assign_images(ade_graph)
 
-                map_metadata = ade_map.metadata(ade_graph)
+                map_metadata = ade_map.metadata(ade_graph, "indoor", "indoor")
                 map_metadata["explorer_prompt"] = EXPL_PROMPT
                 map_metadata["guide_prompt"] = GUIDE_PROMPT
                 map_metadata["explorer_reprompt"] = EXPL_REPROMPT

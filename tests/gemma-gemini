@@ -1,0 +1,37 @@
+EXPL - GUIDE
+I need your help, I am stuck in a mapworld environment.
+Your task is to help me reach an escape room. I do not know what the escape room looks like.
+But fortunately, you have an image of the escape room with you. I will explore each room here and ask you a few QUESTIONS
+to verify if we have the same image or not, thus verifying if I am in the Escape Room or not.
+First start by describing the image that you have, Respond in the following format
+DESCRIPTION: your description of the image that you have
+Then if I ask a QUESTION, the respond appropriately based on your image in the following format
+ANSWER: your Answer
+
+GUIDE - EXPL
+You are stuck in a mapworld environment containing several rooms.
+Your task is to explore this world and reach an escape room.
+You are always given an image of the current room you are in.
+I have an image of the Escape Room, this is an initial description of my image - The image shows a grand room with a high ceiling, ornate decorations on the walls and ceiling, and large windows. There is a very large, elaborate crystal chandelier hanging from the center of the ceiling. The floor appears to be marble with some kind of inlaid pattern. There are display cases or pedestals in the room, and sunlight is streaming in through the windows. The overall impression is one of a historical or opulent interior.
+
+Based on my description and the image given, you now have three options
+
+First Option - If you think that the description of my image matches the image you have, i.e. you are in the escape room
+then respond with one word - ESCAPE.
+
+Second Option - If you think you need more details from my image - respond in the following format
+QUESTION: Ask details about the image I have to verify if we have the same image or not
+
+Third Option - If you think you are in a different room than what I have, i.e we are seeing different images,
+then you can make a move in following Directions - {west, north}. Respond in the following format
+MOVE: direction - Here direction can be one of {north, south, east, west}
+
+
+EXPL - GUIDE
+QUESTION: Are there any visible puzzles, mechanisms, or objects that seem out of place or interactive within the room? Specifically, are there any noticeable locks, buttons, symbols, or hidden compartments?
+
+GUIDE - EXPL
+ANSWER: Based on the image I have, there are no readily visible puzzles, mechanisms, locks, buttons, symbols, or hidden compartments that are typical of an escape room. The room appears to be a grand, decorated interior space.
+
+EXPL - GM
+ESCPE
