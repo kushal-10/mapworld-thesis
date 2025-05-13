@@ -8,7 +8,6 @@ from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMas
 from clemcore.clemgame import metrics as ms
 from clemcore.backends import Model
 from clemcore.utils import file_utils
-from engine.utils import get_next_moves, get_next_image, get_node
 from engine.environment import MapWorldEnv
 from engine.ade_maps import ADEMap
 
@@ -27,7 +26,7 @@ class Explorer(Player):
         self.tag: str = "Explorer"
 
     def _custom_response(self, context: Dict) -> str:
-        return "{'description': 'A room with a dining table and 4 chairs', 'moves': [('living_room', 'north'), ('shower', 'east')]}"
+        return "MOVE: North"
     
 class Guide(Player):
     def __init__(self, model: Model):
@@ -37,7 +36,7 @@ class Guide(Player):
 
 
     def _custom_response(self, context: Dict) -> str:
-        return "{'move': 'north'}"
+        return "ANSWER: No"
 
 class EscapeRoom(DialogueGameMaster):
 
@@ -59,7 +58,7 @@ class EscapeRoom(DialogueGameMaster):
         # Initialize Game Instance
         self.game_instance = game_instance
         self.m = game_instance["m"]
-        self.game_map = MapWorldEnv(render_mode="human", size=self.m, map_metadata=self.game_instance)
+        self.game_map = MapWorldEnv(render_mode="rgb_array", size=self.m, map_metadata=self.game_instance)
 
         # Prompts
         self.explorer_prompt: str = self.game_instance["explorer_prompt"]
@@ -82,7 +81,7 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_room = self.game_instance["node_to_category"][self.explorer_pos]
         # Set possible Moves for Explorer
         # TODO: Do this via API (for each possible direction, get the response and let the explorer build the list)
-        self.explorer_prompt = self.explorer_prompt.replace("$ROOMS", moves)
+        self.explorer_prompt = self.explorer_prompt.replace("$DIRECTIONS", moves)
         self.explorer_target = self.game_instance["target_node"]
 
         # Setup for Guide/Player2
@@ -92,8 +91,9 @@ class EscapeRoom(DialogueGameMaster):
 
         # Add players
         # NOTE: Player calls will be made in the order below
-        self.add_player(self.explorer)
         self.add_player(self.guide)
+        self.add_player(self.explorer)
+
 
     def _on_before_game(self):
         """
@@ -101,9 +101,9 @@ class EscapeRoom(DialogueGameMaster):
         """
 
         # Add initial prompt to Explorer in (Explorer's) history
-        self.set_context_for(self.explorer, self.explorer_prompt, image=[self.explorer_image])
-        stdout_logger.info(f"First message for Explorer: {self.explorer_prompt}")
-        stdout_logger.info(f"First Room image path for Explorer: {self.explorer_image}")
+        self.set_context_for(self.guide, self.guide_prompt, image=[self.guide_image])
+        stdout_logger.info(f"First message for Guide: {self.guide_prompt}")
+        stdout_logger.info(f"First Room image path for Guide: {self.guide_image}")
 
     def _does_game_proceed(self) -> bool:
         """
@@ -140,79 +140,74 @@ class EscapeRoom(DialogueGameMaster):
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
         stdout_logger.info(f"Cleaned Response Type: {type(utterance)}")
 
-        try:
-            response_dict = ast.literal_eval(utterance)
-        except (ValueError, SyntaxError):
-            stdout_logger.info(f"Invalid Response. Could not parse the utterance as JSON: {utterance}")
-            return False
+        # try:
+        #     response_dict = ast.literal_eval(utterance)
+        # except (ValueError, SyntaxError):
+        #     stdout_logger.info(f"Invalid Response. Could not parse the utterance as JSON: {utterance}")
+        #     return False
 
-
-        if type(response_dict) != dict:
-            self.aborted = True
-            if type(player) == Explorer:
-                self.explorer_aborted = True
-            else:
-                self.guide_aborted = True
-            stdout_logger.info(f"Invalid Response Type: Expected Dictionary, got {type(response_dict)}: {response_dict}")
-            self.log_to_self(f"invalid format", f"{player.tag}")
-            return False
-
-        keys = response_dict.keys()
         if type(player) == Explorer:
             """
-            Explorer should respond only in the following format
-            {'description': 'A room with a table and 4 chairs', 'moves': [('living_room', 'north'), ('shower', 'east')]}.
-            Check for each key, value and value type 
+            Explorer should respond only in one of the following format
+            1) MOVE: North
+            2) ESCAPE
+            3) QUESTION: 
+            Check for each tag
             """
-
-            # Check Keys
-            if "description" not in keys or "moves" not in keys:
+            valid_tags = ["move", "escape", "question"]
+            valid_directions = ["north", "east", "south", "west"]
+            utterance = utterance.lower()
+            splits = utterance.split(":")
+            tag = splits[0]
+            if tag not in valid_tags:
                 self.aborted = True
-                stdout_logger.info(f"Invalid response format for Explorer - Invalid Keys: {utterance}")
-                self.log_to_self("invalid format", "explorer") # Violated request count
+                stdout_logger.info(f"Invalid tag {tag}")
+                self.log_to_self("invalid format", "explorer")
                 return False
 
-            # Check Value types
-            if type(response_dict["description"]) != str or type(response_dict["moves"]) != list:
-                self.aborted = True
-                stdout_logger.info(f"Invalid response format for Explorer - Invalid Value Types: {utterance}")
-                self.log_to_self("invalid format", "explorer") # Violated request count
-                return False
-
-            # Check each move value
-            for m in response_dict["moves"]:
-                if type(m) != tuple or len(m) != 2 or m[1].lower() not in ['north', 'south', 'east', 'west']:
+            if tag == "move":
+                move = splits[1]
+                move = move.lower().strip()
+                if move not in valid_directions:
                     self.aborted = True
-                    stdout_logger.info(f"Invalid response for Explorer - Invalid Move: {utterance}")
-                    self.log_to_self("invalid value", "explorer") # Parsed request count
+                    stdout_logger.info(f"Invalid direction {move}")
+                    self.log_to_self("invalid value", "explorer")
                     return False
 
-            # Success case
+            # Episodic Success case
+            if tag == "escape":
+                stdout_logger.info(f"Agent Location - {str(tuple(self.game_map._agent_location))}")
+                stdout_logger.info(f"Target Location - {self.game_instance['target_node']}")
+                if str(tuple(self.game_map._agent_location)) == self.game_instance["target_node"]:
+                    stdout_logger.info(f"Escape room {self.escape_room} - Reached, Explorer successfully escaped!")
+                    self.log_to_self("success", "episode")
+                    return True
+
+            # Valid case
             stdout_logger.info(f"Valid Response for Explorer: {utterance}")
             self.log_to_self("success", "explorer")
             return True
 
         else:
             """
-            Guide should respond only in the following format
-            {'move': 'north'} 
+            Guide should respond only in one of the following format
+            1) DESCRIPTION: 
+            2) ANSWER:
             """
-            # Check if 'move' key exists
-            if 'move' not in response_dict.keys():
+
+            utterance = utterance.lower()
+            splits = utterance.split(":")
+            tag = splits[0]
+            valid_tags = ["description", "answer"]
+
+            if tag not in valid_tags:
                 self.aborted = True
-                stdout_logger.info(f"Invalid Response Key for Guide: Expected 'move', got {list(response_dict.keys())}")
+                stdout_logger.info(f"Invalid Response for Guide: Expected DESCRIPTION/ANSWER tag, got {splits[0]}")
                 self.log_to_self("invalid format", "guide") # Violated request count
                 return False
 
-            # Check if 'move' key has a valid value
-            # HACK: This should also handle any parsing errors
-            if response_dict["move"].lower() not in ['north', 'south', 'east', 'west']:
-                self.aborted = True
-                stdout_logger.info(f"Invalid Response Value for Guide: Expected one of ['north', 'south', 'east', 'west'], got {response_dict['move']}")
-                self.log_to_self("invalid value", "guide") # parsed request count
-                return False
 
-            # Success case
+            # Valid case
             stdout_logger.info(f"Valid Response for Guide: {utterance}")
             self.log_to_self("success", "guide")
             return True
@@ -255,28 +250,40 @@ class EscapeRoom(DialogueGameMaster):
         # The guide response never goes into the Explorer, rather the reprompt of explorer is fixed
         # and the next possible moves are interpreted based on the guide's response
 
-        if type(player) == Explorer:
+        if type(player) == Guide:
             stdout_logger.info(f"Current Round index: {self.current_round}")
             utterance = self.clean_agent_response(utterance)
-            if self.current_round==0: # First Guide Prompt
-                self.guide_prompt = self.guide_prompt.replace("$DESCRIPTION", utterance)
-                stdout_logger.info(f"First prompt for Guide: {self.guide_prompt}")
-                stdout_logger.info(f"Image for Guide: {self.guide_image}")
-                # Pass the response from Explorer to Guide - wo image
-                self.set_context_for(self.guide, utterance, image=[self.guide_image])
+            if self.current_round==0: # First Explorer Prompt from Guide
+                self.explorer_prompt = self.explorer_prompt.replace("$INIT_DESCRIPTION", utterance)
+                stdout_logger.info(f"First prompt for Explorer: {self.explorer_prompt}")
+                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
+                # Pass the response from Guide to Explorer
+                self.set_context_for(self.explorer, self.explorer_prompt, image=[self.explorer_image])
             else:
-                # Pass the response from Explorer as is
-                self.set_context_for(self.guide, utterance)
+                # Pass the response from Guide as is, This should only contain "ANSWER:...."
+                # DESCRIPTION: ... is only for the first turn
+                self.set_context_for(self.explorer, utterance, image=[self.explorer_image])
         else:
-            move = ast.literal_eval(utterance)['move'] # Parse validation is already handled in _validate_player_response
-            explorer_action = self.game_map.move_to_action(move)
-            self.game_map.step(explorer_action) # Update Explorer state
-            # Update explorer image
-            self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
-            next_moves = self.game_map.get_next_moves() # Update next possible moves
+            stdout_logger.info(f"Current Round index: {self.current_round}")
 
-            self.explorer_reprompt = self.explorer_reprompt.replace("$ROOMS", next_moves)
-            self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+            utterance = self.clean_agent_response(utterance)
+
+            utterance = utterance.lower()
+            splits = utterance.split(":")
+            tag = splits[0]
+
+            if tag == "move":
+                move = splits[1].strip().lower()
+                explorer_action = self.game_map.move_to_action[move]
+                self.game_map.step(explorer_action) # Update Explorer state
+                # Update explorer image
+                self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
+                next_moves = self.game_map.get_next_moves() # Update next possible moves
+
+                self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
+                self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+            if tag == "question":
+                self.set_context_for(self.guide, utterance) # Pass wo image
 
     def _on_after_game(self):
         # record final results once game episode has ended:
@@ -296,10 +303,10 @@ class EscapeRoomScorer(GameScorer):
         Temp method to compute scores for Escape Room Game - Binary success rate
         """
 
-        aborted = True
-        # skip player specific eval for now
-        success_explorer = False
-        success_guide = False
+        success = False
+        # # skip player specific eval for now
+        # success_explorer = False
+        # success_guide = False
         all_turn_scores = []
         for turn_idx, turn in enumerate(episode_interactions["turns"]):
             turn_score_dict = {
@@ -317,8 +324,9 @@ class EscapeRoomScorer(GameScorer):
                 elif action["type"] == "invalid value":
                     turn_score_dict["parsed_request_count"] += 1
                 elif action["type"] == "success":
-                    aborted = False
                     turn_score_dict["parsed_request_count"] += 1
+                    if action["content"] == "episode":
+                        success = True
 
             # log turn request scores
             self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT_VIOLATED, turn_score_dict["violated_request_count"])
@@ -339,7 +347,7 @@ class EscapeRoomScorer(GameScorer):
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_VIOLATED, ep_violated_request_count)
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_PARSED, ep_parsed_request_count)
 
-        if aborted:
+        if not success:
             self.log_episode_score(ms.METRIC_ABORTED, 1)
             self.log_episode_score(ms.METRIC_SUCCESS, 0)
             self.log_episode_score(ms.METRIC_LOSE, 0)

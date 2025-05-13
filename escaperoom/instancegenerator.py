@@ -28,6 +28,7 @@ EXPL_REPROMPT = """
 Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
 $MOVES
 """
+# TODO: change $MOVES to $DIRECTIONS
 
 GUIDE_PROMPT = """I need your help, I am stuck in a mapworld environment. 
 Your task is to help me reach an escape room. I do not know what the escape room looks like. 

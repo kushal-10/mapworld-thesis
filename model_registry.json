@@ -1,5 +1,66 @@
 [
    {
+        "model_name": "gemini-2.0-flash",
+        "model_id": "gemini-2.0-flash",
+        "backend": "google",
+        "release_date": "2024-02-15",
+        "open_weight": false,
+        "parameters": "",
+        "languages": [
+            "ar",
+            "bn",
+            "bg",
+            "zh",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "et",
+            "fi",
+            "fr",
+            "de",
+            "el",
+            "iw",
+            "hi",
+            "hu",
+            "id",
+            "it",
+            "ja",
+            "ko",
+            "lv",
+            "lt",
+            "no",
+            "pl",
+            "pt",
+            "ro",
+            "ru",
+            "sr",
+            "sk",
+            "sl",
+            "es",
+            "sw",
+            "sv",
+            "th",
+            "tr",
+            "uk",
+            "vi"
+        ],
+        "context_size": "32k",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        "model_config": {
+           "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+    {
         "model_name": "gemini-1.5-flash",
         "model_id": "gemini-1.5-flash",
         "backend": "google",
@@ -53,6 +114,56 @@
         },
         "model_config": {
            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+    {
+        "model_name": "o4-mini",
+        "model_id": "o4-mini",
+        "backend": "openai",
+        "release_date": "2023-11-06",
+        "open_weight": false,
+        "parameters": "",
+        "languages": [
+            "en",
+            "it",
+            "af",
+            "es",
+            "de",
+            "fr",
+            "id",
+            "ru",
+            "pl",
+            "uk",
+            "el",
+            "lv",
+            "zh",
+            "ar",
+            "tr",
+            "ja",
+            "sw",
+            "cy",
+            "ko",
+            "is",
+            "bn",
+            "ur",
+            "ne",
+            "th",
+            "pa",
+            "mr",
+            "te"
+        ],
+        "context_size": "128k",
+        "license": {
+            "name": "OpenAI",
+            "url": "https://openai.com/policies/row-terms-of-use/"
+        },
+        "model_config": {
+            "multimodality": {
                 "single_image": true,
                 "multiple_images": true,
                 "audio": false,

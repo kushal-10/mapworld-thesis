@@ -31,10 +31,11 @@ class MapWorldEnv(gym.Env):
         self.window_size = 500  # The size of the PyGame window
         self.map_metadata = map_metadata
 
-        self.agent_pos = agent_pos if agent_pos is not None else np.array(self.map_metadata["start_node"])
-        self.target_pos = target_pos if target_pos is not None else np.array(self.map_metadata["target_node"])
+        self.agent_pos = agent_pos if agent_pos is not None else np.array(ast.literal_eval(self.map_metadata["start_node"]))
+        self.target_pos = target_pos if target_pos is not None else np.array(ast.literal_eval(self.map_metadata["target_node"]))
         self._agent_location = self.agent_pos
         self._target_location = self.target_pos
+        # print(sel),
 
         # Observations are dictionaries with the agent's and the target's location.
         # Each location is encoded as an element of {0, ..., `size`}^2
@@ -122,12 +123,12 @@ class MapWorldEnv(gym.Env):
         
         # Map the action (element of {0,1,2,3,4}) to the direction we walk in
         direction = self._action_to_direction[action]
-        
+
         # We use `np.clip` to make sure we don't leave the grid
         self._agent_location = np.clip(
             self._agent_location + direction, 0, self.size - 1
         )
-        
+
         # An episode is done if the guide agent has generated the <escape> token
         terminated = 0
         reward = 0
@@ -213,7 +214,7 @@ class MapWorldEnv(gym.Env):
         # Draw Pieces
         for node in self.map_metadata["unnamed_nodes"]:
             self._draw_rect(canvas, (255,0,0), np.array(node), pix_square_size,
-                            room_ratio, self.map_metadata["node_to_category"][str(node)])
+                            room_ratio, self.map_metadata["node_to_category"][str(tuple(node))])
 
         # Now we draw the agent
         self.robot_img = pygame.image.load(os.path.join("engine", "resources", "robot.png")).convert_alpha()
@@ -266,7 +267,7 @@ class MapWorldEnv(gym.Env):
             raise ValueError("Invalid move! Check the node positions!")
 
     def get_next_moves(self):
-        agent_node = ast.literal_eval(self._agent_location.item())
+        agent_node = self._agent_location
         moves = []
         edges = self.map_metadata['unnamed_edges']
 
@@ -284,8 +285,8 @@ class MapWorldEnv(gym.Env):
 
             if start_pos:
                 direction = self._get_direction(start_pos, next_pos)
-                room = self.map_metadata['node_to_category'][str(tuple(next_pos))]
-                moves.append((room, direction))
+                # room = self.map_metadata['node_to_category'][str(tuple(next_pos))]
+                moves.append(direction)
 
         return str(moves)
 
