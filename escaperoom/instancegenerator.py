@@ -13,8 +13,8 @@ I have an image of the Escape Room, this is an initial description of my image -
 
 Based on my description and the image given, you now have three options
 
-First Option - If you think that the description of my image matches the image you have, i.e. you are in the escape room
-then respond with one word - ESCAPE.
+First Option - If you think that the description of my image matches the image you have, i.e.
+you are in the escape room then respond with one word - ESCAPE.
 
 Second Option - If you think you need more details from my image - respond in the following format
 QUESTION: Ask details about the image I have to verify if we have the same image or not
@@ -28,6 +28,7 @@ EXPL_REPROMPT = """
 Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
 $MOVES
 """
+
 # TODO: change $MOVES to $DIRECTIONS
 
 GUIDE_PROMPT = """I need your help, I am stuck in a mapworld environment. 
@@ -44,9 +45,10 @@ ANSWER: your Answer
 
 
 N = 10 # Number of instances per experiment
+np.random.seed(42)
+random_seeds = [np.random.randint(1,1000) for i in range(N)]
+print(random_seeds)
 
-SEED = 10 # LM10
-# np.random.seed(SEED)
 
 class EscapeRoomInstanceGenerator(GameInstanceGenerator):
     def __init__(self):
@@ -68,7 +70,7 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
             graph_type = experiments[exp]["type"]
             ambiguity = experiments[exp]["ambiguity"]
             for i in range(N):
-                ade_map = ADEMap(size, size, rooms)
+                ade_map = ADEMap(size, size, rooms, seed=random_seeds[i])
                 if graph_type == "cycle":
                     ade_graph = ade_map.create_cycle_graph()
                 elif graph_type == "path":
@@ -106,7 +108,6 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
                     escape_room_instance[k] = v
 
                 game_id += 1
-
 
 
 if __name__ == '__main__':
