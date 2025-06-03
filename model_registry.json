@@ -122,8 +122,8 @@
         }
     },
     {
-        "model_name": "o4-mini",
-        "model_id": "o4-mini",
+        "model_name": "gpt-4.1-mini",
+        "model_id": "gpt-4.1-mini",
         "backend": "openai",
         "release_date": "2023-11-06",
         "open_weight": false,
@@ -162,6 +162,28 @@
             "name": "OpenAI",
             "url": "https://openai.com/policies/row-terms-of-use/"
         },
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+    {
+        "model_name": "gemma-3-27b",
+        "model_id": "google/gemma-3-27b-it",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "100k",
+        "license": {},
         "model_config": {
             "multimodality": {
                 "single_image": true,

@@ -41,5 +41,5 @@ def create_test(json_path: str) -> None:
 
 if __name__ == "__main__":
 
-    json_path = os.path.join("escaperoom", "in", "instances.json")
+    json_path = os.path.join("escaperoom_ambiguous", "in", "instances.json")
     create_test(json_path)

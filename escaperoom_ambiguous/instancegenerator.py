@@ -57,9 +57,9 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
 
     def on_generate(self):
         experiments = {
-            "small": {"size": 4, "rooms":4, "type": "cycle", "ambiguity": None},
-            "medium": {"size": 6, "rooms": 6, "type": "cycle", "ambiguity": None},
-            "large": {"size":8, "rooms": 8, "type": "cycle", "ambiguity": None}
+            "[2]": {"size": 6, "rooms":8, "type": "cycle", "ambiguity": [2]},
+            "[3]": {"size": 6, "rooms": 8, "type": "cycle", "ambiguity": [3]},
+            "[2,3]": {"size":6, "rooms": 8, "type": "cycle", "ambiguity": [2,3]}
         }
 
         for exp in experiments.keys():
@@ -85,7 +85,7 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
                 ade_graph = ade_map.assign_types(ade_graph, ambiguity=ambiguity, use_outdoor_categories=False)
                 ade_graph = ade_map.assign_images(ade_graph)
 
-                map_metadata = ade_map.metadata(ade_graph, "indoor", "indoor")
+                map_metadata = ade_map.metadata(ade_graph, "indoor", "ambiguous")
                 map_metadata["explorer_prompt"] = EXPL_PROMPT
                 map_metadata["guide_prompt"] = GUIDE_PROMPT
                 map_metadata["explorer_reprompt"] = EXPL_REPROMPT
