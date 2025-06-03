@@ -48,10 +48,8 @@ class EscapeRoom(DialogueGameMaster):
 
         # Scorers
         self.aborted = False
-        # Analyse each player individually
-        self.explorer_aborted = False
-        self.guide_aborted = False
-        self.success = False # Explorer returned - ESCAPE
+        self.fail = False  # Set when Explorer returns any invalid move
+        self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
 
         # Pass Turn
         self.pass_turn = True
@@ -101,7 +99,7 @@ class EscapeRoom(DialogueGameMaster):
 
     def _on_before_game(self):
         """
-        Pass initial message - first player (Explorer), first turn
+        Pass initial message - first player (Guide), first turn
         """
 
         # Add initial prompt to Explorer in (Explorer's) history
@@ -113,7 +111,7 @@ class EscapeRoom(DialogueGameMaster):
         """
         Fail cases for each turn, use init_flags/scorers etc...
         """
-        if self.aborted or self.current_round==10 or self.success:
+        if self.aborted or self.current_round==10 or self.success or self.fail:
             return False
         else:
             return True
@@ -145,13 +143,6 @@ class EscapeRoom(DialogueGameMaster):
         stdout_logger.info(f"Player response {player.tag}: {utterance}")
         utterance = self.clean_agent_response(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
-        stdout_logger.info(f"Cleaned Response Type: {type(utterance)}")
-
-        # try:
-        #     response_dict = ast.literal_eval(utterance)
-        # except (ValueError, SyntaxError):
-        #     stdout_logger.info(f"Invalid Response. Could not parse the utterance as JSON: {utterance}")
-        #     return False
 
         if type(player) == Explorer:
             """
@@ -160,6 +151,8 @@ class EscapeRoom(DialogueGameMaster):
             2) ESCAPE
             3) QUESTION: 
             Check for each tag
+            
+            Abort - If explorer responds in invalid format, or invalid keys
             """
             valid_tags = ["move", "escape", "question"]
             valid_directions = ["north", "east", "south", "west"]
@@ -168,39 +161,54 @@ class EscapeRoom(DialogueGameMaster):
             tag = splits[0]
             if tag not in valid_tags:
                 self.aborted = True
-                stdout_logger.info(f"Invalid tag {tag}")
-                self.log_to_self("invalid format", "explorer")
+                stdout_logger.info(f"Aborting the Game. Explorer generated invalid tag {tag}")
+                stdout_logger.info(f"Invalid utterance: {utterance}")
+                self.log_to_self("invalid value", "abort game: explorer")
                 return False
 
-            # TODO: Check if valid move - goes into valid room or not...
-            # i.e move options are "e, w" and move made is north.
-            # TODO: Alternative - Check if move made is in the list of get_moves()
+
             if tag == "move":
                 move = splits[1]
                 move = move.lower().strip()
                 self.pass_turn = False
+                efficient_move = self.game_map._is_efficient_move_cycle(move)
+
                 if move not in valid_directions:
                     self.aborted = True
-                    stdout_logger.info(f"Invalid direction {move}")
-                    self.log_to_self("invalid value", "explorer")
-
+                    stdout_logger.info(f"Aborting the Game. Explorer generated invalid move {move}")
+                    stdout_logger.info(f"Invalid utterance: {utterance}")
+                    self.log_to_self("invalid value", "abort game: explorer")
                     return False
 
+                if efficient_move:
+                    stdout_logger.info(f" Efficient Move : {move}")
+                    self.log_to_self("move", "efficient")
+                else:
+                    stdout_logger.info(f" Efficient Move : {move}")
+                    self.log_to_self("move", "inefficient")
+                return True
+
+
             # Episodic Success case
-            if tag == "escape":
+            elif tag == "escape":
                 stdout_logger.info(f"Agent Location - {str(tuple(self.game_map._agent_location))}")
                 stdout_logger.info(f"Target Location - {self.game_instance['target_node']}")
                 if str(tuple(self.game_map._agent_location)) == self.game_instance["target_node"]:
                     stdout_logger.info(f"Escape room {self.escape_room} - Reached, Explorer successfully escaped!")
-                    self.log_to_self("success", "episode")
+                    self.log_to_self("escape", "success")
                     self.success = True
                     return True
+                else:
+                    stdout_logger.info(f"Explorer tried to Escape from a wrong room!")
+                    self.log_to_self("escape", "failed")
+                    self.fail = True
+                    return True
 
-
-            # Valid case
-            stdout_logger.info(f"Valid Response for Explorer: {utterance}")
-            self.log_to_self("success", "explorer")
-            return True
+            # tag == "question"
+            else:
+                stdout_logger.info(f"Explorer asked Question - {utterance}")
+                self.log_to_self("question", "explorer")
+                return True
 
         else:
             """
@@ -217,14 +225,18 @@ class EscapeRoom(DialogueGameMaster):
             if tag not in valid_tags:
                 self.aborted = True
                 stdout_logger.info(f"Invalid Response for Guide: Expected DESCRIPTION/ANSWER tag, got {splits[0]}")
-                self.log_to_self("invalid format", "guide") # Violated request count
+                self.log_to_self("invalid value", "abort game") # Violated request count
                 return False
 
+            if tag == "description":
+                stdout_logger.info(f"Description by Guide: {utterance}")
+                self.log_to_self("description", "guide")
+                return True
+            else:
+                stdout_logger.info(f"Answer by Guide: {utterance}")
+                self.log_to_self("answer", "guide")
+                return True
 
-            # Valid case
-            stdout_logger.info(f"Valid Response for Guide: {utterance}")
-            self.log_to_self("success", "guide")
-            return True
 
     def _parse_response(self, player: Union[Explorer, Guide], utterance: str) -> str:
         """
@@ -263,11 +275,11 @@ class EscapeRoom(DialogueGameMaster):
         # First explorer turn is done, the response from explorer always goes into guide, unchanged
         # The guide response never goes into the Explorer, rather the reprompt of explorer is fixed
         # and the next possible moves are interpreted based on the guide's response
+        stdout_logger.info(f"Current Round index: {self.current_round}")
+        utterance = self.clean_agent_response(utterance)
 
         if type(player) == Guide:
-            stdout_logger.info(f"Current Round index: {self.current_round}")
-            utterance = self.clean_agent_response(utterance)
-            if self.current_round==0: # First Explorer Prompt from Guide
+            if self.current_round==0: # First prompt to Explorer from Guide.
                 self.explorer_prompt = self.explorer_prompt.replace("$INIT_DESCRIPTION", utterance)
                 stdout_logger.info(f"First prompt for Explorer: {self.explorer_prompt}")
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
@@ -276,28 +288,29 @@ class EscapeRoom(DialogueGameMaster):
             else:
                 # Pass the response from Guide as is, This should only contain "ANSWER:...."
                 # DESCRIPTION: ... is only for the first turn
+                stdout_logger.info(f"Set Prompt for Explorer: {self.explorer_prompt}")
+                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 self.set_context_for(self.explorer, utterance, image=[self.explorer_image])
         else:
-            stdout_logger.info(f"Current Round index: {self.current_round}")
-
-            utterance = self.clean_agent_response(utterance)
-
             utterance = utterance.lower()
             splits = utterance.split(":")
             tag = splits[0]
 
             if tag == "move":
                 move = splits[1].strip().lower()
-                explorer_action = self.game_map.move_to_action[move]
+                explorer_action = self.game_map._move_to_action[move]
                 self.game_map.step(explorer_action) # Update Explorer state
                 # Update explorer image
                 self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
                 next_moves = self.game_map.get_next_moves() # Update next possible moves
-
                 self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
                 self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+                stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
+                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
             if tag == "question":
-                self.set_context_for(self.guide, utterance) # Pass wo image
+                self.set_context_for(self.guide, utterance) # Pass response as is wo image to Guide
+                stdout_logger.info(f"Set Prompt for Guide: {utterance}")
+                stdout_logger.info(f"No image passed to Guide")
 
 
     def _on_after_game(self):

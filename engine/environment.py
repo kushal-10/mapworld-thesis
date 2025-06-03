@@ -33,11 +33,14 @@ class MapWorldEnv(gym.Env):
         self.window_size = 500  # The size of the PyGame window
         self.map_metadata = map_metadata
 
-        self.agent_pos = agent_pos if agent_pos is not None else np.array(ast.literal_eval(self.map_metadata["start_node"]))
+        self.start_pos = agent_pos if agent_pos is not None else np.array(ast.literal_eval(self.map_metadata["start_node"]))
         self.target_pos = target_pos if target_pos is not None else np.array(ast.literal_eval(self.map_metadata["target_node"]))
-        self._agent_location = self.agent_pos
+        self._agent_location = self.start_pos
         self._target_location = self.target_pos
-        # print(sel),
+
+        # Counters
+        self.visited = set(tuple(self.start_pos))
+        self.reached_target = False
 
         # Observations are dictionaries with the agent's and the target's location.
         # Each location is encoded as an element of {0, ..., `size`}^2
@@ -77,7 +80,7 @@ class MapWorldEnv(gym.Env):
             5: "<escape>"
         }
 
-        self.move_to_action = {
+        self._move_to_action = {
             "east": 0,
             "south": 1,
             "west": 2,
@@ -110,7 +113,7 @@ class MapWorldEnv(gym.Env):
         # We need the following line to seed self.np_random
         # super().reset(seed=seed)
 
-        self._agent_location = self.agent_pos
+        self._agent_location = self.start_pos
         self._target_location = self.target_pos
 
         observation = self._get_obs()
@@ -130,6 +133,12 @@ class MapWorldEnv(gym.Env):
         self._agent_location = np.clip(
             self._agent_location + direction, 0, self.size - 1
         )
+
+        if self._agent_location == self.target_pos:
+            self.reached_target = True
+
+        if tuple(self._agent_location) not in self.visited:
+            self.visited.add(tuple(self._agent_location))
 
         # An episode is done if the guide agent has generated the <escape> token
         terminated = 0
@@ -291,6 +300,37 @@ class MapWorldEnv(gym.Env):
                 moves.append(direction)
 
         return str(moves)
+
+    def _is_efficient_move_cycle(self, move: str = "north") -> bool:
+        """
+        Checks if a move is efficient in a CYCLE graph or not based on start and target positions
+
+        Inefficient Moves are considered as :
+        1) All moves made after agent passes through target room once without escaping
+        2) Trying to access an inaccessible room (on a second try)
+        3) Reverting back to a previous room, when target has not been passed once
+
+        NOTE: Call before step() to ensure the state is not updated, and evaluate based on the current move
+
+        Args:
+            move: A valid move (direction) made by Agent in the map.
+
+        Returns:
+            True if move made by the agent is efficient, False otherwise
+        """
+
+        next_direction = self._action_to_direction[self._move_to_action[move]]
+        next_node = self._agent_location + next_direction
+        next_moves = self.get_next_moves()
+
+        # Visiting a previously visited node
+        # OR Passed target room and made a move
+        # OR Made a move to an inaccessible room
+        if tuple(next_node) in self.visited or self.reached_target or move not in next_moves:
+            return False
+
+        # Efficient Move
+        return True
 
 
     def close(self):
