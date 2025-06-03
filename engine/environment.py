@@ -371,6 +371,29 @@ class MapWorldEnv(gym.Env):
         # Valid Move
         return True
 
+    def _check_room(self) -> str:
+        """
+        Checks if the current room of agent is ambiguous, target room, or other
+        Returns:
+            "ambiguous" if ambiguous room,
+            "target" if target room,
+            "other" if other room
+        """
+        current_node = self._agent_location
+
+        room_name = self.map_metadata["node_to_category"][str(tuple(current_node))]
+        if room_name.endswith("1") or room_name.endswith("2") or room_name.endswith("3"):
+            room_name = room_name[:-2].strip()
+            target_name = self.map_metadata["node_to_category"][str(tuple(self.target_pos))]
+            target_name = target_name[:-2].strip()
+            if target_name == room_name:
+                return "ambiguous"
+            else:
+                return "other"
+        else:
+            return "other"
+
+
     def close(self):
         if self.window is not None:
             pygame.display.quit()

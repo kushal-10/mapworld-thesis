@@ -50,6 +50,8 @@ class EscapeRoom(DialogueGameMaster):
         self.aborted = False
         self.fail = False  # Set when Explorer returns any invalid move
         self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
+        self.ambiguous_success = False # Set when Explorer returns - Escape and its location is similar to target room
+        self.non_ambiguous_success = False # Set when Explorer returns Escape and its location is nowhere near similar to target
 
         # Pass Turn
         self.pass_turn = True
@@ -202,12 +204,13 @@ class EscapeRoom(DialogueGameMaster):
                 stdout_logger.info(f"Target Location - {self.game_instance['target_node']}")
                 if str(tuple(self.game_map._agent_location)) == self.game_instance["target_node"]:
                     stdout_logger.info(f"Escape room {self.escape_room} - Reached, Explorer successfully escaped!")
-                    self.log_to_self("escape", "success")
+                    self.log_to_self("escape", "target")
                     self.success = True
                     return True
                 else:
-                    stdout_logger.info(f"Explorer tried to Escape from a wrong room!")
-                    self.log_to_self("escape", "failed")
+                    escape_room = self.game_map._check_room()
+                    stdout_logger.info(f"Explorer tried to Escape from a wrong room! Checked Room - {escape_room}")
+                    self.log_to_self("escape", escape_room)
                     self.fail = True
                     return True
 
@@ -335,17 +338,18 @@ class EscapeRoomScorer(GameScorer):
 
     def compute_scores(self, episode_interactions: Dict) -> None:
         """
-        Method to compute scores for Escape Room Game
+        Method to compute scores for Escape Room Game - Ambiguous variant
 
-        Move_Efficiency = (efficient moves * 100) / (total number of moves)
-        Question_Efficiency = 100 / Total Questions
-        QualityScore = HarmonicMean(Move_Efficiency, Question_Efficiency)
-
+        E_Target = Number of times escaped on target room
+        E_Ambiguous = Number of times escaped on ambiguous room (similar to target but not target)
+        E_Others = Number of times escaped on other rooms
+        NE = Not escaped
+        Quality Score = (E_Target*100 + E_Ambiguous*66.6 + E_Others*33.3)/Total Episodes
         """
-        total_moves = 0
-        efficient_moves = 0
-        total_questions = 0
+
         success = False
+        ambiguous = False
+        others = False
         aborted = False
 
         all_turn_scores = []
@@ -365,14 +369,14 @@ class EscapeRoomScorer(GameScorer):
                     aborted = True
                 else:
                     turn_score_dict["parsed_request_count"] += 1
-                    if action["type"] == "move":
-                        total_moves += 1
-                        if action["content"] == "efficient":
-                            efficient_moves += 1
-                    elif action["type"] == "question":
-                        total_questions += 1
-                    elif action["type"] == "escape" and action["content"] == "success":
-                        success = True
+                    if action["type"] == "escape":
+                        if action["content"] == "target":
+                            success = True
+                        if action["content"] == "ambiguous":
+                            ambiguous = True
+                        if action["content"] == "other":
+                            others = True
+
 
             # log turn request scores
             self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT_VIOLATED, turn_score_dict["violated_request_count"])
@@ -404,28 +408,22 @@ class EscapeRoomScorer(GameScorer):
             if success:
                 self.log_episode_score(ms.METRIC_SUCCESS, 1)
                 self.log_episode_score(ms.METRIC_LOSE, 0)
+                self.log_episode_score(ms.BENCH_SCORE, 100)
 
-                if not total_questions:
-                    total_questions = max(1, total_questions) # Set to 1, if no questions asked
-                if not total_moves:
-                    self.log_episode_score(ms.BENCH_SCORE, 0)
-                else:
-                    move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
-                    quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
-                    self.log_episode_score(ms.BENCH_SCORE, quality_score)
+            elif ambiguous:
+                self.log_episode_score(ms.METRIC_SUCCESS, 0)
+                self.log_episode_score(ms.METRIC_LOSE, 1)
+                self.log_episode_score(ms.BENCH_SCORE, 66)
+
+            elif others:
+                self.log_episode_score(ms.METRIC_SUCCESS, 0)
+                self.log_episode_score(ms.METRIC_LOSE, 1)
+                self.log_episode_score(ms.BENCH_SCORE, 33)
 
             else:
                 self.log_episode_score(ms.METRIC_SUCCESS, 0)
                 self.log_episode_score(ms.METRIC_LOSE, 1)
-
-                if not total_questions or not total_moves: # Penalize, if no success and no questions asked
-                    self.log_episode_score(ms.BENCH_SCORE, 0)
-                else:
-                    move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
-                    quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
-                    self.log_episode_score(ms.BENCH_SCORE, quality_score)
+                self.log_episode_score(ms.BENCH_SCORE, 0)
 
 
 class EscapeRoomBenchmark(GameBenchmark):
