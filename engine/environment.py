@@ -8,6 +8,11 @@ from typing import Dict, Tuple
 import ast
 import os
 
+import logging
+
+logger = logging.getLogger(__name__)
+stdout_logger = logging.getLogger("mapworld.environment")
+
 from engine.ade_maps import ADEMap
 
 # TODO: Add video record method
@@ -39,7 +44,8 @@ class MapWorldEnv(gym.Env):
         self._target_location = self.target_pos
 
         # Counters
-        self.visited = set(tuple(self.start_pos))
+        self.visited = set()
+        self.visited.add(tuple(self.start_pos))
         self.reached_target = False
 
         # Observations are dictionaries with the agent's and the target's location.
@@ -134,7 +140,7 @@ class MapWorldEnv(gym.Env):
             self._agent_location + direction, 0, self.size - 1
         )
 
-        if self._agent_location == self.target_pos:
+        if tuple(self._agent_location) == tuple(self.target_pos):
             self.reached_target = True
 
         if tuple(self._agent_location) not in self.visited:
@@ -307,10 +313,9 @@ class MapWorldEnv(gym.Env):
 
         Inefficient Moves are considered as :
         1) All moves made after agent passes through target room once without escaping
-        2) Trying to access an inaccessible room (on a second try)
-        3) Reverting back to a previous room, when target has not been passed once
+        2) Reverting back to a previous room, when target has not been passed once
 
-        NOTE: Call before step() to ensure the state is not updated, and evaluate based on the current move
+        NOTE: Call before every step() to ensure the state is not updated, and evaluate based on the current move
 
         Args:
             move: A valid move (direction) made by Agent in the map.
@@ -320,18 +325,51 @@ class MapWorldEnv(gym.Env):
         """
 
         next_direction = self._action_to_direction[self._move_to_action[move]]
+
         next_node = self._agent_location + next_direction
         next_moves = self.get_next_moves()
 
+        stdout_logger.info(f"Calculating efficient move cycle for {move}")
+        stdout_logger.info(f"Next moves: {next_moves}")
+        stdout_logger.info(f"Current Location: {self._agent_location}")
+        stdout_logger.info(f"Next Direction: {next_direction}")
+        stdout_logger.info(f"Next Location: {next_node}")
+        stdout_logger.info(f"Visited Nodes: {self.visited}")
+        stdout_logger.info(f"Reached/Passed Target: {self.reached_target}")
         # Visiting a previously visited node
         # OR Passed target room and made a move
         # OR Made a move to an inaccessible room
-        if tuple(next_node) in self.visited or self.reached_target or move not in next_moves:
+        if tuple(next_node) in self.visited:
+            stdout_logger.info(f"Next node already visited: {next_node}. Inefficient move")
+            return False
+
+        if self.reached_target:
+            stdout_logger.info(f"Move made after Reaching/Passing: {self.reached_target}. Inefficient move")
             return False
 
         # Efficient Move
         return True
 
+    def _is_valid_move_cycle(self, move: str = "north") -> bool:
+        """
+        Checks if a move is valid in a CYCLE graph ie is present in the list of next_moves
+
+        NOTE: Call before every step() to ensure the state is not updated, and evaluate based on the current move
+
+        Args:
+            move: A move (direction) made by Agent in the map.
+
+        Returns:
+            True if move made by the agent is valid (in the list of next_moves), False otherwise
+        """
+
+        next_moves = self.get_next_moves()
+        if move not in next_moves:
+            stdout_logger.info(f"Move {move} made by Explorer not in Next moves: {next_moves}")
+            return False
+
+        # Valid Move
+        return True
 
     def close(self):
         if self.window is not None:
