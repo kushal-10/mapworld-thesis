@@ -412,142 +412,246 @@ if __name__ == '__main__':
     # print(metadata)
     metadata = {
                     "game_id": 0,
-                    "graph_id": "20g21w31p30c",
-                    "m": 4,
-                    "n": 4,
+                    "graph_id": "44m43p42n32p33w34b35k45h",
+                    "m": 6,
+                    "n": 6,
                     "named_nodes": [
-                        "Game room",
-                        "Waiting room",
-                        "Parlor",
-                        "Childs room 1"
+                        "Music studio",
+                        "Playroom 1",
+                        "Nursery",
+                        "Playroom 2",
+                        "Workroom",
+                        "Breakroom",
+                        "Kindergarden classroom",
+                        "Hunting lodge indoor"
                     ],
                     "unnamed_nodes": [
                         [
-                            2,
-                            0
+                            4,
+                            4
                         ],
                         [
-                            2,
-                            1
+                            4,
+                            3
+                        ],
+                        [
+                            4,
+                            2
                         ],
                         [
                             3,
-                            1
+                            2
                         ],
                         [
                             3,
-                            0
+                            3
+                        ],
+                        [
+                            3,
+                            4
+                        ],
+                        [
+                            3,
+                            5
+                        ],
+                        [
+                            4,
+                            5
                         ]
                     ],
                     "named_edges": [
                         [
-                            "Game room",
-                            "Waiting room"
+                            "Music studio",
+                            "Playroom 1"
                         ],
                         [
-                            "Game room",
-                            "Childs room 1"
+                            "Music studio",
+                            "Hunting lodge indoor"
                         ],
                         [
-                            "Waiting room",
-                            "Parlor"
+                            "Playroom 1",
+                            "Nursery"
                         ],
                         [
-                            "Parlor",
-                            "Childs room 1"
+                            "Nursery",
+                            "Playroom 2"
+                        ],
+                        [
+                            "Playroom 2",
+                            "Workroom"
+                        ],
+                        [
+                            "Workroom",
+                            "Breakroom"
+                        ],
+                        [
+                            "Breakroom",
+                            "Kindergarden classroom"
+                        ],
+                        [
+                            "Kindergarden classroom",
+                            "Hunting lodge indoor"
                         ]
                     ],
                     "unnamed_edges": [
                         [
                             [
-                                2,
-                                0
+                                4,
+                                4
                             ],
                             [
-                                2,
-                                1
+                                4,
+                                3
                             ]
                         ],
                         [
                             [
-                                2,
-                                0
+                                4,
+                                4
                             ],
                             [
-                                3,
-                                0
+                                4,
+                                5
                             ]
                         ],
                         [
                             [
-                                2,
-                                1
+                                4,
+                                3
+                            ],
+                            [
+                                4,
+                                2
+                            ]
+                        ],
+                        [
+                            [
+                                4,
+                                2
                             ],
                             [
                                 3,
-                                1
+                                2
                             ]
                         ],
                         [
                             [
                                 3,
-                                1
+                                2
                             ],
                             [
                                 3,
-                                0
+                                3
+                            ]
+                        ],
+                        [
+                            [
+                                3,
+                                3
+                            ],
+                            [
+                                3,
+                                4
+                            ]
+                        ],
+                        [
+                            [
+                                3,
+                                4
+                            ],
+                            [
+                                3,
+                                5
+                            ]
+                        ],
+                        [
+                            [
+                                3,
+                                5
+                            ],
+                            [
+                                4,
+                                5
                             ]
                         ]
                     ],
-                    "node_to_category": {
-                        "(2, 0)": "Game room",
-                        "(2, 1)": "Waiting room",
-                        "(3, 1)": "Parlor",
-                        "(3, 0)": "Childs room 1"
-                    },
                     "category_to_node": {
-                        "Game room": [
-                            2,
-                            0
+                        "Music studio": [
+                            4,
+                            4
                         ],
-                        "Waiting room": [
-                            2,
-                            1
+                        "Playroom 1": [
+                            4,
+                            3
                         ],
-                        "Parlor": [
+                        "Nursery": [
+                            4,
+                            2
+                        ],
+                        "Playroom 2": [
                             3,
-                            1
+                            2
                         ],
-                        "Childs room 1": [
+                        "Workroom": [
                             3,
-                            0
+                            3
+                        ],
+                        "Breakroom": [
+                            3,
+                            4
+                        ],
+                        "Kindergarden classroom": [
+                            3,
+                            5
+                        ],
+                        "Hunting lodge indoor": [
+                            4,
+                            5
                         ]
                     },
                     "node_to_image": {
-                        "(2, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008405.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019665.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015170.jpg",
-                        "(3, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005486.jpg"
+                        "(4, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012281.jpg",
+                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015396.jpg",
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013898.jpg",
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015404.jpg",
+                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/workroom/ADE_train_00020099.jpg",
+                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004520.jpg",
+                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010112.jpg",
+                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009730.jpg"
                     },
                     "category_to_image": {
-                        "Game room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008405.jpg",
-                        "Waiting room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019665.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015170.jpg",
-                        "Childs room 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005486.jpg"
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012281.jpg",
+                        "Playroom 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015396.jpg",
+                        "Nursery": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013898.jpg",
+                        "Playroom 2": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015404.jpg",
+                        "Workroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/workroom/ADE_train_00020099.jpg",
+                        "Breakroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004520.jpg",
+                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010112.jpg",
+                        "Hunting lodge indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009730.jpg"
                     },
-                    "start_node": "(3, 0)",
-                    "target_node": "(3, 1)",
-                    "explorer_prompt": "You are stuck in a mapworld environment containing several rooms. \nYour task is to explore this world and reach an escape room.\nYou are always given an image of the current room you are in. \nI have an image of the Escape Room, this is an initial description of my image - $INIT_DESCRIPTION.\n\nBased on my description and the image given, you now have three options\n\nFirst Option - If you think that the description of my image matches the image you have, i.e. you are in the escape room\nthen respond with one word - ESCAPE.\n\nSecond Option - If you think you need more details from my image - respond in the following format\nQUESTION: Ask details about the image I have to verify if we have the same image or not\n\nThird Option - If you think you are in a different room than what I have, i.e we are seeing different images,\nthen you can make a move in following Directions - $DIRECTIONS. Respond in the following format\nMOVE: direction - Here direction can be one of {north, south, east, west}\n",
+                    "node_to_category": {
+                        "(4, 4)": "Music studio",
+                        "(4, 3)": "Playroom 1",
+                        "(4, 2)": "Nursery",
+                        "(3, 2)": "Playroom 2",
+                        "(3, 3)": "Workroom",
+                        "(3, 4)": "Breakroom",
+                        "(3, 5)": "Kindergarden classroom",
+                        "(4, 5)": "Hunting lodge indoor"
+                    },
+                    "start_node": "(3, 4)",
+                    "target_node": "(4, 3)",
+                    "explorer_prompt": "You are stuck in a mapworld environment containing several rooms. \nYour task is to explore this world and reach an escape room.\nYou are always given an image of the current room you are in. \nI have an image of the Escape Room, this is an initial description of my image - $INIT_DESCRIPTION.\n\nBased on my description and the image given, you now have three options\n\nFirst Option - If you think that the description of my image matches the image you have, i.e.\nyou are in the escape room then respond with one word - ESCAPE.\n\nSecond Option - If you think you need more details from my image - respond in the following format\nQUESTION: Ask details about the image I have to verify if we have the same image or not\n\nThird Option - If you think you are in a different room than what I have, i.e we are seeing different images,\nthen you can make a move in following Directions - $DIRECTIONS. Respond in the following format\nMOVE: direction - Here direction can be one of {north, south, east, west}\n",
                     "guide_prompt": "I need your help, I am stuck in a mapworld environment. \nYour task is to help me reach an escape room. I do not know what the escape room looks like. \nBut fortunately, you have an image of the escape room with you. I will explore each room here and ask you a few QUESTIONS\nto verify if we have the same image or not, thus verifying if I am in the Escape Room or not.\n\nFirst start by describing the image that you have, Respond in the following format\nDESCRIPTION: your description of the image that you have\n\nThen if I ask a QUESTION, the respond appropriately based on your image in the following format\nANSWER: your Answer\n",
                     "explorer_reprompt": "\nNow you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions \n$MOVES\n"
                 }
-    env = MapWorldEnv(render_mode="human", size=4, map_metadata=metadata)
+    env = MapWorldEnv(render_mode="human", size=6, map_metadata=metadata)
 
 
     env.reset()
     env.render()
 
-    moves = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+    moves = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
 
     for i in moves:
         env.render()
