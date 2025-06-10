@@ -13,8 +13,6 @@ import logging
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("mapworld.environment")
 
-from engine.ade_maps import ADEMap
-
 # TODO: Add video record method
 
 class MapWorldEnv(gym.Env):

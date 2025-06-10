@@ -122,7 +122,7 @@ class BaseMap:
             possible_starts.add(tuple(current_node))
 
             # Create acyclic graph from the starting node
-            G = self.create_acyclic_graph(current_node)
+            G = self.create_tree_graph(current_node)
 
             # Collect all possible additional edges that could be added to form loops
             nodes = G.nodes()
