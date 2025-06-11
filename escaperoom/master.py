@@ -67,6 +67,7 @@ class EscapeRoom(DialogueGameMaster):
         # Prompts
         self.explorer_prompt: str = self.game_instance["explorer_prompt"]
         self.explorer_reprompt: str = self.game_instance["explorer_reprompt"]
+        self.explorer_failed_reprompt: str = self.game_instance["explorer_failed_reprompt"]
         self.guide_prompt: str = self.game_instance["guide_prompt"]
 
         # Initialize Players
@@ -320,16 +321,25 @@ class EscapeRoom(DialogueGameMaster):
             tag = splits[0]
 
             if tag == "move" and not self.fail:
-                move = splits[1].strip().lower()
-                explorer_action = self.game_map._move_to_action[move]
-                self.game_map.step(explorer_action) # Update Explorer state
-                # Update explorer image
-                self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
-                next_moves = self.game_map.get_next_moves() # Update next possible moves
-                self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
-                self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
-                stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
-                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
+                if self.reprompt_fail:
+                    # Skip updating environment, pass same image,moves, but different reprompt
+                    next_moves = self.game_map.get_next_moves()  # Update next possible moves
+                    self.explorer_failed_reprompt = self.explorer_failed_reprompt.replace("$MOVES", next_moves)
+                    self.set_context_for(self.explorer, self.explorer_failed_reprompt,
+                                         image=[self.explorer_image])  # Pass the updated str
+                    stdout_logger.info(f"Reprompt Explorer: {self.explorer_failed_reprompt}")
+                    stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
+                else:
+                    move = splits[1].strip().lower()
+                    explorer_action = self.game_map._move_to_action[move]
+                    self.game_map.step(explorer_action) # Update Explorer state
+                    # Update explorer image
+                    self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
+                    next_moves = self.game_map.get_next_moves() # Update next possible moves
+                    self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
+                    self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+                    stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
+                    stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
             if tag == "question":
                 self.set_context_for(self.guide, utterance) # Pass response as is wo image to Guide
                 stdout_logger.info(f"Set Prompt for Guide: {utterance}")
