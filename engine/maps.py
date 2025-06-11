@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import random
 
 # TODO: Write Tests for each map variant.
+# TODO: Fix Path generation - Try linear path? move continuously 'east', then 1'south', then continue 'west', ....
 
 class BaseMap:
 
@@ -185,7 +186,7 @@ class BaseMap:
         visited = set()
 
         # 1) Pick central node
-        center = (np.random.randint(2, self.m), np.random.randint(2, self.n))
+        center = (np.random.randint(2, self.m-1), np.random.randint(2, self.n-1))
         G.add_node(center)
         visited.add(center)
 
@@ -352,7 +353,8 @@ class BaseMap:
             nbrs = [tuple(nb) for nb in self.get_valid_neighbors(curr, visited, self.m, self.n)]
             if not nbrs:
                 raise ValueError(
-                    f"Stuck at {curr} after {len(visited)} nodes; cannot extend to {self.n_nodes}."
+                    f"Stuck at {curr} after {len(visited)} nodes; Likely due to a spiral config "
+                    f"Cannot extend to {self.n_nodes}. Try another random seed"
                 )
             nxt = random.choice(nbrs)
             visited.append(nxt)

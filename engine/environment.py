@@ -305,69 +305,6 @@ class MapWorldEnv(gym.Env):
 
         return str(moves)
 
-    def _is_efficient_move_cycle(self, move: str = "north") -> bool:
-        """
-        Checks if a move is efficient in a CYCLE graph or not based on start and target positions
-
-        Inefficient Moves are considered as :
-        1) All moves made after agent passes through target room once without escaping
-        2) Reverting back to a previous room, when target has not been passed once
-
-        NOTE: Call before every step() to ensure the state is not updated, and evaluate based on the current move
-
-        Args:
-            move: A valid move (direction) made by Agent in the map.
-
-        Returns:
-            True if move made by the agent is efficient, False otherwise
-        """
-
-        next_direction = self._action_to_direction[self._move_to_action[move]]
-
-        next_node = self._agent_location + next_direction
-        next_moves = self.get_next_moves()
-
-        stdout_logger.info(f"Calculating efficient move cycle for {move}")
-        stdout_logger.info(f"Next moves: {next_moves}")
-        stdout_logger.info(f"Current Location: {self._agent_location}")
-        stdout_logger.info(f"Next Direction: {next_direction}")
-        stdout_logger.info(f"Next Location: {next_node}")
-        stdout_logger.info(f"Visited Nodes: {self.visited}")
-        stdout_logger.info(f"Reached/Passed Target: {self.reached_target}")
-        # Visiting a previously visited node
-        # OR Passed target room and made a move
-        # OR Made a move to an inaccessible room
-        if tuple(next_node) in self.visited:
-            stdout_logger.info(f"Next node already visited: {next_node}. Inefficient move")
-            return False
-
-        if self.reached_target:
-            stdout_logger.info(f"Move made after Reaching/Passing: {self.reached_target}. Inefficient move")
-            return False
-
-        # Efficient Move
-        return True
-
-    def _is_valid_move_cycle(self, move: str = "north") -> bool:
-        """
-        Checks if a move is valid in a CYCLE graph ie is present in the list of next_moves
-
-        NOTE: Call before every step() to ensure the state is not updated, and evaluate based on the current move
-
-        Args:
-            move: A move (direction) made by Agent in the map.
-
-        Returns:
-            True if move made by the agent is valid (in the list of next_moves), False otherwise
-        """
-
-        next_moves = self.get_next_moves()
-        if move not in next_moves:
-            stdout_logger.info(f"Move {move} made by Explorer not in Next moves: {next_moves}")
-            return False
-
-        # Valid Move
-        return True
 
     def _check_room(self) -> str:
         """

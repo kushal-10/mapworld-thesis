@@ -29,6 +29,11 @@ Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION o
 $MOVES
 """
 
+EXPL_FAIL_REPROMPT = """
+The move made leads to nowhere. We are still in this room, and you can either ESCAPE, ask me a QUESTION or MOVE in 
+one of these directions $MOVES
+"""
+
 # TODO: change $MOVES to $DIRECTIONS
 
 GUIDE_PROMPT = """I need your help, I am stuck in a mapworld environment. 
@@ -45,7 +50,7 @@ ANSWER: your Answer
 
 
 N = 10 # Number of instances per experiment
-np.random.seed(42)
+np.random.seed(19)
 random_seeds = [np.random.randint(1,1000) for i in range(N)]
 print(random_seeds)
 
@@ -57,9 +62,15 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
 
     def on_generate(self):
         experiments = {
-            "small": {"size": 4, "rooms":4, "type": "cycle", "ambiguity": None},
-            "medium": {"size": 6, "rooms": 6, "type": "cycle", "ambiguity": None},
-            "large": {"size":8, "rooms": 8, "type": "cycle", "ambiguity": None}
+            "small": {"size": 5, "rooms":4, "type": "cycle", "ambiguity": None},
+            "medium": {"size": 5, "rooms": 6, "type": "cycle", "ambiguity": None},
+            "large": {"size":5, "rooms": 8, "type": "cycle", "ambiguity": None},
+            "low_ambiguity": {"size": 5, "rooms": 8, "type": "cycle", "ambiguity": [2]},
+            "med_ambiguity": {"size": 5, "rooms": 8, "type": "cycle", "ambiguity": [3]},
+            "high_ambiguity": {"size": 5, "rooms": 8, "type": "cycle", "ambiguity": [4]},
+            "star": {"size":5, "rooms": 8, "type": "star", "ambiguity": None},
+            "ladder": {"size": 5, "rooms": 8, "type": "ladder", "ambiguity": None},
+            "path": {"size": 5, "rooms": 8, "type": "path", "ambiguity": None},
         }
 
         for exp in experiments.keys():
@@ -89,6 +100,7 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
                 map_metadata["explorer_prompt"] = EXPL_PROMPT
                 map_metadata["guide_prompt"] = GUIDE_PROMPT
                 map_metadata["explorer_reprompt"] = EXPL_REPROMPT
+                map_metadata["explorer_failed_reprompt"] = EXPL_FAIL_REPROMPT
 
                 escape_room_instance = self.add_game_instance(experiment, game_id)
 

@@ -27,9 +27,9 @@ def get_direction(start_pos: Tuple, next_pos: Tuple) -> str:
         raise ValueError("Invalid move! Check the node positions!")
 
 
-def get_node(start_pos: Tuple, move: str) -> Tuple:
+def get_next_node(start_pos: Tuple, move: str) -> Tuple:
     """
-    Get the node of a move
+    Get the next node after making move from a given start node
     Args:
         start_pos: current node of the agent inside mapworld
         move: move as a string item
@@ -83,7 +83,7 @@ def get_next_image(game_instance: Dict, agent_pos: Tuple, move: str) -> str:
     Returns:
         New image path as a string item after the move
     """
-    next_node = get_node(agent_pos, move)
+    next_node = get_next_node(agent_pos, move)
     return game_instance['images'][str(next_node)]
 
 

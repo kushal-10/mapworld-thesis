@@ -5,14 +5,14 @@ Implementing a base variant for now...2-player game only
 
 import ast
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
-from clemcore.clemgame import metrics as ms
 from clemcore.backends import Model
-from clemcore.utils import file_utils
-from engine.environment import MapWorldEnv
-from engine.ade_maps import ADEMap
 
-from typing import List, Dict, Tuple, Union
-import os
+
+from engine.environment import MapWorldEnv
+from engine.utils import get_next_node
+from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
+
+from typing import List, Dict, Union
 import numpy as np
 import logging
 
@@ -50,6 +50,8 @@ class EscapeRoom(DialogueGameMaster):
         self.aborted = False
         self.fail = False  # Set when Explorer returns any invalid move
         self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
+        self.reprompt_fail = False  # Set when Explorer returns a move to an invalid room
+        self.reprompt_success = False  # Set when Explorer returns a move to another valid room
 
         # Pass Turn
         self.pass_turn = True
@@ -96,7 +98,6 @@ class EscapeRoom(DialogueGameMaster):
         self.add_player(self.guide)
         self.add_player(self.explorer)
 
-
     def _on_before_game(self):
         """
         Pass initial message - first player (Guide), first turn
@@ -127,6 +128,8 @@ class EscapeRoom(DialogueGameMaster):
         response = response.strip()
         response = response.replace("```json", "")
         response = response.replace("```", "")
+        if response.endswith("."):
+            response = response[:-1]
         return response
 
 
@@ -171,8 +174,26 @@ class EscapeRoom(DialogueGameMaster):
                 move = splits[1]
                 move = move.lower().strip()
                 self.pass_turn = False
-                efficient_move = self.game_map._is_efficient_move_cycle(move)
-                valid_move = self.game_map._is_valid_move_cycle(move)
+
+                next_node = get_next_node(tuple(self.game_map._agent_location), move)
+                if next_node not in self.game_map.metadata["unnamed_nodes"]:
+                    stdout_logger.info(f"Invalid move: {move}")
+                    self.log_to_self("move", "invalid")
+                    self.reprompt_fail = True
+                else:
+                    stdout_logger.info(f"Valid move: {move}")
+                    # self.log_to_self("move", "valid")
+                    # Validity logged after checking for efficient move or not
+                    self.reprompt_success = True
+
+                edges = self.game_map.metadata["unnamed_edges"]
+                tuple_edges = []
+                for edge in edges:
+                    tuple_edges.append((tuple(edge[0]), tuple(edge[1])))
+
+                neighbors = get_neighbors(next_node, tuple_edges)
+                efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
+                                                   target_observed=self.game_map.reached_target, map_edges=tuple_edges)
 
                 if move not in valid_directions:
                     self.aborted = True
@@ -181,18 +202,13 @@ class EscapeRoom(DialogueGameMaster):
                     self.log_to_self("invalid value", "abort game: explorer")
                     return False
 
-
-                if valid_move:
-                    if efficient_move:
-                        stdout_logger.info(f" Efficient Move : {move}")
-                        self.log_to_self("move", "efficient")
-                    else:
-                        stdout_logger.info(f" Inefficient Move : {move}")
-                        self.log_to_self("move", "inefficient")
+                if efficient_move:
+                    stdout_logger.info(f" Efficient Move : {move}")
+                    self.log_to_self("move", "efficient")
                 else:
-                    self.fail = True
-                    stdout_logger.info(f" Invalid Move : {move}")
-                    self.log_to_self("move", "invalid")
+                    stdout_logger.info(f" Inefficient Move : {move}")
+                    self.log_to_self("move", "inefficient")
+
                 return True
 
 
@@ -323,109 +339,6 @@ class EscapeRoom(DialogueGameMaster):
     def _on_after_game(self):
         # record final results once game episode has ended:
         pass
-
-
-class EscapeRoomScorer(GameScorer):
-    """
-    Scorer class for Escape Room Game
-    """
-
-    def __init__(self, game_name:str, experiment:Dict, game_instance: Dict):
-        super().__init__(game_name, experiment, game_instance)
-
-    def compute_scores(self, episode_interactions: Dict) -> None:
-        """
-        Method to compute scores for Escape Room Game
-
-        Move_Efficiency = (efficient moves * 100) / (total number of moves)
-        Question_Efficiency = 100 / Total Questions
-        QualityScore = HarmonicMean(Move_Efficiency, Question_Efficiency)
-
-        """
-        total_moves = 0
-        efficient_moves = 0
-        total_questions = 0
-        success = False
-        aborted = False
-
-        all_turn_scores = []
-        for turn_idx, turn in enumerate(episode_interactions["turns"]):
-            turn_score_dict = {
-                "request_count": 0,
-                "violated_request_count": 0,
-                "parsed_request_count": 0,
-            }
-
-            # Walk through log_to_self items from DGM
-            for event in turn:
-                action = event["action"]
-                turn_score_dict["request_count"] += 1
-                if action["type"] == "invalid value":
-                    turn_score_dict["violated_request_count"] += 1
-                    aborted = True
-                else:
-                    turn_score_dict["parsed_request_count"] += 1
-                    if action["type"] == "move":
-                        total_moves += 1
-                        if action["content"] == "efficient":
-                            efficient_moves += 1
-                    elif action["type"] == "question":
-                        total_questions += 1
-                    elif action["type"] == "escape" and action["content"] == "success":
-                        success = True
-
-            # log turn request scores
-            self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT_VIOLATED, turn_score_dict["violated_request_count"])
-            self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT_PARSED, turn_score_dict["parsed_request_count"])
-            self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT, turn_score_dict["request_count"])
-            all_turn_scores.append(turn_score_dict)
-
-        # Log episodic scores
-        ep_request_count = 0
-        ep_violated_request_count = 0
-        ep_parsed_request_count = 0
-        for s in all_turn_scores:
-            ep_request_count += s["request_count"]
-            ep_violated_request_count += s["violated_request_count"]
-            ep_parsed_request_count += s["parsed_request_count"]
-
-        self.log_episode_score(ms.METRIC_REQUEST_COUNT, ep_request_count)
-        self.log_episode_score(ms.METRIC_REQUEST_COUNT_VIOLATED, ep_violated_request_count)
-        self.log_episode_score(ms.METRIC_REQUEST_COUNT_PARSED, ep_parsed_request_count)
-
-        if aborted:
-            self.log_episode_score(ms.METRIC_ABORTED, 1)
-            self.log_episode_score(ms.METRIC_SUCCESS, 0)
-            self.log_episode_score(ms.METRIC_LOSE, 0)
-            self.log_episode_score(ms.BENCH_SCORE, np.nan)
-        else:
-            self.log_episode_score(ms.METRIC_ABORTED, 0)
-
-            if success:
-                self.log_episode_score(ms.METRIC_SUCCESS, 1)
-                self.log_episode_score(ms.METRIC_LOSE, 0)
-
-                if not total_questions:
-                    total_questions = max(1, total_questions) # Set to 1, if no questions asked
-                if not total_moves:
-                    self.log_episode_score(ms.BENCH_SCORE, 0)
-                else:
-                    move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
-                    quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
-                    self.log_episode_score(ms.BENCH_SCORE, quality_score)
-
-            else:
-                self.log_episode_score(ms.METRIC_SUCCESS, 0)
-                self.log_episode_score(ms.METRIC_LOSE, 1)
-
-                if not total_questions or not total_moves: # Penalize, if no success and no questions asked
-                    self.log_episode_score(ms.BENCH_SCORE, 0)
-                else:
-                    move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
-                    quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
-                    self.log_episode_score(ms.BENCH_SCORE, quality_score)
 
 
 class EscapeRoomBenchmark(GameBenchmark):
