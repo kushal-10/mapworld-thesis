@@ -185,7 +185,7 @@ class BaseMap:
         visited = set()
 
         # 1) Pick central node
-        center = (np.random.randint(1, self.m), np.random.randint(1, self.n))
+        center = (np.random.randint(2, self.m), np.random.randint(2, self.n))
         G.add_node(center)
         visited.add(center)
 

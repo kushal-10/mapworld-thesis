@@ -20,10 +20,12 @@ logging.basicConfig(level=logging.INFO,
 class EfficientMovesTest(unittest.TestCase):
 
     def setUp(self):
-        N = 5000
+        N = 500
         logger.info(f"Setting up random cyclic and random tree graphs for {N} instances")
         self.graphs = []
         for i in range(N):
+
+            # TEST ON RANDOM GRAPHS
             graph_size = np.random.randint(3, 10)
             num_rooms = np.random.randint(6, graph_size*graph_size)
             map = ADEMap(graph_size, graph_size, num_rooms)
@@ -41,6 +43,53 @@ class EfficientMovesTest(unittest.TestCase):
             metadata_obj = {
                 "graph": cyclic_graph,
                 "metadata": map.metadata(cyclic_graph, start_type="indoor", end_type="outdoor")
+            }
+            self.graphs.append(metadata_obj)
+
+            # TEST ON ESCAPE ROOM GRAPH TYPES
+            # 1. CYCLE
+            graph_size = np.random.randint(8, 10)
+            num_rooms = np.random.randint(6, graph_size * 2)
+            if num_rooms%2 !=0:
+                num_rooms = num_rooms - 1
+            map = ADEMap(graph_size, graph_size, num_rooms)
+            cycle_graph = map.create_cycle_graph()
+            cycle_graph = map.assign_types(cycle_graph)
+            cycle_graph = map.assign_images(cycle_graph)
+            metadata_obj = {
+                "graph": cycle_graph,
+                "metadata": map.metadata(cycle_graph, start_type="indoor", end_type="indoor")
+            }
+            self.graphs.append(metadata_obj)
+
+            # 2. LADDER
+            # Map layout similar to cycle should work
+            ladder_graph = map.create_ladder_graph()
+            ladder_graph = map.assign_types(ladder_graph)
+            ladder_graph = map.assign_images(ladder_graph)
+            metadata_obj = {
+                "graph": ladder_graph,
+                "metadata": map.metadata(ladder_graph, start_type="indoor", end_type="indoor")
+            }
+            self.graphs.append(metadata_obj)
+
+            # 3. Path Graph - Same params as cycle/ladder should be fine
+            path_graph = map.create_path_graph()
+            path_graph = map.assign_types(path_graph)
+            path_graph = map.assign_images(path_graph)
+            metadata_obj = {
+                "graph": path_graph,
+                "metadata": map.metadata(path_graph, start_type="indoor", end_type="indoor")
+            }
+            self.graphs.append(metadata_obj)
+
+            # 4. Star
+            star_graph = map.create_star_graph()
+            star_graph = map.assign_types(star_graph)
+            star_graph = map.assign_images(star_graph)
+            metadata_obj = {
+                "graph": star_graph,
+                "metadata": map.metadata(star_graph, start_type="indoor", end_type="indoor")
             }
             self.graphs.append(metadata_obj)
 
@@ -92,38 +141,53 @@ class EfficientMovesTest(unittest.TestCase):
 
         logger.info(f"Visited neighbors = {visited}")
 
-        # If common second neighbors - skip the test
-        snbrs = get_neighbors(test_nbr, graph.edges())
+
+        # If common second neighbors - rm from visited, and add that nbr to similar_nbrs
+        # This should return True efficient move for all similar_nbrs along with test_nbr
+        similar_nbrs = set()
+        test_snbrs = get_neighbors(test_nbr, graph.edges())
         found = False
-        for snbr in snbrs:
+        for snbr in test_snbrs:
             if snbr not in visited:
                 found = True
 
         logger.info(f"Found an unmarked snbr for test nbr? = {found}")
 
-        return start_node, test_nbr, neighbors, list(visited), found
+        if not found:
+            logger.info(f"Did not find any unexplored neighbors for test nbr, "
+                        f"marking one as unexplored and adding that nbr for True Case (Efficient move from two nbrs)")
+
+            for nbr in neighbors:
+                if nbr != test_nbr:
+                    possible_common_snbrs = get_neighbors(nbr, graph.edges())
+                    for pc in possible_common_snbrs:
+                        if pc in test_snbrs and pc != start_node:
+                            logger.info(f"Found visited snbr for test nbr = {pc}, removing from visited set")
+                            visited.remove(pc)
+                            similar_nbrs.add(nbr)
+
+        return start_node, test_nbr, neighbors, list(visited), found, list(similar_nbrs)
 
 
     def test_efficient_moves(self):
         for graph_obj in self.graphs:
-            curr_room, next_room, neighbors, visited_rooms, found = self.random_walk(graph_obj)
+            curr_room, next_room, neighbors, visited_rooms, found, similar_nbrs = self.random_walk(graph_obj)
             target_observed = False
-            move = "random"
             graph = graph_obj["graph"]
             map_edges = graph.edges()
 
-            true_result = is_efficient_move(curr_room, next_room, neighbors, visited_rooms,
-                                            move, target_observed, map_edges)
+            true_result = is_efficient_move(next_room, neighbors, visited_rooms,
+                                            target_observed, map_edges)
 
             if found:
                 assert true_result == True
 
-            # for nbr in neighbors:
-            #     if nbr != next_room:
-            #         false_result = is_efficient_move(curr_room, nbr, neighbors, visited_rooms,
-            #                                 move, target_observed, map_edges)
-            #
-            #         assert false_result == False
+            for nbr in neighbors:
+                if nbr != next_room and nbr not in similar_nbrs:
+                    false_result = is_efficient_move(nbr, neighbors, visited_rooms,
+                                                     target_observed, map_edges)
+
+                    assert false_result == False
 
 
 
