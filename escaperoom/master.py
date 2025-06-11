@@ -3,7 +3,6 @@ Game Master for Escape Room
 Implementing a base variant for now...2-player game only
 """
 
-import ast
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
 from clemcore.backends import Model
 
@@ -13,7 +12,6 @@ from engine.utils import get_next_node
 from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
 from typing import List, Dict, Union
-import numpy as np
 import logging
 
 logger = logging.getLogger(__name__)
@@ -106,6 +104,7 @@ class EscapeRoom(DialogueGameMaster):
 
         # Add initial prompt to Explorer in (Explorer's) history
         self.set_context_for(self.guide, self.guide_prompt, image=[self.guide_image])
+        self.log_to_self("image", {"image": [self.guide_image]})
         stdout_logger.info(f"First message for Guide: {self.guide_prompt}")
         stdout_logger.info(f"First Room image path for Guide: {self.guide_image}")
 
@@ -177,7 +176,7 @@ class EscapeRoom(DialogueGameMaster):
                 self.pass_turn = False
 
                 next_node = get_next_node(tuple(self.game_map._agent_location), move)
-                if next_node not in self.game_map.metadata["unnamed_nodes"]:
+                if next_node not in self.game_map.map_metadata["unnamed_nodes"]:
                     stdout_logger.info(f"Invalid move: {move}")
                     self.log_to_self("move", "invalid")
                     self.reprompt_fail = True
@@ -187,7 +186,7 @@ class EscapeRoom(DialogueGameMaster):
                     # Validity logged after checking for efficient move or not
                     self.reprompt_success = True
 
-                edges = self.game_map.metadata["unnamed_edges"]
+                edges = self.game_map.map_metadata["unnamed_edges"]
                 tuple_edges = []
                 for edge in edges:
                     tuple_edges.append((tuple(edge[0]), tuple(edge[1])))
@@ -309,12 +308,15 @@ class EscapeRoom(DialogueGameMaster):
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 # Pass the response from Guide to Explorer
                 self.set_context_for(self.explorer, self.explorer_prompt, image=[self.explorer_image])
+                self.log_to_self("image", {"image": [self.explorer_image]})
+
             else:
                 # Pass the response from Guide as is, This should only contain "ANSWER:...."
                 # DESCRIPTION: ... is only for the first turn
                 stdout_logger.info(f"Set Prompt for Explorer: {utterance}")
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 self.set_context_for(self.explorer, utterance, image=[self.explorer_image])
+                self.log_to_self("image", {"image": [self.explorer_image]})
         else:
             utterance = utterance.lower()
             splits = utterance.split(":")
@@ -327,6 +329,7 @@ class EscapeRoom(DialogueGameMaster):
                     self.explorer_failed_reprompt = self.explorer_failed_reprompt.replace("$MOVES", next_moves)
                     self.set_context_for(self.explorer, self.explorer_failed_reprompt,
                                          image=[self.explorer_image])  # Pass the updated str
+                    self.log_to_self("image", {"image": [self.explorer_image]})
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_failed_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 else:
@@ -338,6 +341,7 @@ class EscapeRoom(DialogueGameMaster):
                     next_moves = self.game_map.get_next_moves() # Update next possible moves
                     self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
                     self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+                    self.log_to_self("image", {"image": [self.explorer_image]})
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
             if tag == "question":

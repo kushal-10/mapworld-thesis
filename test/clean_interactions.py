@@ -1,13 +1,14 @@
 import json
+import os
 
-base_path = "results/gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0/escape_room_ambiguous/0_[2]/episode_"
-file_path = "/interactions.json"
+results_path = "results"
 
-for i in range(10):
-    int_path = base_path + str(i) + file_path
-    with open(int_path, "r") as f:
-        json_data = json.load(f)
+for dirname, _, filenames in os.walk(results_path):
+    for filename in filenames:
+        if filename.endswith("interactions.json"):
+            filepath = os.path.join(dirname, filename)
+            with open(filepath, 'r') as f:
+                json_data = json.load(f)
 
-    save_path = f"results/temp_interactions_{i}.json"
-    with open(save_path, "w") as f:
-        json.dump(json_data, f, indent=4)
+            with open(filepath, 'w') as f:
+                json.dump(json_data, f, indent=4)
