@@ -54,9 +54,11 @@ def unexplored_distance(neighbors: List[Tuple[int, int]],
                 if nxt not in seen:
                     seen.add(nxt)
                     queue.append((nxt, d + 1))
-        if dist_to_unexplored is None:
-            raise RuntimeError(f"No unexplored rooms reachable from neighbor {nbr}")
+
         distances.append({"neighbor": nbr, "dist": dist_to_unexplored})
+
+    if not distances:
+        raise RuntimeError(f"No unexplored rooms reachable !! Check efficient move method")
 
     return distances
 
