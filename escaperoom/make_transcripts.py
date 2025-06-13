@@ -47,12 +47,24 @@ def fetch_and_resize_image(url, size):
 
 def render_graph_image(positions, edges, node_imgs,
                        robot_img, current_node, target_node):
+    """
+    Render the graph to a PIL image via Matplotlib, marking the target and current nodes.
+    Robot icon is offset to the right of its node, except if the node is in the rightmost column,
+    then offset to the left.
+    """
+    # Determine max x-coordinate to identify rightmost column
+    max_x = max(x for x, y in positions.values())
+
     fig, ax = plt.subplots()
     ax.set_axis_off()
+
+    # Draw edges
     for u, v in edges:
         x1, y1 = positions[u]
         x2, y2 = positions[v]
         ax.plot([x1, x2], [y1, y2], linewidth=1, color='gray')
+
+    # Draw nodes with appropriate borders
     for node, (x, y) in positions.items():
         img = node_imgs[node]
         if node == target_node:
@@ -67,11 +79,20 @@ def render_graph_image(positions, edges, node_imgs,
             bboxprops=dict(edgecolor=edge_color, linewidth=lw)
         )
         ax.add_artist(ab)
+
+    # Compute robot offset: right of node unless node.x == max_x
     x0, y0 = positions[current_node]
-    robot_pos = (x0 + 0.2, y0)
+    offset = 0.2
+    if x0 >= max_x:
+        robot_pos = (x0 - offset, y0)
+    else:
+        robot_pos = (x0 + offset, y0)
+
     rb = OffsetImage(robot_img, zoom=GRAPH_ZOOM)
     ab_r = AnnotationBbox(rb, robot_pos, frameon=False)
     ax.add_artist(ab_r)
+
+    # Export to PIL
     buf = BytesIO()
     fig.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
     plt.close(fig)

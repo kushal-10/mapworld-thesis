@@ -6,48 +6,66 @@ import numpy as np
 from typing import Tuple
 
 # TODO: Move this to initial_prompt.template under resources
-EXPL_PROMPT = """You are stuck in a mapworld environment containing several rooms. 
-Your task is to explore this world and reach an escape room.
-You are always given an image of the current room you are in. 
-I have an image of the Escape Room, this is an initial description of my image - $INIT_DESCRIPTION.
+EXPL_PROMPT = """
+You’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.
+Here is the description of what the Escape Room looks like:  $INIT_DESCRIPTION
 
-Based on my description and the image given, you now have three options
+At each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,
+choose one of three actions:
 
-First Option - If you think that the description of my image matches the image you have, i.e.
-you are in the escape room then respond with one word - ESCAPE.
+1. If your current image matches your memory of the Escape Room description, reply with only one word
+ESCAPE
 
-Second Option - If you think you need more details from my image - respond in the following format
-QUESTION: Ask details about the image I have to verify if we have the same image or not
+2. If you need more information to verify if it’s the same room, reply -
+QUESTION: your question here
 
-Third Option - If you think you are in a different room than what I have, i.e we are seeing different images,
-then you can make a move in following Directions - $DIRECTIONS. Respond in the following format
-MOVE: direction - Here direction can be one of {north, south, east, west}
+3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -
+MOVE: direction you chose
+
+Do not generate any additional text.
 """
 
 EXPL_REPROMPT = """
-Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
-$MOVES
+You’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:
+
+1. If this room matches the Escape Room, reply with only one word
+   ESCAPE
+
+2. If you need more information to confirm, reply
+   QUESTION: your question here
+
+3. If it’s definitely a different room, pick one direction from $MOVES:
+   MOVE: direction
+
+Do not generate any additional text.
 """
 
 EXPL_FAIL_REPROMPT = """
-The move made leads to nowhere. We are still in this room, and you can either ESCAPE, ask me a QUESTION or MOVE in 
-one of these directions $MOVES
+That move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:
+
+1. If this room matches the Escape Room, reply with only one word
+   ESCAPE
+
+2. If you need more information to confirm, reply
+   QUESTION: your question here
+
+3. If it’s definitely a different room, pick one direction from $MOVES:
+   MOVE: direction
+
+Do not generate any additional text.
 """
 
 # TODO: change $MOVES to $DIRECTIONS
 
-GUIDE_PROMPT = """I need your help, I am stuck in a mapworld environment. 
-Your task is to help me reach an escape room. I do not know what the escape room looks like. 
-But fortunately, you have an image of the escape room with you. I will explore each room here and ask you a few QUESTIONS
-to verify if we have the same image or not, thus verifying if I am in the Escape Room or not.
+GUIDE_PROMPT = """
+You’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.
 
-First start by describing the image that you have, Respond in the following format
-DESCRIPTION: your description of the image that you have
+First, describe your image in this format and nothing else:
+DESCRIPTION: your description of the image
 
-Then if I ask a QUESTION, the respond appropriately based on your image in the following format
-ANSWER: your Answer
+Whenever I ask a question, answer based only on your image in this format and nothing else:
+ANSWER: your answer
 """
-
 
 N = 10 # Number of instances per experiment
 np.random.seed(19)
