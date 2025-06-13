@@ -13,6 +13,7 @@ from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
 from typing import List, Dict, Union
 import logging
+import numpy as np
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
@@ -53,7 +54,7 @@ class EscapeRoom(DialogueGameMaster):
 
         # Pass Turn
         self.pass_turn = True
-
+        self.start_next_round = False
 
     def _on_setup(self, **game_instance):
 
@@ -143,7 +144,6 @@ class EscapeRoom(DialogueGameMaster):
             True if response format is valid, False otherwise
         """
 
-        stdout_logger.info(f"Player response {player.tag}: {utterance}")
         utterance = self.clean_agent_response(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
 
@@ -162,6 +162,11 @@ class EscapeRoom(DialogueGameMaster):
             utterance = utterance.lower()
             splits = utterance.split(":")
             tag = splits[0]
+
+            # FIXME: (Hardcode) handling "."
+            if tag == "escape.":
+                tag = "escape"
+
             if tag not in valid_tags:
                 self.aborted = True
                 stdout_logger.info(f"Aborting the Game. Explorer generated invalid tag {tag}")
@@ -176,7 +181,9 @@ class EscapeRoom(DialogueGameMaster):
                 self.pass_turn = False
 
                 next_node = get_next_node(tuple(self.game_map._agent_location), move)
-                if next_node not in self.game_map.map_metadata["unnamed_nodes"]:
+                list_next_node = list(next_node)
+
+                if list_next_node not in self.game_map.map_metadata["unnamed_nodes"]:
                     stdout_logger.info(f"Invalid move: {move}")
                     self.log_to_self("move", "invalid")
                     self.reprompt_fail = True
@@ -285,6 +292,9 @@ class EscapeRoom(DialogueGameMaster):
         #     self.explorer_reprompt = self.explorer_reprompt.replace("$ROOMS", next_moves)
         return utterance
 
+    def _start_next_round(self) -> bool:
+        return self.start_next_round
+
 
     def _on_valid_player_response(self, player: Union[Explorer, Guide], utterance: str):
         """
@@ -300,7 +310,7 @@ class EscapeRoom(DialogueGameMaster):
         # and the next possible moves are interpreted based on the guide's response
         stdout_logger.info(f"Current Round index: {self.current_round}")
         utterance = self.clean_agent_response(utterance)
-
+        self.start_next_round = True
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
                 self.explorer_prompt = self.explorer_prompt.replace("$INIT_DESCRIPTION", utterance)
@@ -345,10 +355,10 @@ class EscapeRoom(DialogueGameMaster):
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
             if tag == "question":
-                self.set_context_for(self.guide, utterance) # Pass response as is wo image to Guide
+                self.set_context_for(self.guide, utterance, image=[self.guide_image]) # Pass response as is wo image to Guide
+                self.log_to_self("image", {"image": [self.guide_image]})
                 stdout_logger.info(f"Set Prompt for Guide: {utterance}")
-                stdout_logger.info(f"No image passed to Guide")
-
+                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
 
     def _on_after_game(self):
         # record final results once game episode has ended:

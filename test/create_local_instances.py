@@ -1,5 +1,7 @@
 import os
 import json
+import shutil
+
 import requests
 from urllib.parse import urlparse
 
@@ -7,6 +9,7 @@ from urllib.parse import urlparse
 INPUT_JSON = os.path.join("escaperoom", "in", "instances.json")
 OUTPUT_JSON = os.path.join("escaperoom", "in", "instances_local.json")
 IMAGES_DIR = "images"
+
 
 # Create base images directory if it doesn't exist
 os.makedirs(IMAGES_DIR, exist_ok=True)
@@ -49,6 +52,11 @@ def download_image(url):
         with open(local_path, 'wb') as f:
             for chunk in resp.iter_content(1024):
                 f.write(chunk)
+
+        new_path = os.path.relpath(local_path, IMAGES_DIR)
+        new = os.path.join(IMAGES_DIR, new_path)
+        shutil.move(local_path, new_path)
+
     else:
         print(f"Already exists: {local_path}")
     return local_path
