@@ -2,6 +2,8 @@
 Game Master for Escape Room
 Implementing a base variant for now...2-player game only
 """
+# TODO : Add max number of images - If it reaches limit remove images from beginning
+# TODO : Add this value as a variable.
 
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
 from clemcore.backends import Model
@@ -113,7 +115,7 @@ class EscapeRoom(DialogueGameMaster):
         """
         Fail cases for each turn, use init_flags/scorers etc...
         """
-        if self.aborted or self.current_round==10 or self.success or self.fail:
+        if self.aborted or self.current_round==20 or self.success or self.fail:
             return False
         else:
             return True
@@ -176,6 +178,7 @@ class EscapeRoom(DialogueGameMaster):
 
 
             if tag == "move":
+                stdout_logger.info(f"Move made from location - {self.game_map._agent_location}")
                 move = splits[1]
                 move = move.lower().strip()
                 self.pass_turn = False
@@ -183,6 +186,8 @@ class EscapeRoom(DialogueGameMaster):
                 next_node = get_next_node(tuple(self.game_map._agent_location), move)
                 list_next_node = list(next_node)
 
+                stdout_logger.info(f"Move: {move}")
+                stdout_logger.info(f"Next node: {next_node}")
                 if list_next_node not in self.game_map.map_metadata["unnamed_nodes"]:
                     stdout_logger.info(f"Invalid move: {move}")
                     self.log_to_self("move", "invalid")
@@ -349,6 +354,7 @@ class EscapeRoom(DialogueGameMaster):
                     # Update explorer image
                     self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
                     next_moves = self.game_map.get_next_moves() # Update next possible moves
+                    stdout_logger.info(f"Next Moves: {next_moves}")
                     self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
                     self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
                     self.log_to_self("image", {"image": [self.explorer_image]})

@@ -1,7 +1,6 @@
 import os
 import json
 import shutil
-
 import requests
 from urllib.parse import urlparse
 
@@ -9,7 +8,6 @@ from urllib.parse import urlparse
 INPUT_JSON = os.path.join("escaperoom", "in", "instances.json")
 OUTPUT_JSON = os.path.join("escaperoom", "in", "instances_local.json")
 IMAGES_DIR = "images"
-
 
 # Create base images directory if it doesn't exist
 os.makedirs(IMAGES_DIR, exist_ok=True)
@@ -26,7 +24,6 @@ def save_json(data, path):
 
 # Given a URL, download the image preserving the URL's folder structure under IMAGES_DIR
 def download_image(url):
-    # Parse URL path and extract the subpath after '/images/'
     parsed = urlparse(url)
     path_parts = parsed.path.split('/')
     try:
@@ -44,7 +41,6 @@ def download_image(url):
     os.makedirs(local_dir, exist_ok=True)
     local_path = os.path.join(local_dir, filename)
 
-    # Download only if not already present
     if not os.path.exists(local_path):
         print(f"Downloading {url} -> {local_path}")
         resp = requests.get(url, stream=True)
@@ -52,13 +48,10 @@ def download_image(url):
         with open(local_path, 'wb') as f:
             for chunk in resp.iter_content(1024):
                 f.write(chunk)
-
-        new_path = os.path.relpath(local_path, IMAGES_DIR)
-        new = os.path.join(IMAGES_DIR, new_path)
-        shutil.move(local_path, new_path)
-
     else:
         print(f"Already exists: {local_path}")
+
+    # Return the local path to be inserted into JSON
     return local_path
 
 # Recursively update any URL fields in the JSON structure
@@ -66,7 +59,6 @@ def update_urls(obj):
     if isinstance(obj, dict):
         for key, val in obj.items():
             if isinstance(val, str) and val.startswith("http"):
-                # Download image and replace URL with local path
                 obj[key] = download_image(val)
             else:
                 update_urls(val)

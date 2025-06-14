@@ -26,33 +26,13 @@ Do not generate any additional text.
 """
 
 EXPL_REPROMPT = """
-You’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:
-
-1. If this room matches the Escape Room, reply with only one word
-   ESCAPE
-
-2. If you need more information to confirm, reply
-   QUESTION: your question here
-
-3. If it’s definitely a different room, pick one direction from $MOVES:
-   MOVE: direction
-
-Do not generate any additional text.
+Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
+$MOVES
 """
 
 EXPL_FAIL_REPROMPT = """
-That move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:
-
-1. If this room matches the Escape Room, reply with only one word
-   ESCAPE
-
-2. If you need more information to confirm, reply
-   QUESTION: your question here
-
-3. If it’s definitely a different room, pick one direction from $MOVES:
-   MOVE: direction
-
-Do not generate any additional text.
+We are still in this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
+$MOVES
 """
 
 # TODO: change $MOVES to $DIRECTIONS
@@ -67,8 +47,11 @@ Whenever I ask a question, answer based only on your image in this format and no
 ANSWER: your answer
 """
 
+# TODO:  Add self.tags and every "English" text in instance generator itself. No english specific code in master
+
+
 N = 10 # Number of instances per experiment
-np.random.seed(19)
+np.random.seed(999)
 random_seeds = [np.random.randint(1,1000) for i in range(N)]
 print(random_seeds)
 
