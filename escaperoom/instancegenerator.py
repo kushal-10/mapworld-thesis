@@ -49,7 +49,6 @@ ANSWER: your answer
 
 # TODO:  Add self.tags and every "English" text in instance generator itself. No english specific code in master
 
-
 N = 10 # Number of instances per experiment
 np.random.seed(999)
 random_seeds = [np.random.randint(1,1000) for i in range(N)]

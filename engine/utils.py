@@ -1,14 +1,15 @@
 """
-Post Processing methods after instances are generated
-Util functions for mm_mapworld....
+Utils to handle basic state changes -> move to environment.py
 """
-from typing import Dict, Tuple
+
+
+from typing import Tuple
 
 def get_next_node(start_pos: Tuple, move: str) -> Tuple:
     """
     Get the next node after making move from a given start node
     Args:
-        start_pos: current node of the agent inside mapworld
+        start_pos: current node of the agent inside MapWorld
         move: move as a string item
 
     Returns:
