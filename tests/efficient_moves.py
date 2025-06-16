@@ -12,7 +12,7 @@ from engine.ade_maps import ADEMap
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename=os.path.join('test', 'test_efficient_moves.log'),
+                    filename=os.path.join('tests', 'test_efficient_moves.log'),
                     filemode='w')
 
 

@@ -13,8 +13,6 @@ import logging
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("mapworld.environment")
 
-# TODO: Add video record method
-
 class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 2}
 

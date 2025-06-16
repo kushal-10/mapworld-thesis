@@ -1,10 +1,17 @@
 from engine.maps import BaseMap
+import ade_utils as au
 
 import random
-import os
-import json
 import numpy as np
-from typing import Tuple, Any
+from typing import Any
+import os
+
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    filename=os.path.join('engine', 'ade_maps.log'),
+                    filemode='w')
 
 class ADEMap(BaseMap):
 
@@ -25,9 +32,9 @@ class ADEMap(BaseMap):
         np.random.seed(seed)
         super().__init__(m, n, n_rooms)
 
-
-    def set_positions(self, ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
-                      end_type: str = "random", distance: int = 2) -> Any | None:
+    @staticmethod
+    def set_positions(ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
+                      end_type: str = "random", distance: int = 2, edges: list = None) -> Any | None:
         """
         Set agent position/target position.
         Based on the list of rooms provided and required area for the node
@@ -39,15 +46,87 @@ class ADEMap(BaseMap):
             start_type: Type of room that needs to be assigned - indoor/outdoor/random/ambiguous to agents start position
             end_type: Type of room that needs to be assigned to the target room
             distance: Distance between start and target node.
+            edges: List of edges in the graph.
 
         Return:
             start_pos, target_pos - in position/node: (x, y)
         """
+        all_nodes = ambiguous_rooms + indoor_rooms + outdoor_rooms
+        distances = au.find_distance(edges, all_nodes)
 
-        # TODO - Find Nodes at Manhattan distance for each node, and group by category, the search for valid pairs
+        start_pos = None
+        target_pos = None
+        available_rooms = None
 
-        return (0,0), (0,0)
+        if end_type == "random":
+            available_rooms = all_nodes
 
+        elif end_type == "ambiguous":
+            if ambiguous_rooms:
+                available_rooms = ambiguous_rooms
+            else:
+                logging.info(f"No ambiguous rooms available! Setting a random room as target position. Check graph configuration!!")
+                available_rooms = indoor_rooms+outdoor_rooms
+
+        elif end_type == "indoor":
+            if indoor_rooms:
+                available_rooms = indoor_rooms
+            else:
+                logging.info(f"No indoor rooms available! Setting a random room as target position. Check graph configuration!!")
+                available_rooms = ambiguous_rooms + outdoor_rooms
+        else:
+            if end_type == "outdoor":
+                available_rooms = outdoor_rooms
+            else:
+                logging.info(f"No outdoor rooms available! Setting a random room as target position. Check graph configuration!!")
+                available_rooms = ambiguous_rooms + indoor_rooms
+
+        target_pos = au.select_random_room(available_rooms=available_rooms, occupied=None)
+        occupied = target_pos
+
+        node_distances = au.find_distance(edges, all_nodes)[target_pos]
+
+        ## Next, find nodes at `distance` from target_pos and then look if expected start_type is available
+
+        exact_nodes = []
+        for k, v in node_distances.items():
+            if v == distance:
+                exact_nodes.append(k)
+
+        if not exact_nodes:
+            raise RuntimeError(f"No node found at distance {distance} from selected target_node type!")
+
+        if len(exact_nodes) == 1:
+            start_pos = exact_nodes[0]
+        else:
+            if start_type == "random":
+                start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+            elif start_type == "ambiguous":
+                for node in exact_nodes:
+                    if node in ambiguous_rooms:
+                        start_pos = node
+                if not start_pos:
+                    logging.info(f"No ambiguous room found at distance {distance} from selected target_node type! "
+                                 f"Setting a random room as start position at distance {distance}! ")
+                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+            elif start_type == "indoor":
+                for node in exact_nodes:
+                    if node in indoor_rooms:
+                        start_pos = node
+                if not start_pos:
+                    logging.info(f"No indoor room found at distance {distance} from selected target_node type! "
+                                 f"Setting a random room as start position at distance {distance}! ")
+                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+            else:
+                for node in exact_nodes:
+                    if node in outdoor_rooms:
+                        start_pos = node
+                if not start_pos:
+                    logging.info(f"No outdoor room found at distance {distance} from selected target_node type! "
+                                 f"Setting a random room as start position at distance {distance}! ")
+                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+
+        return start_pos, target_pos
 
 
     def metadata(self, G, start_type: str = "outdoor", end_type: str = "outdoor", distance: int = 2) -> dict:
@@ -116,7 +195,7 @@ class ADEMap(BaseMap):
         # Set Random start and Target positions
         # Can be overridden by the environment if required
         start_pos, target_pos = self.set_positions(ambiguous_rooms=ambiguous_rooms, indoor_rooms=indoor_rooms, outdoor_rooms=outdoor_rooms,
-                                                   start_type=start_type, end_type=end_type, distance=distance)
+                                                   start_type=start_type, end_type=end_type, distance=distance, edges=G.edges())
 
         graph_metadata = {
             "graph_id": graph_id,
@@ -138,11 +217,14 @@ class ADEMap(BaseMap):
 
 
 if __name__ == '__main__':
-    ademap = ADEMap(4, 4, 10)
-    G = ademap.create_cyclic_graph()
-    G = ademap.assign_types(G, ambiguity=[3,3], use_outdoor_categories=False)
-    G = ademap.assign_images(G)
-    metadata = ademap.metadata(G)
+    ade_map = ADEMap(4, 4, 8)
+    G = ade_map.create_cycle_graph()
+    G = au.assign_types(G, ambiguity=[3,3], use_outdoor_categories=False)
+    G = au.assign_images(G)
 
-    print(metadata)
+    metadata = ade_map.metadata(G, start_type="random", end_type="ambiguous", distance=4)
+    print(metadata['start_node'], metadata['target_node'])
 
+    ade_map.plot_graph(G)
+    # Possible explanation - Cycle graph has the highest values of distance amongst graph types
+    # Maybe best to set this as default graph type

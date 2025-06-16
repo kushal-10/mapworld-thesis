@@ -4,7 +4,10 @@ Utils module to handle room type/image assignments to ADE Maps
 import json
 import numpy as np
 import os
-from typing import Tuple
+from typing import Tuple, Dict, List
+from collections import deque, defaultdict
+
+from engine.ade_maps import ADEMap
 
 # Assign the categories from "categories.json" here.
 CATEGORY_OUTDOORS = "outdoors"
@@ -100,10 +103,10 @@ def assign_types(ade_graph,
             if amb != 1:
                 ade_graph.nodes[room]['type'] = str(random_room_type) + " " + str(room_count)
                 room_count += 1
+                ade_graph.nodes[room]['ambiguous'] = True  # Set True for all ambiguous rooms
             else:
                 ade_graph.nodes[room]['type'] = random_room_type
-
-            ade_graph.nodes[room]['ambiguous'] = True  # Set True for all ambiguous rooms
+                ade_graph.nodes[room]['ambiguous'] = False  # Rooms are not ambiguous when ambiguity = [1]
 
     # Remaining nodes - as distractors
     distractor_rooms = list(set(indoor_nodes) - set(indoor_nodes_assigned))
@@ -180,3 +183,52 @@ def select_random_room(available_rooms: list, occupied: Tuple | None):
     if occupied in available_rooms:
         available_rooms.remove(occupied)
     return available_rooms[np.random.choice(len(available_rooms))]
+
+
+def find_distance(edges: List[Tuple], nodes: List) -> Dict:
+    """
+    Given the edges and nodes of a graph, generate distances between every node using BFS.
+
+    Args:
+        edges: List of tuples representing edges in the graph.
+        nodes: List of nodes in the graph.
+
+    Returns:
+        A dictionary where distances[start][end] gives the shortest distance from start to end.
+    """
+    # Build adjacency list
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    # Dictionary to hold distances between all node pairs
+    distances = {}
+
+    # BFS from each node
+    for start in nodes:
+        queue = deque([(start, 0)])
+        visited = set()
+        dist_map = {}
+
+        while queue:
+            current, dist = queue.popleft()
+            if current in visited:
+                continue
+            visited.add(current)
+            dist_map[current] = dist
+
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    queue.append((neighbor, dist + 1))
+
+        distances[start] = dist_map
+
+    return distances
+
+if __name__ == "__main__":
+    ade_map = ADEMap(3,3,5)
+    ade_gr = ade_map.create_tree_graph()
+    distances = find_distance(ade_gr.edges(), ade_gr.nodes())
+    print(distances)
+    ade_map.plot_graph(ade_gr)
