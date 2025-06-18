@@ -58,6 +58,10 @@ class ADEMap(BaseMap):
         target_pos = None
         available_rooms = None
 
+        logging.info(f"Ambiguous Rooms: {ambiguous_rooms}"
+                     f"\nIndoor Rooms: {indoor_rooms}"
+                     f"\nOutdoor Rooms: {outdoor_rooms}")
+
         if end_type == "random":
             available_rooms = all_nodes
 
@@ -85,6 +89,7 @@ class ADEMap(BaseMap):
         occupied = target_pos
 
         node_distances = au.find_distance(edges, all_nodes)[target_pos]
+        logging.info(f"Node distances from target position: {node_distances}")
 
         ## Next, find nodes at `distance` from target_pos and then look if expected start_type is available
 
@@ -176,7 +181,7 @@ class ADEMap(BaseMap):
             category_to_image[node_name] = G.nodes[node]['image']
 
             # Additional info
-            if G.nodes[node]['type'] == "indoor":
+            if G.nodes[node]['base_type'] == "indoor":
                 if G.nodes[node]['ambiguous']:
                     ambiguous_rooms.append(node)
                 else:
@@ -217,13 +222,15 @@ class ADEMap(BaseMap):
 
 
 if __name__ == '__main__':
-    ade_map = ADEMap(4, 4, 8)
-    G = ade_map.create_cycle_graph()
+    ade_map = ADEMap(4, 4, 15)
+    G = ade_map.create_tree_graph()
     G = au.assign_types(G, ambiguity=[3,3], use_outdoor_categories=False)
     G = au.assign_images(G)
+    for node in G.nodes():
+        logging.info(f"Node Info: {G.nodes[node]}")
 
     metadata = ade_map.metadata(G, start_type="random", end_type="ambiguous", distance=4)
-    print(metadata['start_node'], metadata['target_node'])
+    logging.info(f"Start Node, Target Node{metadata['start_node'], metadata['target_node']}")
 
     ade_map.plot_graph(G)
     # Possible explanation - Cycle graph has the highest values of distance amongst graph types
