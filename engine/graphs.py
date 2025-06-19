@@ -6,6 +6,9 @@ from typing import List, Set, Tuple
 from collections import deque
 
 import logging
+
+from click import clear
+
 logger = logging.getLogger(__name__)
 
 # NOTE: Terminology - Shift to README
@@ -208,31 +211,56 @@ class BaseGraph:
         cycle_graph = nx.Graph()
 
         # TODO: interchange row/col
-        start_col = np.random.randint(0, self.n-1)
-        num_rows = int(self.n_rooms/2)
-        threshold_row = self.m - num_rows
-        start_row = np.random.randint(0, threshold_row+1)
+        start_row = np.random.randint(0, self.n-1)
+        num_cols = int(self.n_rooms/2)
+        threshold_col = self.m - num_cols
+        start_col = np.random.randint(0, threshold_col+1)
 
         # Add nodes
-        for i in range(start_row, start_row+num_rows):
-            for j in (start_col, start_col+1):
+        for i in range(start_col, start_col+num_cols):
+            for j in (start_row, start_row+1):
                 cycle_graph.add_node((i, j))
 
         # Add vertical edges
-        for i in range(start_row, start_row+num_rows-1):
-            room1 = (i, start_col)
-            room2 = (i+1, start_col)
-            room3 = (i, start_col+1)
-            room4 = (i+1, start_col+1)
+        for i in range(start_col, start_col+num_cols-1):
+            room1 = (i, start_row)
+            room2 = (i+1, start_row)
+            room3 = (i, start_row+1)
+            room4 = (i+1, start_row+1)
 
             cycle_graph.add_edge(room1, room2)
             cycle_graph.add_edge(room3, room4)
 
         # Add 2 horizontal edges to complete the loop
-        cycle_graph.add_edge((start_row, start_col), (start_row, start_col+1))
-        cycle_graph.add_edge((start_row+num_rows-1, start_col), (start_row+num_rows-1, start_col+1))
+        cycle_graph.add_edge((start_col, start_row), (start_col, start_row+1))
+        cycle_graph.add_edge((start_col+num_cols-1, start_row), (start_col+num_cols-1, start_row+1))
 
         return cycle_graph
+
+
+    def create_ladder_graph(self):
+        """
+        Create a ladder graph by adding vertical edges to a cycle graph
+        Returns:
+            ladder_graph: A networkx Graph in a ladder configurations
+        """
+
+        ladder_graph = self.create_cycle_graph()
+        nodes = ladder_graph.nodes()
+        list_nodes = list(nodes)
+        edges = ladder_graph.edges()
+        for node in list_nodes:
+            # Check if there are any nodes 'above' the current node, if yes, then add edge if it doesn't exist
+            curr_node = list(node)
+            top_node = (curr_node[0], curr_node[1]+1)
+            if top_node in nodes:
+                edge1 = (top_node, node)
+                edge2 = (node, top_node)
+
+                if edge1 not in edges and edge2 not in edges:
+                    ladder_graph.add_edge(node, top_node)
+
+        return ladder_graph
 
     @staticmethod
     def plot_graph(nx_graph):

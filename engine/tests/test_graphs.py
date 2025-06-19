@@ -31,26 +31,28 @@ class GraphGenerationTest(unittest.TestCase):
                 path_graph = base_graph.create_path_graph()
                 if n_rooms%2==0:
                     cycle_graph = base_graph.create_cycle_graph()
+                    ladder_graph = base_graph.create_ladder_graph()
                 if n_rooms >= 5:
                     star_graph = base_graph.create_star_graph()
 
-                random_int = np.random.randint(low=0, high=100)
-                if random_int <= 10:
-                    tree_img_path = os.path.join(IMG_PTH,
-                                                f'tree_{i}_{i}_{n_rooms}_{random_int}.jpg')
-                    base_graph.save_graph(tree_graph, tree_img_path)
-                    path_img_path = os.path.join(IMG_PTH,
-                                                 f'path_{i}_{i}_{n_rooms}_{random_int}.jpg')
-                    base_graph.save_graph(path_graph, path_img_path)
-                    if n_rooms%2==0:
-                        cycle_img_path = os.path.join(IMG_PTH,
-                                                      f'cycle_{i}_{i}_{n_rooms}_{random_int}.jpg')
-                        base_graph.save_graph(cycle_graph, cycle_img_path)
-                    if n_rooms >= 5:
-                        star_img_path = os.path.join(IMG_PTH,
-                                                     f'star_{i}_{i}_{n_rooms}_{random_int}.jpg')
-                        base_graph.save_graph(star_graph, star_img_path)
-                    logger.info(f"Saved graphs with grid=({i}x{i}), rooms={n_rooms}")
+                tree_img_path = os.path.join(IMG_PTH,
+                                            f'tree_{i}_{i}_{n_rooms}.jpg')
+                base_graph.save_graph(tree_graph, tree_img_path)
+                path_img_path = os.path.join(IMG_PTH,
+                                             f'path_{i}_{i}_{n_rooms}.jpg')
+                base_graph.save_graph(path_graph, path_img_path)
+                if n_rooms%2==0:
+                    cycle_img_path = os.path.join(IMG_PTH,
+                                                  f'cycle_{i}_{i}_{n_rooms}.jpg')
+                    base_graph.save_graph(cycle_graph, cycle_img_path)
+                    ladder_img_path = os.path.join(IMG_PTH,
+                                                  f'ladder_{i}_{i}_{n_rooms}.jpg')
+                    base_graph.save_graph(ladder_graph, ladder_img_path)
+                if n_rooms >= 5:
+                    star_img_path = os.path.join(IMG_PTH,
+                                                 f'star_{i}_{i}_{n_rooms}.jpg')
+                    base_graph.save_graph(star_graph, star_img_path)
+                logger.info(f"Saved graphs with grid=({i}x{i}), rooms={n_rooms}")
 
 
 if __name__ == '__main__':
