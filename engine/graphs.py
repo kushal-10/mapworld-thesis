@@ -1,0 +1,249 @@
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+from typing import List, Set, Tuple
+from collections import deque
+
+import logging
+logger = logging.getLogger(__name__)
+
+# NOTE: Terminology - Shift to README
+"""
+M, N, N_ROOMS = A grid of MxN consisting of N_ROOMS.
+Node - Defined as any grid point/cell in a given MxN grid.
+Room - A node where a room has already been formed. 
+Graph - A grid configuration of N_ROOMS of a particular TYPE (layout) with exactly 1 connected component 
+        i.e. every room can be visited from every other room in a given Graph
+        Here TYPE can be one of - {random, random cycle, tree, path, cycle, generalized star, ladder}
+Map - A Graph with assigned room types and images from ADE 20K dataset.
+
+All graph types can be formed by creating their nx counterparts, but the assignment to a Grid like structure
+becomes more complex, so create each graph type here
+"""
+
+class BaseGraph:
+
+    def __init__(self, m: int = 3, n: int = 3, n_rooms: int = 9):
+        """
+        Set up a base layout for a 2-D graph, for a given type
+
+        Args:
+            m: Number of rows in the graph.
+            n: Number of columns in the graph
+            n_rooms: Required number of nodes. Should be less than n*m
+
+        Raises:
+            ValueError: If any value is unset
+            AssertionError: If `n_rooms` > `n*m`
+        """
+
+        assert n_rooms <= m * n, "Number of rooms cannot exceed grid size"
+
+        self.m = m
+        self.n = n
+        self.n_rooms = n_rooms
+
+    @staticmethod
+    def get_valid_neighbors(current_pos: np.array = np.array([0, 0]), visited: List|Set = None, m: int = 3, n: int = 3):
+        """
+        Get a list of all 'Valid' neighboring nodes.
+        Valid neighboring room is defined as a node in the grid that has not been set as a room.
+        and is at distance=1 from curr_pos
+
+        Args:
+            current_pos: Position of the current/given room.
+            visited: List of visited rooms.
+            m: Number of rows in the graph.
+            n: Number of columns in the graph
+        """
+
+        if visited is None:
+            visited = []
+        possible_moves = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        valid_neighbors = []
+        for move in possible_moves:
+            next_pos = (current_pos[0] + move[0], current_pos[1] + move[1])
+
+            if 0 <= next_pos[0] < m and 0 <= next_pos[1] < n and tuple(next_pos) not in visited:
+                valid_neighbors.append(next_pos)
+
+        return valid_neighbors
+
+    def create_tree_graph(self):
+        """
+        Returns:
+            tree_graph: nx.Graph of Tree type created using basic BFS
+
+        """
+        tree_graph = nx.Graph()
+        visited = set()
+
+        # Start node
+        start_node = (random.randint(0, self.m - 1), random.randint(0, self.n - 1))
+        queue = deque()
+        queue.append(start_node)
+        visited.add(start_node)
+        tree_graph.add_node(start_node)
+
+        while len(visited) < self.n_rooms and queue:
+            current_node = queue.popleft()
+            neighbors = self.get_valid_neighbors(current_node, visited, self.m, self.n)
+
+            random.shuffle(neighbors)
+
+            for next_node in neighbors:
+                if len(visited) >= self.n_rooms:
+                    break
+
+                visited.add(next_node)
+                tree_graph.add_node(next_node)
+                tree_graph.add_edge(current_node, next_node)
+                queue.append(next_node)
+
+        return tree_graph
+
+
+    def create_star_graph(self):
+        """
+        Create a Generalized “star” configuration:
+        Create an S5 star configuration then recursively add a room to a random arm of the star.
+
+        Returns:
+            star_graph: networkx Graph with exactly self.n_rooms.
+
+        Raises:
+            ValueError: If the grid or n_rooms aren’t compatible.
+        """
+        # Basic checks
+        if self.m < 3 or self.n < 3:
+            raise ValueError(f"Grid must be at least 3×3 for a star (got {self.m}×{self.n}).")
+        if self.n_rooms < 5:
+            raise ValueError(f"Need at least 5 rooms for a star (got {self.n_rooms}).")
+        if self.n_rooms > self.m * self.n:
+            raise ValueError(f"Cannot place {self.n_rooms} rooms in a {self.m}×{self.n} grid.")
+
+        star_graph = nx.Graph()
+        visited = set()
+
+        # Pick a random central room
+        center = (np.random.randint(2, self.m-1), np.random.randint(2, self.n-1))
+        star_graph.add_node(center)
+        visited.add(center)
+
+        # Add the 4 orthogonal neighbors/arms
+        arms = []
+        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            nb = (center[0] + dx, center[1] + dy)
+            if 0 <= nb[0] < self.m and 0 <= nb[1] < self.n:
+                star_graph.add_node(nb)
+                star_graph.add_edge(center, nb)
+                visited.add(nb)
+                arms.append(nb)
+        assert len(arms) == 4, "Check the configuration for arms/central room"
+
+        # If more n_rooms remain, attach them one by one
+        while len(visited) < self.n_rooms:
+            # pick a random endpoint from the current arms
+            endpoint = random.choice(arms)
+            # find its valid unvisited neighbors
+            vn = [tuple(p) for p in self.get_valid_neighbors(endpoint, visited, self.m, self.n)]
+            if not vn:
+                # if this arm is stuck, remove it from arms and continue
+                arms.remove(endpoint)
+                if not arms:
+                    raise ValueError("No more possible extensions; cannot place all rooms!"
+                                     f"For the given {self.n_rooms}, try increasing the grid size")
+                continue
+
+            new_room = random.choice(vn)
+            star_graph.add_node(new_room)
+            star_graph.add_edge(endpoint, new_room)
+            visited.add(new_room)
+            arms.append(new_room)
+
+        return star_graph
+
+
+    def create_path_graph(self):
+        """
+        Create a simple path (chain) of self.n_rooms nodes on the grid.
+
+        Returns:
+          path_graph: A networkx Graph whose nodes form a single chain.
+        Raises:
+          ValueError: if it gets stuck before placing all nodes.
+        """
+        path_graph = nx.Graph()
+        visited = []
+        # start somewhere random
+        start = (random.randrange(self.m), random.randrange(self.n))
+        visited.append(start)
+        path_graph.add_node(start)
+
+        while len(visited) < self.n_rooms:
+            curr = visited[-1]
+            nbrs = [tuple(nb) for nb in self.get_valid_neighbors(curr, visited, self.m, self.n)]
+            if not nbrs:
+                raise ValueError(
+                    f"Stuck at {curr} after {len(visited)} nodes; Likely due to a spiral config "
+                    f"Cannot extend to {self.n_rooms}. Try another random seed"
+                )
+            nxt = random.choice(nbrs)
+            visited.append(nxt)
+            path_graph.add_node(nxt)
+            path_graph.add_edge(curr, nxt)
+
+        return path_graph
+
+    def create_cycle_graph(self):
+        """
+        Create a simple (horizontal) cycle of self.n_rooms rooms on the grid. 2 rows and n_rooms/2 cols
+        Returns:
+            cycle_graph: A networkx Graph whose nodes form a single loop of self.n_rooms
+        """
+        if self.n_rooms%2 !=0:
+            raise ValueError(f"Number of rooms must be even (got {self.n_rooms}).")
+
+        cycle_graph = nx.Graph()
+
+        # TODO: interchange row/col
+        start_col = np.random.randint(0, self.n-1)
+        num_rows = int(self.n_rooms/2)
+        threshold_row = self.m - num_rows
+        start_row = np.random.randint(0, threshold_row+1)
+
+        # Add nodes
+        for i in range(start_row, start_row+num_rows):
+            for j in (start_col, start_col+1):
+                cycle_graph.add_node((i, j))
+
+        # Add vertical edges
+        for i in range(start_row, start_row+num_rows-1):
+            room1 = (i, start_col)
+            room2 = (i+1, start_col)
+            room3 = (i, start_col+1)
+            room4 = (i+1, start_col+1)
+
+            cycle_graph.add_edge(room1, room2)
+            cycle_graph.add_edge(room3, room4)
+
+        # Add 2 horizontal edges to complete the loop
+        cycle_graph.add_edge((start_row, start_col), (start_row, start_col+1))
+        cycle_graph.add_edge((start_row+num_rows-1, start_col), (start_row+num_rows-1, start_col+1))
+
+        return cycle_graph
+
+    @staticmethod
+    def plot_graph(nx_graph):
+        nx.draw_networkx(nx_graph, pos={n: n for n in nx_graph.nodes()})
+        plt.show()
+
+    @staticmethod
+    def save_graph(nx_graph, path: str):
+        nx.draw_networkx(nx_graph, pos={n: n for n in nx_graph.nodes()})
+        plt.savefig(path, bbox_inches='tight')
+        plt.close()
+
+    def __repr__(self) -> str:
+        return f"<BaseMap({self.m}, {self.n}, {self.n_rooms})>"

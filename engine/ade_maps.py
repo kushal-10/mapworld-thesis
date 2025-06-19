@@ -1,7 +1,6 @@
 from engine.maps import BaseMap
 import ade_utils as au
 
-import random
 import numpy as np
 from typing import Any
 import os
@@ -28,7 +27,6 @@ class ADEMap(BaseMap):
             ValueError: If any value is unset
             AssertionError: If `n_rooms` > `n*m`
         """
-        random.seed(seed)
         np.random.seed(seed)
         super().__init__(m, n, n_rooms)
 

@@ -4,7 +4,6 @@ import numpy as np
 import logging
 import networkx as nx
 import ast
-from networkx.drawing.nx_pydot import to_pydot
 
 from escaperoom.scorer import is_efficient_move, get_neighbors
 from engine.ade_maps import ADEMap
