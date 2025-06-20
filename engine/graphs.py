@@ -4,10 +4,7 @@ import matplotlib.pyplot as plt
 import random
 from typing import List, Set, Tuple
 from collections import deque
-
 import logging
-
-from click import clear
 
 logger = logging.getLogger(__name__)
 
@@ -180,7 +177,8 @@ class BaseGraph:
         path_graph = nx.Graph()
         visited = []
         # start somewhere random
-        start = (random.randrange(self.m), random.randrange(self.n))
+        # start = (random.randrange(self.m), random.randrange(self.n))
+        start = (int(self.m/2), int(self.n/2)) # Hardcode start pos for more flexible walk, more space to explore
         visited.append(start)
         path_graph.add_node(start)
 
@@ -190,7 +188,8 @@ class BaseGraph:
             if not nbrs:
                 raise ValueError(
                     f"Stuck at {curr} after {len(visited)} nodes; Likely due to a spiral config "
-                    f"Cannot extend to {self.n_rooms}. Try another random seed"
+                    f"\nVisited the following nodes - {visited}"
+                    f"\nCannot extend to {self.n_rooms}. Try another random seed"
                 )
             nxt = random.choice(nbrs)
             visited.append(nxt)

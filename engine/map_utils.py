@@ -1,5 +1,5 @@
 """
-Utils module to handle room type/image assignments to ADE Maps
+Utils module to handle room type/image assignments to Graphs
 """
 import json
 import numpy as np
@@ -7,28 +7,26 @@ import os
 from typing import Tuple, Dict, List
 from collections import deque, defaultdict
 
-from engine.ade_maps import ADEMap
-
 # Assign the categories from "categories.json" here.
 CATEGORY_OUTDOORS = "outdoors"
 CATEGORY_TARGETS = "targets"
 CATEGORY_DISTRACTORS = "distractors"
 
 
-def assign_types(ade_graph,
+def assign_types(nx_graph,
                  json_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources",
                                                "categories.json"),
                  ambiguity: list[int] = None, use_outdoor_categories: bool = True):
     """
     Assign room categories and images to the nodes in the generated graph.
-    Example ade_graph.nodes[room] = {
-        'base_type': 'indoor', # or 'outdoor'
+    Example nx_graph.nodes[room] = {
+        'base_type': 'indoor' or 'outdoor' depending on degree of the room
         'type': 'k/kitchen',
-        'ambiguous': True - for all ambiguous cases or a random room in central area if ambiguity is None - else False
+        'ambiguous': True - for all ambiguous cases | a random room if ambiguity is None([1]) - else False
     }
 
     Args:
-        ade_graph: Generated graph. (via BaseMap.create_acyclic_graph()/BaseMap.create_cyclic_graph())
+        nx_graph: Generated graph. (via BaseGraph methods)
         json_path: Path to a json file containing "targets", "outdoors" and "distractors" categories
         ambiguity: List of integers to control ambiguity. Example: [3,2] means - at
         least two types of potential target categories, and that
@@ -42,45 +40,42 @@ def assign_types(ade_graph,
     if not ambiguity:
         ambiguity = [1]
 
-    outdoor_nodes = []  # Rooms with only one neighbour - Most likely will be used as Entry/Exit points
-    indoor_nodes = []  # Most likely will be used as target/distractor rooms
-    # Assign nodes based on number of neighbours
-    for room in ade_graph.nodes():
-        if ade_graph.degree(room) == 1:
-            outdoor_nodes.append(room)
-        elif ade_graph.degree(room) > 1:
-            indoor_nodes.append(room)
+    outdoor_rooms = []  # Rooms with only one neighbour - Degree = 1
+    indoor_rooms = []  # Internal rooms, with Degree > 1
+    # Assign rooms based on number of neighbours
+    for room in nx_graph.nodes():
+        if nx_graph.degree(room) == 1:
+            outdoor_rooms.append(room)
+        elif nx_graph.degree(room) > 1:
+            indoor_rooms.append(room)
         else:
-            raise ValueError(f"Check Graph Generation!! Found a node with no neighbors!")
+            raise ValueError(f"Check Graph Generation methods in BaseGraph!! Found a node with no neighbors!")
 
-    if len(indoor_nodes) < sum(ambiguity):
+    if len(indoor_rooms) < sum(ambiguity):
         raise ValueError(
-            f"Ambiguity passed is {ambiguity}, But number of indoor rooms in the generated graph is {len(indoor_nodes)}"
-            f"Try decreasing ambiguity such that sum of ambiguity is <= {len(indoor_nodes)}"
-            f"If ambiguity is strictly required and possible with the initialized Map, try generating another random graph.")
+            f"Ambiguity passed is {ambiguity}, But number of indoor rooms in the generated graph is {len(indoor_rooms)}"
+            f"\nTry decreasing ambiguity such that sum of ambiguity is <= {len(indoor_rooms)}"
+            f"\nIf ambiguity is strictly required and possible with the initialized Map, try generating another random graph.")
 
     with open(json_path, 'r') as f:
         categories = json.load(f)
 
-    outdoor_nodes_assigned = []
+    outdoor_rooms_assigned = []
     # Using distractors here, change to "targets" if required
     category_key = CATEGORY_OUTDOORS if use_outdoor_categories else CATEGORY_DISTRACTORS
-    for room in outdoor_nodes:
+    for room in outdoor_rooms:
         random_outdoor_room = np.random.choice(categories[category_key])
-        while random_outdoor_room in outdoor_nodes_assigned:
+        while random_outdoor_room in outdoor_rooms_assigned:
             random_outdoor_room = np.random.choice(categories[category_key])
 
-        outdoor_nodes_assigned.append(random_outdoor_room)
-        ade_graph.nodes[room]['base_type'] = "outdoor"  # Used as an identifier for rooms with one neighbour
-        ade_graph.nodes[room]['type'] = random_outdoor_room
-        ade_graph.nodes[room]['ambiguous'] = False
+        outdoor_rooms_assigned.append(random_outdoor_room)
+        nx_graph.nodes[room]['base_type'] = "outdoor"  # Used as an identifier for rooms with one neighbour
+        nx_graph.nodes[room]['type'] = random_outdoor_room
+        nx_graph.nodes[room]['ambiguous'] = False
 
-        # TODO: Pass 'type' as argument as well, to pre set certain type of rooms
-        # At least 2 home_office and 2 bedrooms, for example
-
-    indoor_nodes_assigned = []
+    indoor_rooms_assigned = []
     # Handles cases if outdoor nodes are also randomly drawn from "targets" category
-    room_type_assigned = [] if category_key != CATEGORY_TARGETS else outdoor_nodes_assigned
+    room_type_assigned = [] if category_key != CATEGORY_TARGETS else outdoor_rooms_assigned
 
     for amb in ambiguity:
         # Pick a random unique room category from TARGETS for each entry in ambiguity
@@ -92,24 +87,24 @@ def assign_types(ade_graph,
         room_count = 1
         for r in range(amb):
             # Pick a random node from the list of indoor nodes and assign the selected room_category
-            room = indoor_nodes[np.random.randint(len(indoor_nodes))]
-            while room in indoor_nodes_assigned:
-                room = indoor_nodes[np.random.randint(len(indoor_nodes))]
-            indoor_nodes_assigned.append(room)
+            room = indoor_rooms[np.random.randint(len(indoor_rooms))]
+            while room in indoor_rooms_assigned:
+                room = indoor_rooms[np.random.randint(len(indoor_rooms))]
+            indoor_rooms_assigned.append(room)
 
-            ade_graph.nodes[room]['base_type'] = "indoor"
+            nx_graph.nodes[room]['base_type'] = "indoor"
             # Make the room_type unique
             # (so instead of assigning 'kitchen' to multiple nodes, assign 'kitchen1' and 'kitchen2')
             if amb != 1:
-                ade_graph.nodes[room]['type'] = str(random_room_type) + " " + str(room_count)
+                nx_graph.nodes[room]['type'] = str(random_room_type) + " " + str(room_count)
                 room_count += 1
-                ade_graph.nodes[room]['ambiguous'] = True  # Set True for all ambiguous rooms
+                nx_graph.nodes[room]['ambiguous'] = True  # Set True for all ambiguous rooms
             else:
-                ade_graph.nodes[room]['type'] = random_room_type
-                ade_graph.nodes[room]['ambiguous'] = False  # Rooms are not ambiguous when ambiguity = [1]
+                nx_graph.nodes[room]['type'] = random_room_type
+                nx_graph.nodes[room]['ambiguous'] = False  # Rooms are not ambiguous when ambiguity = [1]
 
     # Remaining nodes - as distractors
-    distractor_rooms = list(set(indoor_nodes) - set(indoor_nodes_assigned))
+    distractor_rooms = list(set(indoor_rooms) - set(indoor_rooms_assigned))
 
     # Collect remaining room_types from targets and aa categories["distractors"] to it
     all_targets = set(categories[CATEGORY_TARGETS])
@@ -123,50 +118,50 @@ def assign_types(ade_graph,
         while random_distractor in distractor_assigned:
             random_distractor = np.random.choice(dist_categories)
 
-        ade_graph.nodes[room]['base_type'] = "indoor"
-        ade_graph.nodes[room]['type'] = random_distractor
-        ade_graph.nodes[room]['ambiguous'] = False
+        nx_graph.nodes[room]['base_type'] = "indoor"
+        nx_graph.nodes[room]['type'] = random_distractor
+        nx_graph.nodes[room]['ambiguous'] = False
 
-    return ade_graph
+    return nx_graph
 
 
-def assign_images(ade_graph, json_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources",
+def assign_images(nx_graph, json_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources",
                                                    "images.json")):
     """
     Assign Images from ADE20k dataset to a graph whose nodes have already been assigned a specific room type
 
     Args:
-        ade_graph: networkx type graph containing node info - {type, base_type, target}
+        nx_graph: networkx type graph containing node info - {type, base_type, target}
         json_path: Path to a jsonn file containing mapping of room_types to various images
 
     Return:
-        ade_graph: Graph with updated nodes with randomly assigned image of a specific room_type
+        nx_graph: Graph with updated nodes with randomly assigned image of a specific room_type
     """
 
     with open(json_path, 'r') as f:
         json_data = json.load(f)
 
     images_assigned = []
-    for node in ade_graph.nodes():
-        room_type = ade_graph.nodes[node]['type']
+    for node in nx_graph.nodes():
+        room_type = nx_graph.nodes[node]['type']
         room_type = room_type.split(" ")[0]  # For ambiguous cases - remove assigned number
         random_image = np.random.choice(json_data[room_type])
         while random_image in images_assigned:
             random_image = np.random.choice(json_data[room_type])
         images_assigned.append(random_image)
-        ade_graph.nodes[node]['image'] = random_image
+        nx_graph.nodes[node]['image'] = random_image
 
-    return ade_graph
+    return nx_graph
 
 
-def print_mapping(ade_graph):
+def print_mapping(nx_graph):
     """
     Print a mapping of node: room_type - image_url for all nodes in the graph
     """
-    for this_node in ade_graph.nodes():
+    for this_node in nx_graph.nodes():
         print('{}: {} - {:>50}'.format(this_node,
-                                       ade_graph.nodes[this_node]['type'],
-                                       ade_graph.nodes[this_node]['image']))
+                                       nx_graph.nodes[this_node]['type'],
+                                       nx_graph.nodes[this_node]['image']))
 
 
 def select_random_room(available_rooms: list, occupied: Tuple | None):
@@ -226,9 +221,3 @@ def find_distance(edges: List[Tuple], nodes: List) -> Dict:
 
     return distances
 
-if __name__ == "__main__":
-    ade_map = ADEMap(3,3,5)
-    ade_gr = ade_map.create_tree_graph()
-    distances = find_distance(ade_gr.edges(), ade_gr.nodes())
-    print(distances)
-    ade_map.plot_graph(ade_gr)
