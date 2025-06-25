@@ -3,49 +3,6 @@ from engine.ade_maps import ADEMap
 
 import os
 import numpy as np
-from typing import Tuple
-
-# TODO: Move this to initial_prompt.template under resources
-EXPL_PROMPT = """
-You’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.
-Here is the description of what the Escape Room looks like:  $INIT_DESCRIPTION
-
-At each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,
-choose one of three actions:
-
-1. If your current image matches your memory of the Escape Room description, reply with only one word
-ESCAPE
-
-2. If you need more information to verify if it’s the same room, reply -
-QUESTION: your question here
-
-3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -
-MOVE: direction you chose
-
-Do not generate any additional text.
-"""
-
-EXPL_REPROMPT = """
-Now you made a move to this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
-$MOVES
-"""
-
-EXPL_FAIL_REPROMPT = """
-We are still in this room, and you can either ESCAPE, ask me a QUESTION or MOVE in one of these directions 
-$MOVES
-"""
-
-# TODO: change $MOVES to $DIRECTIONS
-
-GUIDE_PROMPT = """
-You’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.
-
-First, describe your image in this format and nothing else:
-DESCRIPTION: your description of the image
-
-Whenever I ask a question, answer based only on your image in this format and nothing else:
-ANSWER: your answer
-"""
 
 # TODO:  Add self.tags and every "English" text in instance generator itself. No english specific code in master
 
@@ -53,7 +10,6 @@ N = 10 # Number of instances per experiment
 np.random.seed(999)
 random_seeds = [np.random.randint(1,1000) for i in range(N)]
 print(random_seeds)
-
 
 class EscapeRoomInstanceGenerator(GameInstanceGenerator):
     def __init__(self):

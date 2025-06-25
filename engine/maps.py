@@ -25,6 +25,9 @@ class BaseMap(BaseGraph):
         np.random.seed(seed)
         super().__init__(m, n, n_rooms)
 
+    # TODO: Might fail in certain cases (see raise Errors, both here and in graphs), so add multiple tries.
+    # This is called after generating graphs, there might be a case, where the constraints set are not compatible
+    # with generated graph
     @staticmethod
     def set_positions(ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
                       end_type: str = "random", distance: int = 2, edges: list = None) -> Any | None:

@@ -1,0 +1,12 @@
+We are still in this room, choose one of three actions:
+
+1. If your current image matches your memory of the Escape Room description, reply with only one word
+ESCAPE
+
+2. If you need more information to verify if it’s the same room, reply -
+QUESTION: your question here
+
+3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -
+MOVE: direction you chose
+
+Do not generate any additional text.

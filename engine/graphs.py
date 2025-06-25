@@ -1,8 +1,7 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-import random
-from typing import List, Set, Tuple
+from typing import List, Set
 from collections import deque
 import logging
 
@@ -24,7 +23,7 @@ becomes more complex, so create each graph type here
 
 class BaseGraph:
 
-    def __init__(self, m: int = 3, n: int = 3, n_rooms: int = 9):
+    def __init__(self, m: int = 3, n: int = 3, n_rooms: int = 9, seed: int = None):
         """
         Set up a base layout for a 2-D graph, for a given type
 
@@ -40,9 +39,12 @@ class BaseGraph:
 
         assert n_rooms <= m * n, "Number of rooms cannot exceed grid size"
 
+        logger.info(f"Initializing graph with {n_rooms} rooms, in a {m} x {n} grid")
         self.m = m
         self.n = n
         self.n_rooms = n_rooms
+        self.graph_rng = np.random.default_rng(seed)
+
 
     @staticmethod
     def get_valid_neighbors(current_pos: np.array = np.array([0, 0]), visited: List|Set = None, m: int = 3, n: int = 3):
@@ -76,11 +78,12 @@ class BaseGraph:
             tree_graph: nx.Graph of Tree type created using basic BFS
 
         """
+        logger.info(f"Creating tree graph with {self.m} x {self.n} rooms")
         tree_graph = nx.Graph()
         visited = set()
 
         # Start node
-        start_node = (random.randint(0, self.m - 1), random.randint(0, self.n - 1))
+        start_node = (self.graph_rng.integers(0, self.m - 1), self.graph_rng.integers(0, self.n - 1))
         queue = deque()
         queue.append(start_node)
         visited.add(start_node)
@@ -90,7 +93,7 @@ class BaseGraph:
             current_node = queue.popleft()
             neighbors = self.get_valid_neighbors(current_node, visited, self.m, self.n)
 
-            random.shuffle(neighbors)
+            self.graph_rng.shuffle(neighbors)
 
             for next_node in neighbors:
                 if len(visited) >= self.n_rooms:
@@ -120,14 +123,14 @@ class BaseGraph:
             raise ValueError(f"Grid must be at least 3×3 for a star (got {self.m}×{self.n}).")
         if self.n_rooms < 5:
             raise ValueError(f"Need at least 5 rooms for a star (got {self.n_rooms}).")
-        if self.n_rooms > self.m * self.n:
-            raise ValueError(f"Cannot place {self.n_rooms} rooms in a {self.m}×{self.n} grid.")
+
+        logger.info(f"Creating star graph with {self.m} x {self.n} rooms")
 
         star_graph = nx.Graph()
         visited = set()
 
-        # Pick a random central room
-        center = (np.random.randint(2, self.m-1), np.random.randint(2, self.n-1))
+        # Pick a random room with padding of
+        center = (self.graph_rng.integers(2, self.m-2), self.graph_rng.integers(2, self.n-2))
         star_graph.add_node(center)
         visited.add(center)
 
@@ -142,10 +145,10 @@ class BaseGraph:
                 arms.append(nb)
         assert len(arms) == 4, "Check the configuration for arms/central room"
 
-        # If more n_rooms remain, attach them one by one
+        # If more n_rooms remain, attach them one by one to a random arm
         while len(visited) < self.n_rooms:
             # pick a random endpoint from the current arms
-            endpoint = random.choice(arms)
+            endpoint =tuple(self.graph_rng.choice(arms))
             # find its valid unvisited neighbors
             vn = [tuple(p) for p in self.get_valid_neighbors(endpoint, visited, self.m, self.n)]
             if not vn:
@@ -156,7 +159,7 @@ class BaseGraph:
                                      f"For the given {self.n_rooms}, try increasing the grid size")
                 continue
 
-            new_room = random.choice(vn)
+            new_room = tuple(self.graph_rng.choice(vn))
             star_graph.add_node(new_room)
             star_graph.add_edge(endpoint, new_room)
             visited.add(new_room)
@@ -165,7 +168,7 @@ class BaseGraph:
         return star_graph
 
 
-    def create_path_graph(self):
+    def _create_path_graph(self):
         """
         Create a simple path (chain) of self.n_rooms nodes on the grid.
 
@@ -174,6 +177,7 @@ class BaseGraph:
         Raises:
           ValueError: if it gets stuck before placing all nodes.
         """
+
         path_graph = nx.Graph()
         visited = []
         # start somewhere random
@@ -191,12 +195,38 @@ class BaseGraph:
                     f"\nVisited the following nodes - {visited}"
                     f"\nCannot extend to {self.n_rooms}. Try another random seed"
                 )
-            nxt = random.choice(nbrs)
+            nxt = tuple(self.graph_rng.choice(nbrs))
             visited.append(nxt)
             path_graph.add_node(nxt)
             path_graph.add_edge(curr, nxt)
 
         return path_graph
+
+    def create_path_graph(self):
+        """
+        Attempt to create a path graph up to max_attempts times.
+        Returns:
+            path_graph: A valid path graph.
+        Raises:
+            RuntimeError: If all attempts fail.
+        """
+        max_attempts = 20
+        logger.info(f"Creating path graph with {self.m} x {self.n} rooms, with max_attempts {max_attempts}")
+
+        for attempt in range(max_attempts):
+            try:
+                logger.info(f"Attempt {attempt+1}...")
+                path_graph = self._create_path_graph()
+                logger.info(f"Success on attempt {attempt}")
+                return path_graph
+            except ValueError as e:
+                logger.info(f"Attempt {attempt} failed: {e}")
+
+        raise RuntimeError(
+            f"Failed to create a path graph after {max_attempts} attempts. "
+            f"Try adjusting parameters!!"
+        )
+
 
     def create_cycle_graph(self):
         """
@@ -209,11 +239,10 @@ class BaseGraph:
 
         cycle_graph = nx.Graph()
 
-        # TODO: interchange row/col
-        start_row = np.random.randint(0, self.n-1)
+        start_row = self.graph_rng.integers(0, self.n-2) # Leave 1 row
         num_cols = int(self.n_rooms/2)
         threshold_col = self.m - num_cols
-        start_col = np.random.randint(0, threshold_col+1)
+        start_col = self.graph_rng.integers(0, threshold_col+1)
 
         # Add nodes
         for i in range(start_col, start_col+num_cols):
