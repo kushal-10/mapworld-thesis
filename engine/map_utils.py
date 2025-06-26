@@ -41,12 +41,13 @@ def select_random_type(room_types_assigned: List, category_list: List, rng: np.r
     return random_room_type
 
 
-def select_random_room(available_rooms: list, occupied: Tuple | None):
+def select_random_room(available_rooms: list, occupied: Tuple | None, rng: np.random.default_rng):
     """
     Pick a random room from a list of (available rooms - occupied)
     Args:
         available_rooms: List of available nodes that can be assigned a room
         occupied: A node that already has been assigned a room
+        rng: Random number generator
 
     Returns:
         A random room chosen
@@ -54,7 +55,7 @@ def select_random_room(available_rooms: list, occupied: Tuple | None):
 
     if occupied in available_rooms:
         available_rooms.remove(occupied)
-    return available_rooms[np.random.choice(len(available_rooms))]
+    return available_rooms[rng.choice(len(available_rooms))]
 
 
 def find_distance(edges: List[Tuple], nodes: List) -> Dict:

@@ -4,7 +4,8 @@ import logging
 import numpy as np
 
 from engine.graphs import BaseGraph
-import engine.map_utils as map_utils
+from engine.map_assignments import assign_images, assign_room_categories
+from engine.map_utils import select_random_room, find_distance
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +28,6 @@ class BaseMap(BaseGraph):
         """
         super().__init__(m, n, n_rooms, seed)
         self.graph_type = graph_type
-        self.rng = np.random.default_rng(seed)
 
 
     def set_positions(self, ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
@@ -40,7 +40,8 @@ class BaseMap(BaseGraph):
             ambiguous_rooms: List of rooms assigned as ambiguous
             indoor_rooms: List of rooms assigned as indoor
             outdoor_rooms: List of rooms assigned as outdoor
-            start_type: Type of room that needs to be assigned - indoor/outdoor/random/ambiguous to agents start position
+            start_type: Type of room that needs to be assigned
+                        - indoor/outdoor/random/ambiguous to agents start position
             end_type: Type of room that needs to be assigned to the target room
             distance: Distance between start and target rooms.
             edges: List of edges in the graph.
@@ -62,25 +63,28 @@ class BaseMap(BaseGraph):
             if ambiguous_rooms:
                 available_rooms = ambiguous_rooms
             else:
-                logging.info(f"No ambiguous rooms available! Setting a random room as target position. Check graph configuration!!")
+                logging.info(f"No ambiguous rooms available! Setting a random room as target position. "
+                             f"Check graph configuration!!")
                 available_rooms = indoor_rooms+outdoor_rooms
 
         elif end_type == "indoor":
             if indoor_rooms:
                 available_rooms = indoor_rooms
             else:
-                logging.info(f"No indoor rooms available! Setting a random room as target position. Check graph configuration!!")
+                logging.info(f"No indoor rooms available! Setting a random room as target position. "
+                             f"Check graph configuration!!")
                 available_rooms = ambiguous_rooms + outdoor_rooms
         else:
             if end_type == "outdoor":
                 available_rooms = outdoor_rooms
             else:
-                logging.info(f"No outdoor rooms available! Setting a random room as target position. Check graph configuration!!")
+                logging.info(f"No outdoor rooms available! Setting a random room as target position. "
+                             f"Check graph configuration!!")
                 available_rooms = ambiguous_rooms + indoor_rooms
 
-        target_pos = map_utils.select_random_room(available_rooms=available_rooms, occupied=None, rng=self.graph_rng)
+        target_pos = select_random_room(available_rooms=available_rooms, occupied=None, rng=self.graph_rng)
 
-        node_distances = map_utils.find_distance(edges, all_rooms)[target_pos]
+        node_distances = find_distance(edges, all_rooms)[target_pos]
         logging.info(f"Node distances from target position: {node_distances}")
 
         ## Next, find nodes at `distance` from target_pos and then look if expected start_type is available
@@ -148,9 +152,10 @@ class BaseMap(BaseGraph):
             nx_graph = self.create_ladder_graph()
         else:
             raise ValueError(f"Graph type {self.graph_type} is not supported.")
-
-        nx_graph = map_utils.assign_types(graph=nx_graph, ambiguity=ambiguity, rng=self.graph_rng)
-        nx_graph = map_utils.assign_images(nx_graph=nx_graph, rng=self.graph_rng)
+        print(f"Graph type: {self.graph_type}")
+        print(f"Graph nx_graph: {nx_graph}")
+        assign_room_categories(nx_graph=nx_graph, ambiguity=ambiguity, rng=self.graph_rng)
+        assign_images(nx_graph=nx_graph, rng=self.graph_rng)
 
         # Metadata values
         graph_id = ""
@@ -171,7 +176,7 @@ class BaseMap(BaseGraph):
         # Nodes Metadata
         for node in nx_graph.nodes():
             # Clean Node name
-            node_name = nx_graph.nodes[node]['type']
+            node_name = nx_graph.nodes[node]['room_type']
             node_name = " ".join(node_name.split("__"))
             node_name = " ".join(node_name.split("_"))
             node_name = node_name.capitalize()
