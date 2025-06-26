@@ -1,15 +1,16 @@
+from typing import Any
+import logging
+
+import numpy as np
+
 from engine.graphs import BaseGraph
 import engine.map_utils as map_utils
 
-import numpy as np
-from typing import Any
-
-import logging
 logger = logging.getLogger(__name__)
 
 class BaseMap(BaseGraph):
 
-    def __init__(self, m: int = 3, n: int = 3, n_rooms: int = 9, seed: int = 42):
+    def __init__(self, m: int = 3, n: int = 3, n_rooms: int = 9, graph_type: str = None, seed: int = None):
         """
         Set up a base 2-D map whose rooms are based on a given image (ADE20k) dataset.
 
@@ -17,19 +18,19 @@ class BaseMap(BaseGraph):
             m: Number of rows in the graph.
             n: Number of columns in the graph
             n_rooms: Required number of rooms. Should be less than n*m
+            graph_type: Type of graph from BaseGraph methods
+            seed: Random seed
 
         Raises:
             ValueError: If any value is unset
             AssertionError: If `n_rooms` > `n*m`
         """
-        np.random.seed(seed)
-        super().__init__(m, n, n_rooms)
+        super().__init__(m, n, n_rooms, seed)
+        self.graph_type = graph_type
+        self.rng = np.random.default_rng(seed)
 
-    # TODO: Might fail in certain cases (see raise Errors, both here and in graphs), so add multiple tries.
-    # This is called after generating graphs, there might be a case, where the constraints set are not compatible
-    # with generated graph
-    @staticmethod
-    def set_positions(ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
+
+    def set_positions(self, ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
                       end_type: str = "random", distance: int = 2, edges: list = None) -> Any | None:
         """
         Set agent position/target position.
@@ -77,7 +78,7 @@ class BaseMap(BaseGraph):
                 logging.info(f"No outdoor rooms available! Setting a random room as target position. Check graph configuration!!")
                 available_rooms = ambiguous_rooms + indoor_rooms
 
-        target_pos = map_utils.select_random_room(available_rooms=available_rooms, occupied=None)
+        target_pos = map_utils.select_random_room(available_rooms=available_rooms, occupied=None, rng=self.graph_rng)
 
         node_distances = map_utils.find_distance(edges, all_rooms)[target_pos]
         logging.info(f"Node distances from target position: {node_distances}")
@@ -96,7 +97,7 @@ class BaseMap(BaseGraph):
             start_pos = exact_nodes[0]
         else:
             if start_type == "random":
-                start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+                start_pos = exact_nodes[self.graph_rng.integers(len(exact_nodes))]
             elif start_type == "ambiguous":
                 for node in exact_nodes:
                     if node in ambiguous_rooms:
@@ -104,7 +105,7 @@ class BaseMap(BaseGraph):
                 if not start_pos:
                     logging.info(f"No ambiguous room found at distance {distance} from selected target_node type! "
                                  f"Setting a random room as start position at distance {distance}! ")
-                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+                    start_pos = exact_nodes[self.graph_rng.integers(len(exact_nodes))]
             elif start_type == "indoor":
                 for node in exact_nodes:
                     if node in indoor_rooms:
@@ -112,7 +113,7 @@ class BaseMap(BaseGraph):
                 if not start_pos:
                     logging.info(f"No indoor room found at distance {distance} from selected target_node type! "
                                  f"Setting a random room as start position at distance {distance}! ")
-                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+                    start_pos = exact_nodes[self.graph_rng.integers(len(exact_nodes))]
             else:
                 for node in exact_nodes:
                     if node in outdoor_rooms:
@@ -120,21 +121,36 @@ class BaseMap(BaseGraph):
                 if not start_pos:
                     logging.info(f"No outdoor room found at distance {distance} from selected target_node type! "
                                  f"Setting a random room as start position at distance {distance}! ")
-                    start_pos = exact_nodes[np.random.randint(len(exact_nodes))]
+                    start_pos = exact_nodes[self.graph_rng.integers(len(exact_nodes))]
 
         return start_pos, target_pos
 
 
-    def metadata(self, nx_graph, start_type: str = "outdoor", end_type: str = "outdoor", distance: int = 2) -> dict:
+    def metadata(self, start_type: str = "outdoor", end_type: str = "outdoor", ambiguity: list = None, distance: int = 2) -> dict:
         """
         Generate metadata for the Graph incl. start/end points
         Args:
 
-            nx_graph: networkx type graph
             start_type: "outdoor"/"indoor"/"random"/"ambiguous" - Defining agent start position
             end_type: "outdoor"/"indoor"/"random"/"ambiguous" - Defining target room position
+            ambiguity: Type of ambiguity to use
             distance: Distance between start and target node.
         """
+        if self.graph_type=="cycle":
+            nx_graph = self.create_cycle_graph()
+        elif self.graph_type=="tree":
+            nx_graph = self.create_tree_graph()
+        elif self.graph_type=="star":
+            nx_graph = self.create_star_graph()
+        elif self.graph_type=="path":
+            nx_graph = self.create_path_graph()
+        elif self.graph_type=="ladder":
+            nx_graph = self.create_ladder_graph()
+        else:
+            raise ValueError(f"Graph type {self.graph_type} is not supported.")
+
+        nx_graph = map_utils.assign_types(graph=nx_graph, ambiguity=ambiguity, rng=self.graph_rng)
+        nx_graph = map_utils.assign_images(nx_graph=nx_graph, rng=self.graph_rng)
 
         # Metadata values
         graph_id = ""

@@ -83,7 +83,7 @@ class BaseGraph:
         visited = set()
 
         # Start node
-        start_node = (self.graph_rng.integers(0, self.m - 1), self.graph_rng.integers(0, self.n - 1))
+        start_node = (self.graph_rng.integers(0, self.m), self.graph_rng.integers(0, self.n))
         queue = deque()
         queue.append(start_node)
         visited.add(start_node)
@@ -129,8 +129,8 @@ class BaseGraph:
         star_graph = nx.Graph()
         visited = set()
 
-        # Pick a random room with padding of
-        center = (self.graph_rng.integers(2, self.m-2), self.graph_rng.integers(2, self.n-2))
+        # Pick a random room with padding of 1 on the borders
+        center = (self.graph_rng.integers(1, self.m-1), self.graph_rng.integers(1, self.n-1))
         star_graph.add_node(center)
         visited.add(center)
 
@@ -239,7 +239,7 @@ class BaseGraph:
 
         cycle_graph = nx.Graph()
 
-        start_row = self.graph_rng.integers(0, self.n-2) # Leave 1 row
+        start_row = self.graph_rng.integers(0, self.n-1) # Leave 1 row
         num_cols = int(self.n_rooms/2)
         threshold_col = self.m - num_cols
         start_col = self.graph_rng.integers(0, threshold_col+1)
