@@ -188,7 +188,8 @@ class EscapeRoom(DialogueGameMaster):
 
             if tag == "move":
                 self.total_explorer_moves += 1
-                if self.total_explorer_moves >= 20:
+                stdout_logger.info(f"Current explorer move: {self.total_explorer_moves}")
+                if self.total_explorer_moves >= 14:
                     self.aborted = True
                 stdout_logger.info(f"Move made from location - {self.game_map._agent_location}")
                 move = splits[1]

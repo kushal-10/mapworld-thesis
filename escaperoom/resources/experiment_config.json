@@ -31,5 +31,93 @@
         "start_type": "indoor",
         "end_type": "ambiguous",
         "ambiguity_region": "indoor"
+      },
+  "low_ambiguity":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [2],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "medium_ambiguity":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [3],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "high_ambiguity":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [4],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "path":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "path",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "ladder":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "ladder",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "star":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "star",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "near":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [1],
+        "distance": 3,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "far":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [1],
+        "distance": 4,
+        "start_type": "random",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
       }
 }
