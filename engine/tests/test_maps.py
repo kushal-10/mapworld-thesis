@@ -20,32 +20,32 @@ class MapGenerationTest(unittest.TestCase):
         self.seed = 10
 
 
-    # def testPathMap(self):
-    #     for n_rooms in range(8,9):
-    #         for dist in range(1,5):
-    #             for amb in ([1], [2], [3], [4]):
-    #                 for seed in range(1,self.seed+1):
-    #                     map = BaseMap(10,10, n_rooms=n_rooms, graph_type="path", seed=seed)
-    #                     if sum(amb) <= n_rooms:
-    #                         map_metadata = map.metadata(start_type="indoor",
-    #                                                     end_type="ambiguous",
-    #                                                     ambiguity=amb,
-    #                                                     ambiguity_region="random",
-    #                                                     distance=dist)
-    #
-    #
-    # def testStarMap(self):
-    #     for n_rooms in range(6,7):
-    #         for dist in range(2,3):
-    #             for amb in [[2,2]]:
-    #                 for seed in range(1,self.seed+1):
-    #                     map = BaseMap(10,10, n_rooms=n_rooms, graph_type="star", seed=seed)
-    #                     if sum(amb) <= n_rooms:
-    #                         map_metadata = map.metadata(start_type="ambiguous",
-    #                                                     end_type="ambiguous",
-    #                                                     ambiguity=amb,
-    #                                                     ambiguity_region="indoor",
-    #                                                     distance=dist)
+    def testPathMap(self):
+        for n_rooms in range(8,9):
+            for dist in range(1,5):
+                for amb in ([1], [2], [3], [4]):
+                    for seed in range(1,self.seed+1):
+                        map = BaseMap(10,10, n_rooms=n_rooms, graph_type="path", seed=seed)
+                        if sum(amb) <= n_rooms:
+                            map_metadata = map.metadata(start_type="indoor",
+                                                        end_type="ambiguous",
+                                                        ambiguity=amb,
+                                                        ambiguity_region="random",
+                                                        distance=dist)
+
+
+    def testStarMap(self):
+        for n_rooms in range(6,7):
+            for dist in range(2,3):
+                for amb in [[2,2]]:
+                    for seed in range(1,self.seed+1):
+                        map = BaseMap(10,10, n_rooms=n_rooms, graph_type="star", seed=seed)
+                        if sum(amb) <= n_rooms:
+                            map_metadata = map.metadata(start_type="ambiguous",
+                                                        end_type="ambiguous",
+                                                        ambiguity=amb,
+                                                        ambiguity_region="indoor",
+                                                        distance=dist)
 
     def testCycleMap(self):
         for n_rooms in range(8,9):
@@ -60,7 +60,6 @@ class MapGenerationTest(unittest.TestCase):
                                                         ambiguity=amb,
                                                         ambiguity_region="indoor",
                                                         distance=dist)
-
 
 
 if __name__ == '__main__':

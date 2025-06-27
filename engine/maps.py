@@ -195,6 +195,8 @@ class BaseMap(BaseGraph):
         outdoor_rooms = []
 
         # Nodes Metadata
+        # NOTE: Every node is saved by typecasting into a string - str(node) -
+        #       As this metadata gets dumped into instances.json, does not accept np.int64/tuples
         for node in nx_graph.nodes():
             # Clean Node name
             node_name = nx_graph.nodes[node]['room_type']
@@ -206,10 +208,10 @@ class BaseMap(BaseGraph):
             graph_id += str(list(node)[0]) + str(list(node)[1]) + node_name[0].lower()
 
             named_nodes.append(node_name)
-            unnamed_nodes.append(node)
+            unnamed_nodes.append(str(node))
 
             node_to_category[str(node)] = node_name
-            category_to_node[node_name] = node
+            category_to_node[node_name] = str(node)
             node_to_image[str(node)] = nx_graph.nodes[node]['image']
             category_to_image[node_name] = nx_graph.nodes[node]['image']
 
@@ -225,10 +227,12 @@ class BaseMap(BaseGraph):
         # Edge Metadata
         for edge in nx_graph.edges():
             named_edge = []
+            unnamed_edge = []
             for e in edge:
                 named_edge.append(node_to_category[str(e)])
+                unnamed_edge.append(str(e))
             named_edges.append(tuple(named_edge))
-            unnamed_edges.append(edge)
+            unnamed_edges.append(tuple(unnamed_edge))
 
         # Set Random start and Target positions
         # Can be overridden by the experiment config/game dev if required
@@ -242,8 +246,8 @@ class BaseMap(BaseGraph):
 
         map_metadata = {
             "graph_id": graph_id,
-            "m": self.m,
-            "n": self.n,
+            "m": int(self.m),
+            "n": int(self.n),
             "named_nodes": named_nodes,
             "unnamed_nodes": unnamed_nodes,
             "named_edges": named_edges,

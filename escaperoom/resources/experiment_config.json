@@ -6,7 +6,30 @@
         "type": "cycle",
         "ambiguity": [1],
         "distance": 2,
-        "start_type": "",
-        "end_type": "",
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+    "medium":
+      {
+        "size": 10,
+        "rooms":6,
+        "type": "cycle",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
+  "large":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "cycle",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
       }
 }
