@@ -87,8 +87,10 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
 
-        self.max_explorer_retries = 2 # At max, Let the explorer make 2 wrong moves continuously from the same room
+        self.max_explorer_retries = 4 # At max, Let the explorer make 2 wrong moves continuously from the same room
         self.current_explorer_try = 0 # reset try after every explorer move (to another room)
+        self.total_explorer_moves = 0 # log all explorer moves valid+invalid here.
+        # Check against a max value for aborting
 
         moves = self.game_map.get_next_moves()
         # Name of the room category - bedroom, for example
@@ -185,6 +187,9 @@ class EscapeRoom(DialogueGameMaster):
 
 
             if tag == "move":
+                self.total_explorer_moves += 1
+                if self.total_explorer_moves >= 20:
+                    self.aborted = True
                 stdout_logger.info(f"Move made from location - {self.game_map._agent_location}")
                 move = splits[1]
                 move = move.lower().strip()
