@@ -6,6 +6,21 @@ import numpy as np
 from typing import Tuple, Dict, List
 from collections import deque, defaultdict
 
+class MapConfigError(Exception):
+    """Base class for all map config errors."""
+    pass
+
+class NodesExhaustedError(MapConfigError):
+    """Raised when there aren’t enough nodes left for the requested ambiguity."""
+    def __init__(self, nodes_available: List, ambiguity: List, ambiguity_region: str):
+        msg = (f"Cannot assign ambiguous nodes in region - {ambiguity_region}"
+               f"\nPassed ambiguity is {ambiguity} that requires at least {sum(ambiguity)} nodes in "
+               f"{ambiguity_region} region but only {len(nodes_available)} node(s): {nodes_available} are available."
+               f"\nSet another start/end type, set another ambiguity region "
+               f"or reduce ambiguity for the selected graph type.")
+        super().__init__(msg)
+
+
 
 def load_json(json_path: str):
     with open(json_path, 'r', encoding="utf-8") as f:

@@ -30,8 +30,16 @@ class BaseMap(BaseGraph):
         self.graph_type = graph_type
 
 
-    def set_positions(self, ambiguous_rooms: list, indoor_rooms: list, outdoor_rooms: list, start_type: str = "random",
-                      end_type: str = "random", distance: int = 2, edges: list = None) -> Any | None:
+    def set_positions(
+        self,
+        ambiguous_rooms: list,
+        indoor_rooms: list,
+        outdoor_rooms: list,
+        start_type: str = "random",
+        end_type: str = "random",
+        distance: int = 2,
+        edges: list = None
+    ) -> Any | None:
         """
         Set agent position/target position.
         Based on the list of rooms provided and required room type for the node
@@ -95,7 +103,8 @@ class BaseMap(BaseGraph):
 
         if not exact_nodes:
             raise RuntimeError(f"No node found at distance {distance} from selected target_node type!"
-                               f"\nAvailable nodes at distances - {node_distances}")
+                               f"\nAvailable nodes at distances - {node_distances}"
+                               f"\nSelected node - {target_pos}")
 
         if len(exact_nodes) == 1:
             start_pos = exact_nodes[0]
@@ -127,10 +136,18 @@ class BaseMap(BaseGraph):
                                  f"Setting a random room as start position at distance {distance}! ")
                     start_pos = exact_nodes[self.graph_rng.integers(len(exact_nodes))]
 
+        logging.info(f"Selected start node: {start_pos}, end node: {target_pos} at distance {distance}")
         return start_pos, target_pos
 
 
-    def metadata(self, start_type: str = "outdoor", end_type: str = "outdoor", ambiguity: list = None, distance: int = 2) -> dict:
+    def metadata(
+        self,
+        start_type: str = "outdoor",
+        end_type: str = "outdoor",
+        ambiguity: list = None,
+        ambiguity_region: str = "random",
+        distance: int = 2
+    ) -> dict:
         """
         Generate metadata for the Graph incl. start/end points
         Args:
@@ -138,6 +155,8 @@ class BaseMap(BaseGraph):
             start_type: "outdoor"/"indoor"/"random"/"ambiguous" - Defining agent start position
             end_type: "outdoor"/"indoor"/"random"/"ambiguous" - Defining target room position
             ambiguity: Type of ambiguity to use
+            ambiguity_region: A str that specifies ambiguous rooms distribution between indoor nodes, outdoor nodes
+                                or both
             distance: Distance between start and target node.
         """
         if self.graph_type=="cycle":
@@ -152,9 +171,11 @@ class BaseMap(BaseGraph):
             nx_graph = self.create_ladder_graph()
         else:
             raise ValueError(f"Graph type {self.graph_type} is not supported.")
-        print(f"Graph type: {self.graph_type}")
-        print(f"Graph nx_graph: {nx_graph}")
-        assign_room_categories(nx_graph=nx_graph, ambiguity=ambiguity, rng=self.graph_rng)
+
+        assign_room_categories(nx_graph=nx_graph,
+                               ambiguity=ambiguity,
+                               ambiguity_region=ambiguity_region,
+                               rng=self.graph_rng)
         assign_images(nx_graph=nx_graph, rng=self.graph_rng)
 
         # Metadata values
@@ -193,13 +214,13 @@ class BaseMap(BaseGraph):
             category_to_image[node_name] = nx_graph.nodes[node]['image']
 
             # Additional info
-            if nx_graph.nodes[node]['base_type'] == "indoor":
-                if nx_graph.nodes[node]['ambiguous']:
-                    ambiguous_rooms.append(node)
-                else:
-                    indoor_rooms.append(node)
+            if nx_graph.nodes[node]['ambiguous']:
+                ambiguous_rooms.append(node)
             else:
-                outdoor_rooms.append(node)
+                if nx_graph.nodes[node]['base_type'] == "indoor":
+                    indoor_rooms.append(node)
+                else:
+                    outdoor_rooms.append(node)
 
         # Edge Metadata
         for edge in nx_graph.edges():
@@ -210,9 +231,14 @@ class BaseMap(BaseGraph):
             unnamed_edges.append(edge)
 
         # Set Random start and Target positions
-        # Can be overridden by the environment if required
-        start_pos, target_pos = self.set_positions(ambiguous_rooms=ambiguous_rooms, indoor_rooms=indoor_rooms, outdoor_rooms=outdoor_rooms,
-                                                   start_type=start_type, end_type=end_type, distance=distance, edges=nx_graph.edges())
+        # Can be overridden by the experiment config/game dev if required
+        start_pos, target_pos = self.set_positions(ambiguous_rooms=ambiguous_rooms,
+                                                   indoor_rooms=indoor_rooms,
+                                                   outdoor_rooms=outdoor_rooms,
+                                                   start_type=start_type,
+                                                   end_type=end_type,
+                                                   distance=distance,
+                                                   edges=nx_graph.edges())
 
         map_metadata = {
             "graph_id": graph_id,

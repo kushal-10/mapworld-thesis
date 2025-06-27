@@ -21,6 +21,7 @@ CATEGORY_OUTDOORS = "outdoors"
 CATEGORY_TARGETS = "targets"
 CATEGORY_DISTRACTORS = "distractors"
 
+
 def _assign_node_degree(nx_graph: nx.Graph, node: Tuple):
     """
     Assign degree_category to each node
@@ -48,11 +49,12 @@ def _split_nodes(nx_graph: nx.Graph) -> Tuple[List, List]:
 
     return indoor_nodes, outdoor_nodes
 
-def _set_categories_and_nodes(nx_graph: nx.Graph, ambiguity_area: str, categories: Dict):
+def _set_categories_and_nodes(nx_graph: nx.Graph, ambiguity: List, ambiguity_area: str, categories: Dict):
     """
     Set available nodes and available room categories for a given type of ambiguity_area
     Args:
         nx_graph: A networkx graph
+        ambiguity: A list of ambiguity config
         ambiguity_area (object) : A string representing the ambiguity region - "random"/"indoor"/"outdoor"
         categories: A dictionary with category names as keys
 
@@ -75,6 +77,11 @@ def _set_categories_and_nodes(nx_graph: nx.Graph, ambiguity_area: str, categorie
 
     logger.info(f"Categories available: {category_list} \n for nodes {nodes_available} \n for the chosen ambiguity "
                 f"region: {ambiguity_area}")
+
+    if len(nodes_available) < sum(ambiguity):
+        raise map_utils.NodesExhaustedError(nodes_available, ambiguity, ambiguity_area)
+
+
 
     return category_list, nodes_available
 
@@ -136,7 +143,6 @@ def _assign_ambiguous_room_categories(
         random_room_type = map_utils.select_random_type(room_categories_assigned, category_list, rng)
         room_categories_assigned.append(random_room_type)
         for i in range(amb):
-            # assign random rooms from the graph as ambiguous
             node_picked = nodes_available[start_index]
             node_degree = _assign_node_degree(nx_graph, node_picked)
             start_index += 1
@@ -179,7 +185,7 @@ def _assign_room_categories(
     room_categories_assigned = []  # Collect all the room types assigned
     nodes_assigned = []  # Collect all nodes that have been already assigned a node
 
-    category_list, nodes_available = _set_categories_and_nodes(nx_graph, ambiguity_region, categories)
+    category_list, nodes_available = _set_categories_and_nodes(nx_graph, ambiguity, ambiguity_region, categories)
     _assign_ambiguous_room_categories(nx_graph=nx_graph,
                                  category_list=category_list,
                                  nodes_assigned=nodes_assigned,

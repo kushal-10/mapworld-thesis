@@ -1,0 +1,12 @@
+{
+    "small":
+      {
+        "size": 10,
+        "rooms":4,
+        "type": "cycle",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "",
+        "end_type": "",
+      }
+}

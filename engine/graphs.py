@@ -217,10 +217,10 @@ class BaseGraph:
             try:
                 logger.info(f"Attempt {attempt+1}...")
                 path_graph = self._create_path_graph()
-                logger.info(f"Success on attempt {attempt}")
+                logger.info(f"Success on attempt {attempt+1}")
                 return path_graph
             except ValueError as e:
-                logger.info(f"Attempt {attempt} failed: {e}")
+                logger.info(f"Attempt {attempt+1} failed: {e}")
 
         raise RuntimeError(
             f"Failed to create a path graph after {max_attempts} attempts. "
