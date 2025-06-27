@@ -1,12 +1,14 @@
 from typing import Tuple, Dict, List
 from collections import deque
-import numpy as np
+import logging
 
+import numpy as np
 from clemcore.clemgame import GameScorer
 from clemcore.clemgame import metrics as ms
 
+logger = logging.getLogger(__name__)
 
-def get_neighbors(agent_room: Tuple, edges: List[Tuple[Tuple[int, int], Tuple[int, int]]]):
+def get_neighbors(agent_room: Tuple, edges: List):
     """
 
     Args:
@@ -30,7 +32,7 @@ def get_neighbors(agent_room: Tuple, edges: List[Tuple[Tuple[int, int], Tuple[in
 
 def unexplored_distance(neighbors: List[Tuple[int, int]],
                         visited_rooms: List[Tuple[int, int]],
-                        map_edges: List[Tuple[Tuple[int, int], Tuple[int, int]]]) -> List[Dict]:
+                        map_edges: List) -> List[Dict]:
     """
     Args:
         neighbors: Neighbors of Explorer
@@ -40,7 +42,9 @@ def unexplored_distance(neighbors: List[Tuple[int, int]],
     Returns:
         dist_to_unexplored: A dict containing the distance to the unexplored rooms from each neighbor of the Explorer
     """
-
+    logger.info(f"Finding distances to unexplored rooms for neighbors = {neighbors}"
+                f"\nvisited_rooms = {visited_rooms}"
+                f"\nmap_edges = {map_edges}")
     distances = []
     for nbr in neighbors:
         # BFS from this neighbor

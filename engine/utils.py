@@ -24,4 +24,4 @@ def get_next_node(start_pos: Tuple, move: str) -> Tuple:
     elif move == "west":
         return start_pos[0] - 1, start_pos[1]
     else:
-        raise ValueError("Invalid move! Check the parsed response!")
+        raise ValueError(f"Invalid move! Check the parsed response! Passed value for move - {move}")

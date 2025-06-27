@@ -6,8 +6,6 @@ from clemcore.clemgame import GameInstanceGenerator
 from engine.map_assignments import assign_room_categories, assign_images
 from engine.maps import BaseMap
 
-# TODO:  Add self.tags and every "English" text in instance generator itself. No english specific code in master
-
 # CONFIG
 N = 10 # Number of instances per experiment
 np_rng = np.random.default_rng(seed=42)
@@ -44,6 +42,7 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
         )
 
         experiments = self.load_json(os.path.join(RESOURCES_DIR, "experiment_config.json"))
+        lang_config = self.load_json(os.path.join(RESOURCES_DIR, "language_config.json"))
 
         for exp in experiments.keys():
             experiment = self.add_experiment(exp)

@@ -2,23 +2,28 @@
 Game Master for Escape Room
 Implementing a base variant for now...2-player game only
 """
+import ast
 # TODO : Add max number of images - If it reaches limit remove images from beginning
 # TODO : Add this value as a variable.
 
+from typing import List, Dict, Union
+import logging
+import os
+import json
+
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
 from clemcore.backends import Model
-
 
 from engine.environment import MapWorldEnv
 from engine.utils import get_next_node
 from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
-from typing import List, Dict, Union
-import logging
-import numpy as np
-
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
+
+lang_config_path = os.path.join(os.path.dirname(__file__), "resources", "language_config.json")
+with open(lang_config_path) as f:
+    LANG_CFG = json.load(f)
 
 class Explorer(Player):
     def __init__(self, model: Model):
@@ -82,12 +87,18 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
 
+        self.max_explorer_retries = 2 # At max, Let the explorer make 2 wrong moves continuously from the same room
+        self.current_explorer_try = 0 # reset try after every explorer move (to another room)
+
         moves = self.game_map.get_next_moves()
         # Name of the room category - bedroom, for example
         self.explorer_room = self.game_instance["node_to_category"][self.explorer_pos]
+        self.initial_description_tag = LANG_CFG["initial_description_tag"]
+        self.directions_tag = LANG_CFG["directions_tag"]
+        print(self.directions_tag, type(self.directions_tag))
         # Set possible Moves for Explorer
-        # TODO: Do this via API (for each possible direction, get the response and let the explorer build the list)
-        self.explorer_prompt = self.explorer_prompt.replace("$DIRECTIONS", moves)
+        print(f"Next possible moves: {moves}")
+        self.explorer_prompt = self.explorer_prompt.replace(self.directions_tag, moves)
         self.explorer_target = self.game_instance["target_node"]
 
         # Setup for Guide/Player2
@@ -133,7 +144,7 @@ class EscapeRoom(DialogueGameMaster):
         response = response.replace("```", "")
         if response.endswith("."):
             response = response[:-1]
-        return response
+        return response.lower()
 
 
     def _validate_player_response(self, player, utterance: str) -> bool:
@@ -165,10 +176,6 @@ class EscapeRoom(DialogueGameMaster):
             splits = utterance.split(":")
             tag = splits[0]
 
-            # FIXME: (Hardcode) handling "."
-            if tag == "escape.":
-                tag = "escape"
-
             if tag not in valid_tags:
                 self.aborted = True
                 stdout_logger.info(f"Aborting the Game. Explorer generated invalid tag {tag}")
@@ -184,24 +191,29 @@ class EscapeRoom(DialogueGameMaster):
                 self.pass_turn = False
 
                 next_node = get_next_node(tuple(self.game_map._agent_location), move)
-                list_next_node = list(next_node)
+                next_node = tuple(next_node)
 
                 stdout_logger.info(f"Move: {move}")
                 stdout_logger.info(f"Next node: {next_node}")
-                if list_next_node not in self.game_map.map_metadata["unnamed_nodes"]:
+                # FIXME: add str/tuple typecheck
+                if str(next_node) not in self.game_map.map_metadata["unnamed_nodes"]:
                     stdout_logger.info(f"Invalid move: {move}")
                     self.log_to_self("move", "invalid")
                     self.reprompt_fail = True
+                    self.current_explorer_try += 1
+                    if self.current_explorer_try == self.max_explorer_retries:
+                        self.aborted = True
                 else:
                     stdout_logger.info(f"Valid move: {move}")
                     # self.log_to_self("move", "valid")
                     # Validity logged after checking for efficient move or not
                     self.reprompt_success = True
+                    self.current_explorer_try = 0 # Reset explorer tries
 
                 edges = self.game_map.map_metadata["unnamed_edges"]
                 tuple_edges = []
                 for edge in edges:
-                    tuple_edges.append((tuple(edge[0]), tuple(edge[1])))
+                    tuple_edges.append((tuple(ast.literal_eval(edge[0])), tuple(ast.literal_eval(edge[1]))))
 
                 neighbors = get_neighbors(next_node, tuple_edges)
                 efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
@@ -313,12 +325,12 @@ class EscapeRoom(DialogueGameMaster):
         # First explorer turn is done, the response from explorer always goes into guide, unchanged
         # The guide response never goes into the Explorer, rather the reprompt of explorer is fixed
         # and the next possible moves are interpreted based on the guide's response
-        stdout_logger.info(f"Current Round index: {self.current_round}")
+        stdout_logger.info(f"Current Round index: {self.current_round}. Current player: {player}")
         utterance = self.clean_agent_response(utterance)
         self.start_next_round = True
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
-                self.explorer_prompt = self.explorer_prompt.replace("$INIT_DESCRIPTION", utterance)
+                self.explorer_prompt = self.explorer_prompt.replace(self.initial_description_tag, utterance)
                 stdout_logger.info(f"First prompt for Explorer: {self.explorer_prompt}")
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 # Pass the response from Guide to Explorer
@@ -341,7 +353,8 @@ class EscapeRoom(DialogueGameMaster):
                 if self.reprompt_fail:
                     # Skip updating environment, pass same image,moves, but different reprompt
                     next_moves = self.game_map.get_next_moves()  # Update next possible moves
-                    self.explorer_failed_reprompt = self.explorer_failed_reprompt.replace("$MOVES", next_moves)
+                    self.explorer_failed_reprompt = self.explorer_failed_reprompt.replace(self.directions_tag,
+                                                                                          next_moves)
                     self.set_context_for(self.explorer, self.explorer_failed_reprompt,
                                          image=[self.explorer_image])  # Pass the updated str
                     self.log_to_self("image", {"image": [self.explorer_image]})
@@ -355,8 +368,9 @@ class EscapeRoom(DialogueGameMaster):
                     self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
                     next_moves = self.game_map.get_next_moves() # Update next possible moves
                     stdout_logger.info(f"Next Moves: {next_moves}")
-                    self.explorer_reprompt = self.explorer_reprompt.replace("$MOVES", next_moves)
-                    self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image]) # Pass the updated str
+                    self.explorer_reprompt = self.explorer_reprompt.replace(self.directions_tag, next_moves)
+                    # Pass the updated str
+                    self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image])
                     self.log_to_self("image", {"image": [self.explorer_image]})
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
@@ -372,9 +386,7 @@ class EscapeRoom(DialogueGameMaster):
 
 
 class EscapeRoomBenchmark(GameBenchmark):
-    """
-    Integrate this game in the overall benchmark runs
-    """
+    """Integrate this game in the overall benchmark runs"""
 
     def __init__(self, game_spec: GameSpec):
         super().__init__(game_spec)

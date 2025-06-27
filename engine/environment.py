@@ -289,12 +289,15 @@ class MapWorldEnv(gym.Env):
             next_pos = None
             # Check edges from current agent position
             # TODO: Save metadata containing edge from n1 to n2 and n2 to n1, instead of only one of em
-            if np.array_equal(edge[0], agent_node):
-                start_pos = edge[0]
-                next_pos = edge[1]
-            elif np.array_equal(edge[1], agent_node):
-                start_pos = edge[1]
-                next_pos = edge[0]
+            edge1 = ast.literal_eval(edge[0])
+            edge2 = ast.literal_eval(edge[1])
+
+            if np.array_equal(edge1, agent_node):
+                start_pos = edge1
+                next_pos = edge2
+            elif np.array_equal(edge2, agent_node):
+                start_pos = edge2
+                next_pos = edge1
 
             if start_pos:
                 direction = self._get_direction(start_pos, next_pos)

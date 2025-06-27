@@ -5,130 +5,89 @@
             "game_instances": [
                 {
                     "game_id": 6,
-                    "graph_id": "22k23h33s32k",
-                    "m": 5,
-                    "n": 5,
+                    "graph_id": "58b59n68r69s",
+                    "m": 10,
+                    "n": 10,
                     "named_nodes": [
-                        "Kindergarden classroom",
-                        "Home office 1",
-                        "Staircase",
-                        "Kindergarden classroom"
+                        "Bedroom",
+                        "Nursery",
+                        "Reading room",
+                        "Sewing room"
                     ],
                     "unnamed_nodes": [
-                        [
-                            2,
-                            2
-                        ],
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            3,
-                            2
-                        ]
+                        "(5, 8)",
+                        "(5, 9)",
+                        "(6, 8)",
+                        "(6, 9)"
                     ],
                     "named_edges": [
                         [
-                            "Kindergarden classroom",
-                            "Home office 1"
+                            "Bedroom",
+                            "Reading room"
                         ],
                         [
-                            "Kindergarden classroom",
-                            "Kindergarden classroom"
+                            "Bedroom",
+                            "Nursery"
                         ],
                         [
-                            "Home office 1",
-                            "Staircase"
+                            "Nursery",
+                            "Sewing room"
                         ],
                         [
-                            "Staircase",
-                            "Kindergarden classroom"
+                            "Reading room",
+                            "Sewing room"
                         ]
                     ],
                     "unnamed_edges": [
                         [
-                            [
-                                2,
-                                2
-                            ],
-                            [
-                                2,
-                                3
-                            ]
+                            "(5, 8)",
+                            "(6, 8)"
                         ],
                         [
-                            [
-                                2,
-                                2
-                            ],
-                            [
-                                3,
-                                2
-                            ]
+                            "(5, 8)",
+                            "(5, 9)"
                         ],
                         [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                3,
-                                3
-                            ]
+                            "(5, 9)",
+                            "(6, 9)"
                         ],
                         [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                2
-                            ]
+                            "(6, 8)",
+                            "(6, 9)"
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 2)": "Kindergarden classroom",
-                        "(2, 3)": "Home office 1",
-                        "(3, 3)": "Staircase",
-                        "(3, 2)": "Kindergarden classroom"
+                        "(5, 8)": "Bedroom",
+                        "(5, 9)": "Nursery",
+                        "(6, 8)": "Reading room",
+                        "(6, 9)": "Sewing room"
                     },
                     "category_to_node": {
-                        "Kindergarden classroom": [
-                            3,
-                            2
-                        ],
-                        "Home office 1": [
-                            2,
-                            3
-                        ],
-                        "Staircase": [
-                            3,
-                            3
-                        ]
+                        "Bedroom": "(5, 8)",
+                        "Nursery": "(5, 9)",
+                        "Reading room": "(6, 8)",
+                        "Sewing room": "(6, 9)"
                     },
                     "node_to_image": {
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010119.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009333.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/staircase/ADE_train_00016789.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010123.jpg"
+                        "(5, 8)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003353.jpg",
+                        "(5, 9)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013897.jpg",
+                        "(6, 8)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015708.jpg",
+                        "(6, 9)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016179.jpg"
                     },
                     "category_to_image": {
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010123.jpg",
-                        "Home office 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009333.jpg",
-                        "Staircase": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/staircase/ADE_train_00016789.jpg"
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003353.jpg",
+                        "Nursery": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013897.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015708.jpg",
+                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016179.jpg"
                     },
-                    "start_node": "(3, 3)",
-                    "target_node": "(2, 2)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
+                    "start_node": "(5, 8)",
+                    "target_node": "(6, 9)",
+                    "explorer_prompt": "You’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INITIAL_DESCRIPTION$\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "guide_prompt": "You’re guiding me through Mapworld to reach an Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer",
+                    "explorer_reprompt": "Now you made a move to this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "explorer_failed_reprompt": "We are still in this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "directions_tag": "$DIRECTIONS$",
+                    "initial_description_tag": "$INITIAL_DESCRIPTION$"
                 }
             ]
         },
@@ -137,187 +96,117 @@
             "game_instances": [
                 {
                     "game_id": 3,
-                    "graph_id": "02c03b13c12r11p01p",
-                    "m": 5,
-                    "n": 5,
+                    "graph_id": "74h75c84c85p94j95d",
+                    "m": 10,
+                    "n": 10,
                     "named_nodes": [
+                        "Hunting lodge indoor",
                         "Cloakroom room",
-                        "Balcony interior 1",
-                        "Childs room",
-                        "Reading room",
-                        "Patio",
-                        "Parlor"
+                        "Computer room",
+                        "Poolroom home",
+                        "Jacuzzi indoor",
+                        "Doorway indoor"
                     ],
                     "unnamed_nodes": [
-                        [
-                            0,
-                            2
-                        ],
-                        [
-                            0,
-                            3
-                        ],
-                        [
-                            1,
-                            3
-                        ],
-                        [
-                            1,
-                            2
-                        ],
-                        [
-                            1,
-                            1
-                        ],
-                        [
-                            0,
-                            1
-                        ]
+                        "(7, 4)",
+                        "(7, 5)",
+                        "(8, 4)",
+                        "(8, 5)",
+                        "(9, 4)",
+                        "(9, 5)"
                     ],
                     "named_edges": [
                         [
-                            "Cloakroom room",
-                            "Balcony interior 1"
+                            "Hunting lodge indoor",
+                            "Computer room"
+                        ],
+                        [
+                            "Hunting lodge indoor",
+                            "Cloakroom room"
                         ],
                         [
                             "Cloakroom room",
-                            "Parlor"
+                            "Poolroom home"
                         ],
                         [
-                            "Balcony interior 1",
-                            "Childs room"
+                            "Computer room",
+                            "Jacuzzi indoor"
                         ],
                         [
-                            "Childs room",
-                            "Reading room"
+                            "Poolroom home",
+                            "Doorway indoor"
                         ],
                         [
-                            "Reading room",
-                            "Patio"
-                        ],
-                        [
-                            "Patio",
-                            "Parlor"
+                            "Jacuzzi indoor",
+                            "Doorway indoor"
                         ]
                     ],
                     "unnamed_edges": [
                         [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                0,
-                                3
-                            ]
+                            "(7, 4)",
+                            "(8, 4)"
                         ],
                         [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                0,
-                                1
-                            ]
+                            "(7, 4)",
+                            "(7, 5)"
                         ],
                         [
-                            [
-                                0,
-                                3
-                            ],
-                            [
-                                1,
-                                3
-                            ]
+                            "(7, 5)",
+                            "(8, 5)"
                         ],
                         [
-                            [
-                                1,
-                                3
-                            ],
-                            [
-                                1,
-                                2
-                            ]
+                            "(8, 4)",
+                            "(9, 4)"
                         ],
                         [
-                            [
-                                1,
-                                2
-                            ],
-                            [
-                                1,
-                                1
-                            ]
+                            "(8, 5)",
+                            "(9, 5)"
                         ],
                         [
-                            [
-                                1,
-                                1
-                            ],
-                            [
-                                0,
-                                1
-                            ]
+                            "(9, 4)",
+                            "(9, 5)"
                         ]
                     ],
                     "node_to_category": {
-                        "(0, 2)": "Cloakroom room",
-                        "(0, 3)": "Balcony interior 1",
-                        "(1, 3)": "Childs room",
-                        "(1, 2)": "Reading room",
-                        "(1, 1)": "Patio",
-                        "(0, 1)": "Parlor"
+                        "(7, 4)": "Hunting lodge indoor",
+                        "(7, 5)": "Cloakroom room",
+                        "(8, 4)": "Computer room",
+                        "(8, 5)": "Poolroom home",
+                        "(9, 4)": "Jacuzzi indoor",
+                        "(9, 5)": "Doorway indoor"
                     },
                     "category_to_node": {
-                        "Cloakroom room": [
-                            0,
-                            2
-                        ],
-                        "Balcony interior 1": [
-                            0,
-                            3
-                        ],
-                        "Childs room": [
-                            1,
-                            3
-                        ],
-                        "Reading room": [
-                            1,
-                            2
-                        ],
-                        "Patio": [
-                            1,
-                            1
-                        ],
-                        "Parlor": [
-                            0,
-                            1
-                        ]
+                        "Hunting lodge indoor": "(7, 4)",
+                        "Cloakroom room": "(7, 5)",
+                        "Computer room": "(8, 4)",
+                        "Poolroom home": "(8, 5)",
+                        "Jacuzzi indoor": "(9, 4)",
+                        "Doorway indoor": "(9, 5)"
                     },
                     "node_to_image": {
-                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005669.jpg",
-                        "(0, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/balcony__interior/ADE_train_00002221.jpg",
-                        "(1, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005494.jpg",
-                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015700.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/patio/ADE_train_00015288.jpg",
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015191.jpg"
+                        "(7, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009732.jpg",
+                        "(7, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005670.jpg",
+                        "(8, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005942.jpg",
+                        "(8, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/poolroom__home/ADE_train_00015498.jpg",
+                        "(9, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009942.jpg",
+                        "(9, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007326.jpg"
                     },
                     "category_to_image": {
-                        "Cloakroom room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005669.jpg",
-                        "Balcony interior 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/balcony__interior/ADE_train_00002221.jpg",
-                        "Childs room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005494.jpg",
-                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015700.jpg",
-                        "Patio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/patio/ADE_train_00015288.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015191.jpg"
+                        "Hunting lodge indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009732.jpg",
+                        "Cloakroom room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005670.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005942.jpg",
+                        "Poolroom home": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/poolroom__home/ADE_train_00015498.jpg",
+                        "Jacuzzi indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009942.jpg",
+                        "Doorway indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007326.jpg"
                     },
-                    "start_node": "(0, 2)",
-                    "target_node": "(0, 3)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
+                    "start_node": "(8, 5)",
+                    "target_node": "(7, 4)",
+                    "explorer_prompt": "You’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INITIAL_DESCRIPTION$\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "guide_prompt": "You’re guiding me through Mapworld to reach an Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer",
+                    "explorer_reprompt": "Now you made a move to this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "explorer_failed_reprompt": "We are still in this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "directions_tag": "$DIRECTIONS$",
+                    "initial_description_tag": "$INITIAL_DESCRIPTION$"
                 }
             ]
         },
@@ -326,1680 +215,145 @@
             "game_instances": [
                 {
                     "game_id": 7,
-                    "graph_id": "02h03l04r14j13b12u11v01r",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Hotel room",
-                        "Living room",
-                        "Reading room",
-                        "Jacuzzi indoor",
-                        "Balcony interior 1",
-                        "Utility room",
-                        "Veranda",
-                        "Restroom indoor"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            0,
-                            2
-                        ],
-                        [
-                            0,
-                            3
-                        ],
-                        [
-                            0,
-                            4
-                        ],
-                        [
-                            1,
-                            4
-                        ],
-                        [
-                            1,
-                            3
-                        ],
-                        [
-                            1,
-                            2
-                        ],
-                        [
-                            1,
-                            1
-                        ],
-                        [
-                            0,
-                            1
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Hotel room",
-                            "Living room"
-                        ],
-                        [
-                            "Hotel room",
-                            "Restroom indoor"
-                        ],
-                        [
-                            "Living room",
-                            "Reading room"
-                        ],
-                        [
-                            "Reading room",
-                            "Jacuzzi indoor"
-                        ],
-                        [
-                            "Jacuzzi indoor",
-                            "Balcony interior 1"
-                        ],
-                        [
-                            "Balcony interior 1",
-                            "Utility room"
-                        ],
-                        [
-                            "Utility room",
-                            "Veranda"
-                        ],
-                        [
-                            "Veranda",
-                            "Restroom indoor"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                0,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                0,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                3
-                            ],
-                            [
-                                0,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                4
-                            ],
-                            [
-                                1,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                4
-                            ],
-                            [
-                                1,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                3
-                            ],
-                            [
-                                1,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                2
-                            ],
-                            [
-                                1,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                1
-                            ],
-                            [
-                                0,
-                                1
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(0, 2)": "Hotel room",
-                        "(0, 3)": "Living room",
-                        "(0, 4)": "Reading room",
-                        "(1, 4)": "Jacuzzi indoor",
-                        "(1, 3)": "Balcony interior 1",
-                        "(1, 2)": "Utility room",
-                        "(1, 1)": "Veranda",
-                        "(0, 1)": "Restroom indoor"
-                    },
-                    "category_to_node": {
-                        "Hotel room": [
-                            0,
-                            2
-                        ],
-                        "Living room": [
-                            0,
-                            3
-                        ],
-                        "Reading room": [
-                            0,
-                            4
-                        ],
-                        "Jacuzzi indoor": [
-                            1,
-                            4
-                        ],
-                        "Balcony interior 1": [
-                            1,
-                            3
-                        ],
-                        "Utility room": [
-                            1,
-                            2
-                        ],
-                        "Veranda": [
-                            1,
-                            1
-                        ],
-                        "Restroom indoor": [
-                            0,
-                            1
-                        ]
-                    },
-                    "node_to_image": {
-                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009617.jpg",
-                        "(0, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000745.jpg",
-                        "(0, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015711.jpg",
-                        "(1, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009932.jpg",
-                        "(1, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/balcony__interior/ADE_train_00002242.jpg",
-                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019408.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019505.jpg",
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015843.jpg"
-                    },
-                    "category_to_image": {
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009617.jpg",
-                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000745.jpg",
-                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015711.jpg",
-                        "Jacuzzi indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009932.jpg",
-                        "Balcony interior 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/balcony__interior/ADE_train_00002242.jpg",
-                        "Utility room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019408.jpg",
-                        "Veranda": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019505.jpg",
-                        "Restroom indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015843.jpg"
-                    },
-                    "start_node": "(0, 2)",
-                    "target_node": "(0, 1)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "low_ambiguity",
-            "game_instances": [
-                {
-                    "game_id": 4,
-                    "graph_id": "20a21c22c23d33h32d31v30l",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Art studio",
-                        "Closet",
-                        "Carport indoor",
-                        "Doorway indoor 1",
-                        "Home office",
-                        "Doorway indoor 2",
-                        "Veranda",
-                        "Living room"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            2,
-                            0
-                        ],
-                        [
-                            2,
-                            1
-                        ],
-                        [
-                            2,
-                            2
-                        ],
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            3,
-                            2
-                        ],
-                        [
-                            3,
-                            1
-                        ],
-                        [
-                            3,
-                            0
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Art studio",
-                            "Closet"
-                        ],
-                        [
-                            "Art studio",
-                            "Living room"
-                        ],
-                        [
-                            "Closet",
-                            "Carport indoor"
-                        ],
-                        [
-                            "Carport indoor",
-                            "Doorway indoor 1"
-                        ],
-                        [
-                            "Doorway indoor 1",
-                            "Home office"
-                        ],
-                        [
-                            "Home office",
-                            "Doorway indoor 2"
-                        ],
-                        [
-                            "Doorway indoor 2",
-                            "Veranda"
-                        ],
-                        [
-                            "Veranda",
-                            "Living room"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                2,
-                                0
-                            ],
-                            [
-                                2,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                0
-                            ],
-                            [
-                                3,
-                                0
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                1
-                            ],
-                            [
-                                2,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                2
-                            ],
-                            [
-                                2,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                2
-                            ],
-                            [
-                                3,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                1
-                            ],
-                            [
-                                3,
-                                0
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(2, 0)": "Art studio",
-                        "(2, 1)": "Closet",
-                        "(2, 2)": "Carport indoor",
-                        "(2, 3)": "Doorway indoor 1",
-                        "(3, 3)": "Home office",
-                        "(3, 2)": "Doorway indoor 2",
-                        "(3, 1)": "Veranda",
-                        "(3, 0)": "Living room"
-                    },
-                    "category_to_node": {
-                        "Art studio": [
-                            2,
-                            0
-                        ],
-                        "Closet": [
-                            2,
-                            1
-                        ],
-                        "Carport indoor": [
-                            2,
-                            2
-                        ],
-                        "Doorway indoor 1": [
-                            2,
-                            3
-                        ],
-                        "Home office": [
-                            3,
-                            3
-                        ],
-                        "Doorway indoor 2": [
-                            3,
-                            2
-                        ],
-                        "Veranda": [
-                            3,
-                            1
-                        ],
-                        "Living room": [
-                            3,
-                            0
-                        ]
-                    },
-                    "node_to_image": {
-                        "(2, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001773.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005752.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/carport__indoor/ADE_train_00005129.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007340.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009378.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007332.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019506.jpg",
-                        "(3, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011426.jpg"
-                    },
-                    "category_to_image": {
-                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001773.jpg",
-                        "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005752.jpg",
-                        "Carport indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/carport__indoor/ADE_train_00005129.jpg",
-                        "Doorway indoor 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007340.jpg",
-                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009378.jpg",
-                        "Doorway indoor 2": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007332.jpg",
-                        "Veranda": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019506.jpg",
-                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011426.jpg"
-                    },
-                    "start_node": "(2, 2)",
-                    "target_node": "(2, 0)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "med_ambiguity",
-            "game_instances": [
-                {
-                    "game_id": 6,
-                    "graph_id": "21d22k23t24h34b33h32h31l",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Doorway indoor",
-                        "Kitchen",
-                        "Tearoom",
-                        "Home office 3",
-                        "Bathroom",
-                        "Home office 1",
-                        "Home office 2",
-                        "Locker room"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            2,
-                            1
-                        ],
-                        [
-                            2,
-                            2
-                        ],
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            2,
-                            4
-                        ],
-                        [
-                            3,
-                            4
-                        ],
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            3,
-                            2
-                        ],
-                        [
-                            3,
-                            1
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Doorway indoor",
-                            "Kitchen"
-                        ],
-                        [
-                            "Doorway indoor",
-                            "Locker room"
-                        ],
-                        [
-                            "Kitchen",
-                            "Tearoom"
-                        ],
-                        [
-                            "Tearoom",
-                            "Home office 3"
-                        ],
-                        [
-                            "Home office 3",
-                            "Bathroom"
-                        ],
-                        [
-                            "Bathroom",
-                            "Home office 1"
-                        ],
-                        [
-                            "Home office 1",
-                            "Home office 2"
-                        ],
-                        [
-                            "Home office 2",
-                            "Locker room"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                2,
-                                1
-                            ],
-                            [
-                                2,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                1
-                            ],
-                            [
-                                3,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                2
-                            ],
-                            [
-                                2,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                2,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                4
-                            ],
-                            [
-                                3,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                4
-                            ],
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                2
-                            ],
-                            [
-                                3,
-                                1
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(2, 1)": "Doorway indoor",
-                        "(2, 2)": "Kitchen",
-                        "(2, 3)": "Tearoom",
-                        "(2, 4)": "Home office 3",
-                        "(3, 4)": "Bathroom",
-                        "(3, 3)": "Home office 1",
-                        "(3, 2)": "Home office 2",
-                        "(3, 1)": "Locker room"
-                    },
-                    "category_to_node": {
-                        "Doorway indoor": [
-                            2,
-                            1
-                        ],
-                        "Kitchen": [
-                            2,
-                            2
-                        ],
-                        "Tearoom": [
-                            2,
-                            3
-                        ],
-                        "Home office 3": [
-                            2,
-                            4
-                        ],
-                        "Bathroom": [
-                            3,
-                            4
-                        ],
-                        "Home office 1": [
-                            3,
-                            3
-                        ],
-                        "Home office 2": [
-                            3,
-                            2
-                        ],
-                        "Locker room": [
-                            3,
-                            1
-                        ]
-                    },
-                    "node_to_image": {
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007324.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010469.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019084.jpg",
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009385.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000108.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009347.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009322.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011595.jpg"
-                    },
-                    "category_to_image": {
-                        "Doorway indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007324.jpg",
-                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010469.jpg",
-                        "Tearoom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019084.jpg",
-                        "Home office 3": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009385.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000108.jpg",
-                        "Home office 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009347.jpg",
-                        "Home office 2": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009322.jpg",
-                        "Locker room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011595.jpg"
-                    },
-                    "start_node": "(2, 3)",
-                    "target_node": "(3, 3)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "high_ambiguity",
-            "game_instances": [
-                {
-                    "game_id": 9,
-                    "graph_id": "23d24b34b33b32t31h21b22g",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Dining room",
-                        "Bathroom 3",
-                        "Bathroom 2",
-                        "Bathroom 1",
-                        "Tearoom",
-                        "Hunting lodge indoor",
-                        "Bathroom 4",
-                        "Game room"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            2,
-                            4
-                        ],
-                        [
-                            3,
-                            4
-                        ],
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            3,
-                            2
-                        ],
-                        [
-                            3,
-                            1
-                        ],
-                        [
-                            2,
-                            1
-                        ],
-                        [
-                            2,
-                            2
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Dining room",
-                            "Bathroom 3"
-                        ],
-                        [
-                            "Dining room",
-                            "Game room"
-                        ],
-                        [
-                            "Bathroom 3",
-                            "Bathroom 2"
-                        ],
-                        [
-                            "Bathroom 2",
-                            "Bathroom 1"
-                        ],
-                        [
-                            "Bathroom 1",
-                            "Tearoom"
-                        ],
-                        [
-                            "Tearoom",
-                            "Hunting lodge indoor"
-                        ],
-                        [
-                            "Hunting lodge indoor",
-                            "Bathroom 4"
-                        ],
-                        [
-                            "Bathroom 4",
-                            "Game room"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                2,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                2,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                4
-                            ],
-                            [
-                                3,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                4
-                            ],
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                2
-                            ],
-                            [
-                                3,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                1
-                            ],
-                            [
-                                2,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                1
-                            ],
-                            [
-                                2,
-                                2
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(2, 3)": "Dining room",
-                        "(2, 4)": "Bathroom 3",
-                        "(3, 4)": "Bathroom 2",
-                        "(3, 3)": "Bathroom 1",
-                        "(3, 2)": "Tearoom",
-                        "(3, 1)": "Hunting lodge indoor",
-                        "(2, 1)": "Bathroom 4",
-                        "(2, 2)": "Game room"
-                    },
-                    "category_to_node": {
-                        "Dining room": [
-                            2,
-                            3
-                        ],
-                        "Bathroom 3": [
-                            2,
-                            4
-                        ],
-                        "Bathroom 2": [
-                            3,
-                            4
-                        ],
-                        "Bathroom 1": [
-                            3,
-                            3
-                        ],
-                        "Tearoom": [
-                            3,
-                            2
-                        ],
-                        "Hunting lodge indoor": [
-                            3,
-                            1
-                        ],
-                        "Bathroom 4": [
-                            2,
-                            1
-                        ],
-                        "Game room": [
-                            2,
-                            2
-                        ]
-                    },
-                    "node_to_image": {
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007136.jpg",
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000161.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000155.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002789.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019084.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009733.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002987.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008365.jpg"
-                    },
-                    "category_to_image": {
-                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007136.jpg",
-                        "Bathroom 3": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000161.jpg",
-                        "Bathroom 2": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000155.jpg",
-                        "Bathroom 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002789.jpg",
-                        "Tearoom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019084.jpg",
-                        "Hunting lodge indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009733.jpg",
-                        "Bathroom 4": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002987.jpg",
-                        "Game room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008365.jpg"
-                    },
-                    "start_node": "(3, 3)",
-                    "target_node": "(3, 4)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "star",
-            "game_instances": [
-                {
-                    "game_id": 2,
-                    "graph_id": "33p34w32w43b23j22a42h31h",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Playroom",
-                        "Workroom",
-                        "Wine cellar bottle storage 1",
-                        "Bathroom",
-                        "Jacuzzi indoor",
-                        "Art studio",
-                        "Hallway",
-                        "Hunting lodge indoor"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            3,
-                            4
-                        ],
-                        [
-                            3,
-                            2
-                        ],
-                        [
-                            4,
-                            3
-                        ],
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            2,
-                            2
-                        ],
-                        [
-                            4,
-                            2
-                        ],
-                        [
-                            3,
-                            1
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Playroom",
-                            "Workroom"
-                        ],
-                        [
-                            "Playroom",
-                            "Wine cellar bottle storage 1"
-                        ],
-                        [
-                            "Playroom",
-                            "Bathroom"
-                        ],
-                        [
-                            "Playroom",
-                            "Jacuzzi indoor"
-                        ],
-                        [
-                            "Wine cellar bottle storage 1",
-                            "Hunting lodge indoor"
-                        ],
-                        [
-                            "Bathroom",
-                            "Hallway"
-                        ],
-                        [
-                            "Jacuzzi indoor",
-                            "Art studio"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                4
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                3,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                4,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                3
-                            ],
-                            [
-                                2,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                3,
-                                2
-                            ],
-                            [
-                                3,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                4,
-                                3
-                            ],
-                            [
-                                4,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                2,
-                                3
-                            ],
-                            [
-                                2,
-                                2
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(3, 3)": "Playroom",
-                        "(3, 4)": "Workroom",
-                        "(3, 2)": "Wine cellar bottle storage 1",
-                        "(4, 3)": "Bathroom",
-                        "(2, 3)": "Jacuzzi indoor",
-                        "(2, 2)": "Art studio",
-                        "(4, 2)": "Hallway",
-                        "(3, 1)": "Hunting lodge indoor"
-                    },
-                    "category_to_node": {
-                        "Playroom": [
-                            3,
-                            3
-                        ],
-                        "Workroom": [
-                            3,
-                            4
-                        ],
-                        "Wine cellar bottle storage 1": [
-                            3,
-                            2
-                        ],
-                        "Bathroom": [
-                            4,
-                            3
-                        ],
-                        "Jacuzzi indoor": [
-                            2,
-                            3
-                        ],
-                        "Art studio": [
-                            2,
-                            2
-                        ],
-                        "Hallway": [
-                            4,
-                            2
-                        ],
-                        "Hunting lodge indoor": [
-                            3,
-                            1
-                        ]
-                    },
-                    "node_to_image": {
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015404.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/workroom/ADE_train_00020098.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/wine_cellar__bottle_storage/ADE_train_00020068.jpg",
-                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000023.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009931.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001717.jpg",
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/hallway/ADE_train_00008836.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009735.jpg"
-                    },
-                    "category_to_image": {
-                        "Playroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015404.jpg",
-                        "Workroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/workroom/ADE_train_00020098.jpg",
-                        "Wine cellar bottle storage 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/wine_cellar__bottle_storage/ADE_train_00020068.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000023.jpg",
-                        "Jacuzzi indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009931.jpg",
-                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001717.jpg",
-                        "Hallway": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/hallway/ADE_train_00008836.jpg",
-                        "Hunting lodge indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hunting_lodge__indoor/ADE_train_00009735.jpg"
-                    },
-                    "start_node": "(3, 2)",
-                    "target_node": "(2, 3)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "ladder",
-            "game_instances": [
-                {
-                    "game_id": 6,
-                    "graph_id": "00k01k02h03d10d11h12s13b",
-                    "m": 5,
-                    "n": 5,
+                    "graph_id": "06k07h16a17r26p27r36r37c",
+                    "m": 10,
+                    "n": 10,
                     "named_nodes": [
                         "Kindergarden classroom",
-                        "Kindergarden classroom",
-                        "Hotel room",
-                        "Dining room",
-                        "Doorway indoor",
-                        "Home office 1",
-                        "Staircase",
-                        "Bathroom"
-                    ],
-                    "unnamed_nodes": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            0,
-                            1
-                        ],
-                        [
-                            0,
-                            2
-                        ],
-                        [
-                            0,
-                            3
-                        ],
-                        [
-                            1,
-                            0
-                        ],
-                        [
-                            1,
-                            1
-                        ],
-                        [
-                            1,
-                            2
-                        ],
-                        [
-                            1,
-                            3
-                        ]
-                    ],
-                    "named_edges": [
-                        [
-                            "Kindergarden classroom",
-                            "Kindergarden classroom"
-                        ],
-                        [
-                            "Kindergarden classroom",
-                            "Doorway indoor"
-                        ],
-                        [
-                            "Kindergarden classroom",
-                            "Hotel room"
-                        ],
-                        [
-                            "Kindergarden classroom",
-                            "Home office 1"
-                        ],
-                        [
-                            "Hotel room",
-                            "Dining room"
-                        ],
-                        [
-                            "Hotel room",
-                            "Staircase"
-                        ],
-                        [
-                            "Dining room",
-                            "Bathroom"
-                        ],
-                        [
-                            "Doorway indoor",
-                            "Home office 1"
-                        ],
-                        [
-                            "Home office 1",
-                            "Staircase"
-                        ],
-                        [
-                            "Staircase",
-                            "Bathroom"
-                        ]
-                    ],
-                    "unnamed_edges": [
-                        [
-                            [
-                                0,
-                                0
-                            ],
-                            [
-                                0,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                0
-                            ],
-                            [
-                                1,
-                                0
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                1
-                            ],
-                            [
-                                0,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                1
-                            ],
-                            [
-                                1,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                0,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                2
-                            ],
-                            [
-                                1,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                0,
-                                3
-                            ],
-                            [
-                                1,
-                                3
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                0
-                            ],
-                            [
-                                1,
-                                1
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                1
-                            ],
-                            [
-                                1,
-                                2
-                            ]
-                        ],
-                        [
-                            [
-                                1,
-                                2
-                            ],
-                            [
-                                1,
-                                3
-                            ]
-                        ]
-                    ],
-                    "node_to_category": {
-                        "(0, 0)": "Kindergarden classroom",
-                        "(0, 1)": "Kindergarden classroom",
-                        "(0, 2)": "Hotel room",
-                        "(0, 3)": "Dining room",
-                        "(1, 0)": "Doorway indoor",
-                        "(1, 1)": "Home office 1",
-                        "(1, 2)": "Staircase",
-                        "(1, 3)": "Bathroom"
-                    },
-                    "category_to_node": {
-                        "Kindergarden classroom": [
-                            0,
-                            1
-                        ],
-                        "Hotel room": [
-                            0,
-                            2
-                        ],
-                        "Dining room": [
-                            0,
-                            3
-                        ],
-                        "Doorway indoor": [
-                            1,
-                            0
-                        ],
-                        "Home office 1": [
-                            1,
-                            1
-                        ],
-                        "Staircase": [
-                            1,
-                            2
-                        ],
-                        "Bathroom": [
-                            1,
-                            3
-                        ]
-                    },
-                    "node_to_image": {
-                        "(0, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010113.jpg",
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010115.jpg",
-                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009638.jpg",
-                        "(0, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007048.jpg",
-                        "(1, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007335.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009385.jpg",
-                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/staircase/ADE_train_00016790.jpg",
-                        "(1, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000108.jpg"
-                    },
-                    "category_to_image": {
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010115.jpg",
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009638.jpg",
-                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007048.jpg",
-                        "Doorway indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/transportation/doorway__indoor/ADE_train_00007335.jpg",
-                        "Home office 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009385.jpg",
-                        "Staircase": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/staircase/ADE_train_00016790.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000108.jpg"
-                    },
-                    "start_node": "(0, 0)",
-                    "target_node": "(0, 1)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
-                }
-            ]
-        },
-        {
-            "name": "path",
-            "game_instances": [
-                {
-                    "game_id": 7,
-                    "graph_id": "40p30v20r21r11u10k00l01c",
-                    "m": 5,
-                    "n": 5,
-                    "named_nodes": [
-                        "Parlor",
-                        "Veranda",
-                        "Reading room",
+                        "Home theater",
+                        "Art studio",
                         "Restroom indoor",
-                        "Utility room",
-                        "Kitchen",
-                        "Living room 1",
-                        "Cloakroom room"
+                        "Patio",
+                        "Reading room",
+                        "Reception",
+                        "Computer room"
                     ],
                     "unnamed_nodes": [
-                        [
-                            4,
-                            0
-                        ],
-                        [
-                            3,
-                            0
-                        ],
-                        [
-                            2,
-                            0
-                        ],
-                        [
-                            2,
-                            1
-                        ],
-                        [
-                            1,
-                            1
-                        ],
-                        [
-                            1,
-                            0
-                        ],
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            0,
-                            1
-                        ]
+                        "(0, 6)",
+                        "(0, 7)",
+                        "(1, 6)",
+                        "(1, 7)",
+                        "(2, 6)",
+                        "(2, 7)",
+                        "(3, 6)",
+                        "(3, 7)"
                     ],
                     "named_edges": [
                         [
-                            "Parlor",
-                            "Veranda"
+                            "Kindergarden classroom",
+                            "Art studio"
                         ],
                         [
-                            "Veranda",
-                            "Reading room"
+                            "Kindergarden classroom",
+                            "Home theater"
                         ],
                         [
-                            "Reading room",
+                            "Home theater",
                             "Restroom indoor"
+                        ],
+                        [
+                            "Art studio",
+                            "Patio"
                         ],
                         [
                             "Restroom indoor",
-                            "Utility room"
+                            "Reading room"
                         ],
                         [
-                            "Utility room",
-                            "Kitchen"
+                            "Patio",
+                            "Reception"
                         ],
                         [
-                            "Kitchen",
-                            "Living room 1"
+                            "Reading room",
+                            "Computer room"
                         ],
                         [
-                            "Living room 1",
-                            "Cloakroom room"
+                            "Reception",
+                            "Computer room"
                         ]
                     ],
                     "unnamed_edges": [
                         [
-                            [
-                                4,
-                                0
-                            ],
-                            [
-                                3,
-                                0
-                            ]
+                            "(0, 6)",
+                            "(1, 6)"
                         ],
                         [
-                            [
-                                3,
-                                0
-                            ],
-                            [
-                                2,
-                                0
-                            ]
+                            "(0, 6)",
+                            "(0, 7)"
                         ],
                         [
-                            [
-                                2,
-                                0
-                            ],
-                            [
-                                2,
-                                1
-                            ]
+                            "(0, 7)",
+                            "(1, 7)"
                         ],
                         [
-                            [
-                                2,
-                                1
-                            ],
-                            [
-                                1,
-                                1
-                            ]
+                            "(1, 6)",
+                            "(2, 6)"
                         ],
                         [
-                            [
-                                1,
-                                1
-                            ],
-                            [
-                                1,
-                                0
-                            ]
+                            "(1, 7)",
+                            "(2, 7)"
                         ],
                         [
-                            [
-                                1,
-                                0
-                            ],
-                            [
-                                0,
-                                0
-                            ]
+                            "(2, 6)",
+                            "(3, 6)"
                         ],
                         [
-                            [
-                                0,
-                                0
-                            ],
-                            [
-                                0,
-                                1
-                            ]
+                            "(2, 7)",
+                            "(3, 7)"
+                        ],
+                        [
+                            "(3, 6)",
+                            "(3, 7)"
                         ]
                     ],
                     "node_to_category": {
-                        "(4, 0)": "Parlor",
-                        "(3, 0)": "Veranda",
-                        "(2, 0)": "Reading room",
-                        "(2, 1)": "Restroom indoor",
-                        "(1, 1)": "Utility room",
-                        "(1, 0)": "Kitchen",
-                        "(0, 0)": "Living room 1",
-                        "(0, 1)": "Cloakroom room"
+                        "(0, 6)": "Kindergarden classroom",
+                        "(0, 7)": "Home theater",
+                        "(1, 6)": "Art studio",
+                        "(1, 7)": "Restroom indoor",
+                        "(2, 6)": "Patio",
+                        "(2, 7)": "Reading room",
+                        "(3, 6)": "Reception",
+                        "(3, 7)": "Computer room"
                     },
                     "category_to_node": {
-                        "Parlor": [
-                            4,
-                            0
-                        ],
-                        "Veranda": [
-                            3,
-                            0
-                        ],
-                        "Reading room": [
-                            2,
-                            0
-                        ],
-                        "Restroom indoor": [
-                            2,
-                            1
-                        ],
-                        "Utility room": [
-                            1,
-                            1
-                        ],
-                        "Kitchen": [
-                            1,
-                            0
-                        ],
-                        "Living room 1": [
-                            0,
-                            0
-                        ],
-                        "Cloakroom room": [
-                            0,
-                            1
-                        ]
+                        "Kindergarden classroom": "(0, 6)",
+                        "Home theater": "(0, 7)",
+                        "Art studio": "(1, 6)",
+                        "Restroom indoor": "(1, 7)",
+                        "Patio": "(2, 6)",
+                        "Reading room": "(2, 7)",
+                        "Reception": "(3, 6)",
+                        "Computer room": "(3, 7)"
                     },
                     "node_to_image": {
-                        "(4, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015177.jpg",
-                        "(3, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019506.jpg",
-                        "(2, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015708.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015837.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019407.jpg",
-                        "(1, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010225.jpg",
-                        "(0, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000666.jpg",
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005671.jpg"
+                        "(0, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010106.jpg",
+                        "(0, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009421.jpg",
+                        "(1, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001728.jpg",
+                        "(1, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015840.jpg",
+                        "(2, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/patio/ADE_train_00000945.jpg",
+                        "(2, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015695.jpg",
+                        "(3, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015768.jpg",
+                        "(3, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005955.jpg"
                     },
                     "category_to_image": {
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015177.jpg",
-                        "Veranda": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/veranda/ADE_train_00019506.jpg",
-                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015708.jpg",
-                        "Restroom indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015837.jpg",
-                        "Utility room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019407.jpg",
-                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010225.jpg",
-                        "Living room 1": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000666.jpg",
-                        "Cloakroom room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/cloakroom__room/ADE_train_00005671.jpg"
+                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010106.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009421.jpg",
+                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001728.jpg",
+                        "Restroom indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/restroom__indoor/ADE_train_00015840.jpg",
+                        "Patio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/patio/ADE_train_00000945.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015695.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015768.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005955.jpg"
                     },
-                    "start_node": "(1, 0)",
-                    "target_node": "(2, 1)",
-                    "explorer_prompt": "\nYou’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INIT_DESCRIPTION\n\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.\n",
-                    "guide_prompt": "\nYou’re guiding me through Mapworld to the Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer\n",
-                    "explorer_reprompt": "\nYou’ve moved into a new room. Based on the Escape Room description you know and the new image you see now, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n",
-                    "explorer_failed_reprompt": "\nThat move didn’t change your location – you’re still in the same room. Based on what you know of the Escape Room and the current image, choose one action:\n\n1. If this room matches the Escape Room, reply with only one word\n   ESCAPE\n\n2. If you need more information to confirm, reply\n   QUESTION: your question here\n\n3. If it’s definitely a different room, pick one direction from $MOVES:\n   MOVE: direction\n\nDo not generate any additional text.\n"
+                    "start_node": "(3, 6)",
+                    "target_node": "(2, 7)",
+                    "explorer_prompt": "You’re exploring Mapworld, a network of various connected rooms, and your aim is to reach the Escape Room.\nHere is the description of what the Escape Room looks like:  $INITIAL_DESCRIPTION$\nAt each step you will receive the image of your current room. Based on what you know of the Escape Room from my description and the image you see,\nchoose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "guide_prompt": "You’re guiding me through Mapworld to reach an Escape Room. I don’t know what it looks like, but you have its image.\n\nFirst, describe your image in this format and nothing else:\nDESCRIPTION: your description of the image\n\nWhenever I ask a question, answer based only on your image in this format and nothing else:\nANSWER: your answer",
+                    "explorer_reprompt": "Now you made a move to this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "explorer_failed_reprompt": "We are still in this room, choose one of three actions:\n\n1. If your current image matches your memory of the Escape Room description, reply with only one word\nESCAPE\n\n2. If you need more information to verify if it’s the same room, reply -\nQUESTION: your question here\n\n3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -\nMOVE: direction you chose\n\nDo not generate any additional text.",
+                    "directions_tag": "$DIRECTIONS$",
+                    "initial_description_tag": "$INITIAL_DESCRIPTION$"
                 }
             ]
         }
