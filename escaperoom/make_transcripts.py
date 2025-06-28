@@ -1,3 +1,4 @@
+import ast
 import os
 import json
 import glob
@@ -150,11 +151,11 @@ def process_interactions():
         md = lookup[meta['experiment_name']][meta['game_id']]
         positions, node_imgs, edges = {}, {}, []
         for coord_str, url in md['node_to_image'].items():
-            coord = tuple(eval(coord_str))
+            coord = tuple(ast.literal_eval(coord_str))
             positions[coord_str] = (coord[0], -coord[1])
             node_imgs[coord_str] = fetch_and_resize_image(url, NODE_IMG_SIZE)
         for src, dst in md.get('unnamed_edges', []):
-            edges.append((str(tuple(src)), str(tuple(dst))))
+            edges.append((str(ast.literal_eval(src)), str(ast.literal_eval(dst))))
         current = md['start_node']
         target = md.get('target_node')
         robot_img = Image.open(ROBOT_PATH).convert('RGBA')

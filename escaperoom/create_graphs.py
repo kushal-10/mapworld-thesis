@@ -1,4 +1,5 @@
 import os
+import ast
 import json
 import glob
 import requests
@@ -7,6 +8,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+
 
 
 def fetch_and_resize_image(url, size=(100, 100)):
@@ -32,14 +34,14 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
 
     # Setup nodes
     for coord_str, url in metadata['node_to_image'].items():
-        x, y = eval(coord_str)
+        x, y = ast.literal_eval(coord_str)
         positions[coord_str] = (x, -y)
         G.add_node(coord_str)
 
     # Setup edges
     for src, dst in metadata.get('unnamed_edges', []):
-        src_str = str(tuple(src))
-        dst_str = str(tuple(dst))
+        src_str = str(ast.literal_eval(src))
+        dst_str = str(ast.literal_eval(dst))
         if src_str in G and dst_str in G:
             G.add_edge(src_str, dst_str)
 
@@ -93,7 +95,10 @@ def main():
         episode_folder = parts[-2]
         # Extract experiment name and game_id
         _, exp_name = exp_folder.split('_', 1)
-        game_id = int(episode_folder.split('_')[1])
+        instance_file = interactions_path.replace("interactions.json", "instance.json")
+        with open(instance_file, 'r') as f:
+            inst_data = json.load(f)
+        game_id = inst_data["game_id"]
 
         # Lookup metadata
         metadata = lookup.get(exp_name, {}).get(game_id)
@@ -103,7 +108,7 @@ def main():
 
         # Save graph.png alongside interactions.json
         output_png = os.path.join(os.path.dirname(interactions_path), 'graph.png')
-        print(f"Drawing graph for {exp_folder}, episode {episode_folder} -> {output_png}")
+        print(f"Drawing graph for experiment - {exp_name}, game_id - {game_id}-> {output_png}")
         draw_graph(metadata, output_png)
 
 if __name__ == '__main__':

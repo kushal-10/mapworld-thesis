@@ -63,7 +63,7 @@
    {
         "model_name": "gemini-2.5-pro",
         "model_id": "gemini-2.5-pro",
-        "backend": "google",
+        "backend": "openai_compatible",
         "release_date": "2024-02-15",
         "open_weight": false,
         "parameters": "",
