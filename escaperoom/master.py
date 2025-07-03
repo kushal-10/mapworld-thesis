@@ -254,6 +254,7 @@ class EscapeRoom(DialogueGameMaster):
 
             # tag == "question"
             else:
+                self.pass_turn = True
                 stdout_logger.info(f"Explorer asked Question - {utterance}")
                 self.log_to_self("question", "explorer")
                 return True
@@ -378,10 +379,10 @@ class EscapeRoom(DialogueGameMaster):
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
             if tag == "question":
-                self.set_context_for(self.guide, utterance, image=[self.guide_image]) # Pass response as is wo image to Guide
+                self.set_context_for(self.guide, utterance, image=[self.guide_image])
                 self.log_to_self("image", {"image": [self.guide_image]})
                 stdout_logger.info(f"Set Prompt for Guide: {utterance}")
-                stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
+                stdout_logger.info(f"Image for Guide: {self.guide_image}")
 
     def _on_after_game(self):
         # record final results once game episode has ended:
