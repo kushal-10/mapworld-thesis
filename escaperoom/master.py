@@ -57,7 +57,6 @@ class EscapeRoom(DialogueGameMaster):
         self.fail = False  # Set when Explorer returns any invalid move
         self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
         self.reprompt_fail = False  # Set when Explorer returns a move to an invalid room
-        self.reprompt_success = False  # Set when Explorer returns a move to another valid room
 
         # Pass Turn
         self.pass_turn = True
@@ -97,9 +96,7 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_room = self.game_instance["node_to_category"][self.explorer_pos]
         self.initial_description_tag = LANG_CFG["initial_description_tag"]
         self.directions_tag = LANG_CFG["directions_tag"]
-        print(self.directions_tag, type(self.directions_tag))
         # Set possible Moves for Explorer
-        print(f"Next possible moves: {moves}")
         self.explorer_prompt = self.explorer_prompt.replace(self.directions_tag, moves)
         self.explorer_target = self.game_instance["target_node"]
 
@@ -212,8 +209,6 @@ class EscapeRoom(DialogueGameMaster):
                 else:
                     stdout_logger.info(f"Valid move: {move}")
                     # self.log_to_self("move", "valid")
-                    # Validity logged after checking for efficient move or not
-                    self.reprompt_success = True
                     self.current_explorer_try = 0 # Reset explorer tries
 
                 edges = self.game_map.map_metadata["unnamed_edges"]
@@ -366,6 +361,8 @@ class EscapeRoom(DialogueGameMaster):
                     self.log_to_self("image", {"image": [self.explorer_image]})
                     stdout_logger.info(f"Reprompt Explorer: {self.explorer_failed_reprompt}")
                     stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
+                    stdout_logger.info(f"Resetting reprompt_fail flag")
+                    self.reprompt_fail = False
                 else:
                     move = splits[1].strip().lower()
                     explorer_action = self.game_map._move_to_action[move]

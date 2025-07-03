@@ -98,6 +98,17 @@
         "end_type": "ambiguous",
         "ambiguity_region": "indoor"
       },
+  "tree":
+      {
+        "size": 10,
+        "rooms":8,
+        "type": "tree",
+        "ambiguity": [1],
+        "distance": 2,
+        "start_type": "indoor",
+        "end_type": "ambiguous",
+        "ambiguity_region": "indoor"
+      },
   "near":
       {
         "size": 10,

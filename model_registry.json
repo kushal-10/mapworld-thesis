@@ -61,8 +61,8 @@
         }
     },
    {
-        "model_name": "gemini-2.5-pro",
-        "model_id": "gemini-2.5-pro",
+        "model_name": "gemini-2.5-flash",
+        "model_id": "gemini-2.5-flash",
         "backend": "openai_compatible",
         "release_date": "2024-02-15",
         "open_weight": false,
@@ -291,6 +291,57 @@
                 "audio": false,
                 "video": false
             }
+        }
+    },
+    {
+        "model_name": "o4-mini",
+        "model_id": "o4-mini",
+        "backend": "openai",
+        "release_date": "2023-11-06",
+        "open_weight": false,
+        "parameters": "",
+        "languages": [
+            "en",
+            "it",
+            "af",
+            "es",
+            "de",
+            "fr",
+            "id",
+            "ru",
+            "pl",
+            "uk",
+            "el",
+            "lv",
+            "zh",
+            "ar",
+            "tr",
+            "ja",
+            "sw",
+            "cy",
+            "ko",
+            "is",
+            "bn",
+            "ur",
+            "ne",
+            "th",
+            "pa",
+            "mr",
+            "te"
+        ],
+        "context_size": "128k",
+        "license": {
+            "name": "OpenAI",
+            "url": "https://openai.com/policies/row-terms-of-use/"
+        },
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            },
+          "reasoning_model": true
         }
     },
     {
