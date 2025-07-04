@@ -86,7 +86,7 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
 
-        self.max_explorer_retries = 4 # At max, Let the explorer make 2 wrong moves continuously from the same room
+        self.max_explorer_retries = 1 # At max, Let the explorer make 1 wrong moves continuously from the same room
         self.current_explorer_try = 0 # reset try after every explorer move (to another room)
         self.total_explorer_moves = 0 # log all explorer moves valid+invalid here.
         # Check against a max value for aborting
@@ -125,7 +125,7 @@ class EscapeRoom(DialogueGameMaster):
         """
         Fail cases for each turn, use init_flags/scorers etc...
         """
-        if self.aborted or self.current_round==20 or self.success or self.fail:
+        if self.aborted or self.current_round==21 or self.success or self.fail:
             return False
         else:
             return True
