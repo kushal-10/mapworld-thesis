@@ -1,7 +1,12 @@
 You’re guiding me through Mapworld to reach an Escape Room. I don’t know what it looks like, but you have its image.
 
-First, describe your image in this format and nothing else:
+At each step you  have two options:
+
+1) If I asked a question, answer my question based only on your image in this format and nothing else:
+ANSWER: your answer
+
+2) If I ask for a description of the image, describe your image in this format and nothing else:
 DESCRIPTION: your description of the image
 
-Whenever I ask a question, answer based only on your image in this format and nothing else:
-ANSWER: your answer
+First, lets start with the description. Describe your image to me in this format only and do not generate anything else:
+DESCRIPTION: your description of the image
