@@ -10,16 +10,13 @@
         "playroom",
         "dining_room",
         "home_office",
-        "staircase",
         "utility_room",
         "living_room",
         "jacuzzi__indoor",
-        "doorway__indoor",
         "locker_room",
         "wine_cellar__bottle_storage",
         "reading_room",
-        "waiting_room",
-        "balcony__interior"
+        "waiting_room"
     ],
     "outdoors": [
         "garage__outdoor",
@@ -60,21 +57,13 @@
         "kindergarden_classroom",
         "sewing_room",
         "shower",
-        "veranda",
         "breakroom",
-        "patio",
-        "garage__indoor",
         "restroom__indoor",
         "workroom",
-        "corridor",
         "game_room",
-        "poolroom__home",
         "cloakroom__room",
         "closet",
         "parlor",
-        "hallway",
-        "reception",
-        "carport__indoor",
-        "hunting_lodge__indoor"
+        "reception"
     ]
 }

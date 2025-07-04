@@ -3,14 +3,14 @@ import os
 import numpy as np
 from clemcore.clemgame import GameInstanceGenerator
 
-from engine.map_assignments import assign_room_categories, assign_images
 from engine.maps import BaseMap
 
 # CONFIG
 N = 10 # Number of instances per experiment
-np_rng = np.random.default_rng(seed=42)
+np_rng = np.random.default_rng(seed=12)
 random_seeds = [np_rng.integers(1,1000) for i in range(N)]
 RESOURCES_DIR = os.path.join(os.path.dirname(__file__), "resources")
+
 
 def _make_native(obj):
     if isinstance(obj, dict):
@@ -45,6 +45,7 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
         lang_config = self.load_json(os.path.join(RESOURCES_DIR, "language_config.json"))
 
         for exp in experiments.keys():
+
             experiment = self.add_experiment(exp)
             game_id = 0
             size = experiments[exp]["size"]

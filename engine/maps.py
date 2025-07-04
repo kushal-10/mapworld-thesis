@@ -88,6 +88,7 @@ class BaseMap(BaseGraph):
             else:
                 logging.info(f"No outdoor rooms available! Setting a random room as target position. "
                              f"Check graph configuration!!")
+
                 available_rooms = ambiguous_rooms + indoor_rooms
 
         target_pos = select_random_room(available_rooms=available_rooms, occupied=None, rng=self.graph_rng)
