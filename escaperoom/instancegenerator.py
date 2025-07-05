@@ -42,7 +42,6 @@ class EscapeRoomInstanceGenerator(GameInstanceGenerator):
         )
 
         experiments = self.load_json(os.path.join(RESOURCES_DIR, "experiment_config.json"))
-        lang_config = self.load_json(os.path.join(RESOURCES_DIR, "language_config.json"))
 
         for exp in experiments.keys():
 

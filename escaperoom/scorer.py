@@ -214,10 +214,4 @@ class EscapeRoomScorer(GameScorer):
                 self.log_episode_score(ms.METRIC_SUCCESS, 0)
                 self.log_episode_score(ms.METRIC_LOSE, 1)
 
-                if not total_questions or not total_moves: # Penalize, if no success and no questions asked
-                    self.log_episode_score(ms.BENCH_SCORE, 0)
-                else:
-                    move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
-                    quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
-                    self.log_episode_score(ms.BENCH_SCORE, quality_score)
+                self.log_episode_score(ms.BENCH_SCORE, 0)
