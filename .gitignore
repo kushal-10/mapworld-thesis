@@ -179,6 +179,6 @@ EXP
 NOTES
 escaperoom/clean_instances.py
 key.json
-results*
+results_v1.9
 *.DS_Store
 images

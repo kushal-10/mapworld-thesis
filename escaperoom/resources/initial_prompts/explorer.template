@@ -10,8 +10,8 @@ Using the image you see and your memory of the TARGET ROOM description, you can 
 ESCAPE
 
 2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,
-reply strictly in this format -
-QUESTION: your question here
+ask me a clarifying question comparing a detail from your current observed image to the description I provided -
+QUESTION: Does the TARGET ROOM have [describe a specific detail you see in your current image]?
 
 3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: $DIRECTIONS$
 reply strictly in this format:

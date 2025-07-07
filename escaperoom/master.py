@@ -13,6 +13,7 @@ import json
 
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
 from clemcore.backends import Model
+import numpy as np
 
 from engine.environment import MapWorldEnv
 from engine.utils import get_next_node
@@ -32,7 +33,8 @@ class Explorer(Player):
         self.tag: str = "Explorer"
 
     def _custom_response(self, context: Dict) -> str:
-        return "MOVE: North"
+        random_direction = np.random.choice(["north", "south", "east", "west"])
+        return f"MOVE: {random_direction}"
     
 class Guide(Player):
     def __init__(self, model: Model):
@@ -42,7 +44,7 @@ class Guide(Player):
 
 
     def _custom_response(self, context: Dict) -> str:
-        return "ANSWER: No"
+        return "ANSWER: This is a sample description"
 
 class EscapeRoom(DialogueGameMaster):
 
@@ -86,7 +88,7 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
 
-        self.max_explorer_retries = 1 # At max, Let the explorer make 1 wrong moves continuously from the same room
+        self.max_explorer_retries = 2 # At max, Let the explorer make 2 wrong moves continuously from the same room
         self.current_explorer_try = 0 # reset try after every explorer move (to another room)
         self.total_explorer_moves = 0 # log all explorer moves valid+invalid here.
         # Check against a max value for aborting
@@ -174,6 +176,7 @@ class EscapeRoom(DialogueGameMaster):
             utterance = utterance.lower()
             splits = utterance.split(":")
             tag = splits[0]
+            invalid_move = False
 
             if tag not in valid_tags:
                 self.aborted = True
@@ -188,6 +191,8 @@ class EscapeRoom(DialogueGameMaster):
                 stdout_logger.info(f"Current explorer move: {self.total_explorer_moves}")
                 if self.total_explorer_moves >= 14:
                     self.aborted = True
+                    self.log_to_self("turns exceeded", "abort game: explorer")
+
                 stdout_logger.info(f"Move made from location - {self.game_map._agent_location}")
                 move = splits[1]
                 move = move.lower().strip()
@@ -199,13 +204,21 @@ class EscapeRoom(DialogueGameMaster):
                 stdout_logger.info(f"Move: {move}")
                 stdout_logger.info(f"Next node: {next_node}")
                 # FIXME: add str/tuple typecheck
-                if str(next_node) not in self.game_map.map_metadata["unnamed_nodes"]:
-                    stdout_logger.info(f"Invalid move: {move}")
+                current_node = str(tuple(self.game_map._agent_location))
+                next_node_str = str(next_node)
+                edge = [current_node, next_node_str]
+                reverse_edge = [next_node_str, current_node]
+
+                if edge not in self.game_map.map_metadata["unnamed_edges"] and reverse_edge not in \
+                        self.game_map.map_metadata["unnamed_edges"]:
+                    stdout_logger.info(f"Invalid move from {current_node} to {next_node_str}")
                     self.log_to_self("move", "invalid")
                     self.reprompt_fail = True
                     self.current_explorer_try += 1
+                    invalid_move = True
                     if self.current_explorer_try == self.max_explorer_retries:
                         self.aborted = True
+                        self.log_to_self("turns exceeded", "abort game: explorer")
                 else:
                     stdout_logger.info(f"Valid move: {move}")
                     # self.log_to_self("move", "valid")
@@ -227,15 +240,14 @@ class EscapeRoom(DialogueGameMaster):
                     self.log_to_self("invalid value", "abort game: explorer")
                     return False
 
-                if efficient_move:
-                    stdout_logger.info(f" Efficient Move : {move}")
-                    self.log_to_self("move", "efficient")
-                else:
-                    stdout_logger.info(f" Inefficient Move : {move}")
-                    self.log_to_self("move", "inefficient")
-
+                if not invalid_move:
+                    if efficient_move:
+                        stdout_logger.info(f" Efficient Move : {move}")
+                        self.log_to_self("move", "efficient")
+                    else:
+                        stdout_logger.info(f" Inefficient Move : {move}")
+                        self.log_to_self("move", "inefficient")
                 return True
-
 
             # Episodic Success case
             elif tag == "escape":
@@ -274,7 +286,7 @@ class EscapeRoom(DialogueGameMaster):
             if tag not in valid_tags:
                 self.aborted = True
                 stdout_logger.info(f"Invalid Response for Guide: Expected DESCRIPTION/ANSWER tag, got {splits[0]}")
-                self.log_to_self("invalid value", "abort game") # Violated request count
+                self.log_to_self("invalid value", "abort game: guide") # Violated request count
                 return False
 
             if tag == "description":

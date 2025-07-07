@@ -1,0 +1,81 @@
+,game,model,experiment,episode,metric,value
+0,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Request Count,61.0
+1,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Violated Request Count,0.0
+2,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Parsed Request Count,61.0
+3,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Aborted,0.0
+4,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Success,0.0
+5,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Lose,1.0
+6,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Main Score,0.0
+7,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Request Count,20.0
+8,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Violated Request Count,0.0
+9,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Parsed Request Count,20.0
+10,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Aborted,0.0
+11,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Success,1.0
+12,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Lose,0.0
+13,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Main Score,100.0
+14,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Request Count,20.0
+15,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Violated Request Count,0.0
+16,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Parsed Request Count,20.0
+17,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Aborted,0.0
+18,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Success,1.0
+19,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Lose,0.0
+20,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Main Score,100.0
+21,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Request Count,22.0
+22,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Violated Request Count,0.0
+23,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Parsed Request Count,22.0
+24,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Aborted,0.0
+25,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Success,0.0
+26,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Lose,1.0
+27,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Main Score,0.0
+28,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Request Count,22.0
+29,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Violated Request Count,0.0
+30,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Parsed Request Count,22.0
+31,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Aborted,0.0
+32,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Success,0.0
+33,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Lose,1.0
+34,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Main Score,0.0
+35,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Request Count,22.0
+36,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Violated Request Count,0.0
+37,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Parsed Request Count,22.0
+38,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Aborted,0.0
+39,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Success,0.0
+40,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Lose,1.0
+41,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Main Score,0.0
+42,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Request Count,20.0
+43,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Violated Request Count,0.0
+44,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Parsed Request Count,20.0
+45,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Aborted,0.0
+46,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Success,1.0
+47,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Lose,0.0
+48,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Main Score,100.0
+49,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Request Count,20.0
+50,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Violated Request Count,0.0
+51,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Parsed Request Count,20.0
+52,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Aborted,0.0
+53,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Success,1.0
+54,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Lose,0.0
+55,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Main Score,100.0
+56,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Request Count,20.0
+57,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Violated Request Count,0.0
+58,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Parsed Request Count,20.0
+59,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Aborted,0.0
+60,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Success,0.0
+61,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Lose,1.0
+62,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Main Score,0.0
+63,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Request Count,32.0
+64,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Violated Request Count,0.0
+65,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Parsed Request Count,32.0
+66,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Aborted,0.0
+67,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Success,0.0
+68,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Lose,1.0
+69,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Main Score,0.0
+70,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_5,Played,1.0
+71,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_2,Played,1.0
+72,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_3,Played,1.0
+73,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_4,Played,1.0
+74,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_1,Played,1.0
+75,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_6,Played,1.0
+76,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_8,Played,1.0
+77,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_9,Played,1.0
+78,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_7,Played,1.0
+79,escape_room,gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0,0_small,episode_0,Played,1.0

@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is an adaptation from the answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {background-color: rgb(157, 152, 150);}
+
+  /* dialogue header */
+
+.top-info {
+  text-align: center;
+  --rad: 20px;
+  --rad-sm: 3px;
+  font: 20px/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  background: #3f3e3e;
+  color: #fff;
+}
+
+.chat {
+    --rad: 20px;
+    --rad-sm: 3px;
+    font: 16px/1.5 sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+  }
+  
+  .msg {
+    position: relative;
+    max-width: 75%;
+    padding: 7px 15px;
+    margin-bottom: 30px;
+  }
+  
+  /* 5 levels, two players to/from game master and meta messages form game master */
+
+  .msg.b-gm {
+    border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+    background: #874aaf;
+    color: #fff;
+    margin-left: 60%;
+  }
+
+  .msg.a-gm {
+    border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+    background: #f39109;
+    color: #fff;
+    margin-right: 60%;
+  }
+  
+  .msg.gm-a {
+    border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+    background: #c4c3c3;    
+    color: #0c0c0c;
+    margin-right: 40%;
+    margin-left: 20%;
+  }
+
+  .msg.gm-b {
+    border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+    background: #c4c3c3;
+    color: #0c0c0c;
+    margin-right: 20%;
+    margin-left: 40%;
+  }
+
+  .msg.gm-gm {
+    background: #f1f1f1;
+    color: #373636;
+    margin-left: 40%;
+    margin-right: 40%;
+    font-size: 0.8rem;
+
+  }
+  
+  /* speaker labels */
+  
+  .msg::before {
+    content: attr(speaker);
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 100%;
+    color: #888;
+    white-space: nowrap;
+
+  }
+  
+  .msg.b-gm::before {
+    right: 15px;
+  }
+
+  .msg.gm-a::before {
+    right: 15px;
+  }
+
+  .msg.a-gm::before {
+    left: 15px;
+  }
+
+  .msg.gm-b::before {
+    left: 15px;
+  }
+
+  .msg.gm-gm::before {
+    left: 0px;
+  }
+  
+
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for small, episode 5 with gpt-4o-mini-2024-07-18-t0.0--gpt-4o-mini-2024-07-18-t0.0.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019086.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019086.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019086.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/tearoom/ADE_train_00019086.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 1 (Guide)" class="msg gm-a" style="">
+        <p>You are guiding me through MapWorld, a network consisting of various interconnected rooms.<br/>My goal is to reach the TARGET ROOM. You have an image of the TARGET ROOM, but I do not know what it looks like.<br/><br/>At each step, you can perform one of the following actions based solely on the image you have:<br/><br/>1) If I ask a question about the TARGET ROOM, reply strictly in this format -<br/>ANSWER: your answer<br/><br/>2) If I request a description of the TARGET ROOM, reply strictly in this format -<br/>DESCRIPTION: your description of the image<br/><br/>Let&#x27;s begin by describing the TARGET ROOM. Reply strictly in the following format and provide no additional text-<br/>DESCRIPTION: your description of the image<br/><br/></p>
+    </div>
+
+    <div speaker="Player 1 (Guide) to Game Master" class="msg a-gm" style="">
+        <p>DESCRIPTION: The TARGET ROOM features a traditional Japanese-style interior with tatami mat flooring. In the center, there is a low wooden table surrounded by green cushions. On the table, there are various tea utensils, including a teapot and bowls. The walls are adorned with sliding doors, and there is a decorative arrangement of flowers in a vase, adding a touch of elegance to the space.</p>
+    </div>
+
+    <div speaker="Game Master: description" class="msg gm-gm" style="">
+        <p>guide</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>You are exploring MapWorld, a network consisting of various interconnected rooms. Your goal is to find and reach the TARGET ROOM.<br/><br/>I have the image of the TARGET ROOM, and here is its description:<br/>description: the target room features a traditional japanese-style interior with tatami mat flooring. in the center, there is a low wooden table surrounded by green cushions. on the table, there are various tea utensils, including a teapot and bowls. the walls are adorned with sliding doors, and there is a decorative arrangement of flowers in a vase, adding a touch of elegance to the space<br/><br/>At each step, you will be shown an image of your current room.<br/>Using the image you see and your memory of the TARGET ROOM description, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;north&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not include any additional explanations or text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>efficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: east</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009329.jpg" /></a>
+</div>
+
+    <div speaker="Game Master to Player 2 (Explorer)" class="msg gm-b" style="">
+        <p>Now you made a move to this room, you can choose one of the following three actions:<br/><br/>1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -<br/>ESCAPE<br/><br/>2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,<br/>reply strictly in this format -<br/>QUESTION: your question here<br/><br/>3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: [&#x27;west&#x27;, &#x27;east&#x27;]<br/>reply strictly in this format:<br/>MOVE: chosen direction<br/><br/>Do not generate any additional text.</p>
+    </div>
+
+    <div speaker="Player 2 (Explorer) to Game Master" class="msg b-gm" style="">
+        <p>MOVE: west</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>inefficient</p>
+    </div>
+<div speaker="Game Master: image" class="msg gm-gm" style="">
+  <p>{&#x27;image&#x27;: [&#x27;https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg&#x27;]}</p>
+  <a title="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg"><img style="width:100%" src="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" alt="https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013908.jpg" /></a>
+</div>
+
+</div>
+
+</body>
+</html>
