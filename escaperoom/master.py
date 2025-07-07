@@ -21,6 +21,7 @@ from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
+logging.getLogger("huggingface.multimodal.api").disabled = True
 
 lang_config_path = os.path.join(os.path.dirname(__file__), "resources", "language_config.json")
 with open(lang_config_path) as f:
@@ -62,7 +63,6 @@ class EscapeRoom(DialogueGameMaster):
 
         # Pass Turn
         self.pass_turn = True
-        self.start_next_round = False
 
     def _on_setup(self, **game_instance):
 
@@ -93,13 +93,12 @@ class EscapeRoom(DialogueGameMaster):
         self.total_explorer_moves = 0 # log all explorer moves valid+invalid here.
         # Check against a max value for aborting
 
-        moves = self.game_map.get_next_moves()
+
         # Name of the room category - bedroom, for example
         self.explorer_room = self.game_instance["node_to_category"][self.explorer_pos]
         self.initial_description_tag = LANG_CFG["initial_description_tag"]
         self.directions_tag = LANG_CFG["directions_tag"]
-        # Set possible Moves for Explorer
-        self.explorer_prompt = self.explorer_base_prompt.replace(self.directions_tag, moves)
+
         self.explorer_target = self.game_instance["target_node"]
 
         # Setup for Guide/Player2
@@ -323,10 +322,6 @@ class EscapeRoom(DialogueGameMaster):
         #     self.explorer_reprompt = self.explorer_reprompt.replace("$ROOMS", next_moves)
         return utterance
 
-    def _start_next_round(self) -> bool:
-        return self.start_next_round
-
-
     def _on_valid_player_response(self, player: Union[Explorer, Guide], utterance: str):
         """
         Send Explorer's response to Guide and vice versa
@@ -341,16 +336,17 @@ class EscapeRoom(DialogueGameMaster):
         # and the next possible moves are interpreted based on the guide's response
         stdout_logger.info(f"Current Round index: {self.current_round}. Current player: {player}")
         utterance = self.clean_agent_response(utterance)
-        self.start_next_round = True
+
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
+                moves = self.game_map.get_next_moves()
                 self.explorer_prompt = self.explorer_base_prompt.replace(self.initial_description_tag, utterance)
+                self.explorer_prompt = self.explorer_prompt.replace(self.directions_tag, moves)
                 stdout_logger.info(f"First prompt for Explorer: {self.explorer_prompt}")
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 # Pass the response from Guide to Explorer
                 self.set_context_for(self.explorer, self.explorer_prompt, image=[self.explorer_image])
                 self.log_to_self("image", {"image": [self.explorer_image]})
-
             else:
                 # Pass the response from Guide as is, This should only contain "ANSWER:...."
                 # DESCRIPTION: ... is only for the first turn
