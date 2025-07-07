@@ -1,12 +1,14 @@
-Now you made a move to this room, choose one of three actions:
+Now you made a move to this room, you can choose one of the following three actions:
 
-1. If your current image matches your memory of the Escape Room description, reply with only one word
+1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -
 ESCAPE
 
-2. If you need more information to verify if it’s the same room, reply -
+2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,
+reply strictly in this format -
 QUESTION: your question here
 
-3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -
-MOVE: direction you chose
+3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: $DIRECTIONS$
+reply strictly in this format:
+MOVE: chosen direction
 
 Do not generate any additional text.

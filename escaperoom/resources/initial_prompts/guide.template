@@ -1,12 +1,14 @@
-You’re guiding me through Mapworld to reach an Escape Room. I don’t know what it looks like, but you have its image.
+You are guiding me through MapWorld, a network consisting of various interconnected rooms.
+My goal is to reach the TARGET ROOM. You have an image of the TARGET ROOM, but I do not know what it looks like.
 
-At each step you  have two options:
+At each step, you can perform one of the following actions based solely on the image you have:
 
-1) If I asked a question, answer my question based only on your image in this format and nothing else:
+1) If I ask a question about the TARGET ROOM, reply strictly in this format -
 ANSWER: your answer
 
-2) If I ask for a description of the image, describe your image in this format and nothing else:
+2) If I request a description of the TARGET ROOM, reply strictly in this format -
 DESCRIPTION: your description of the image
 
-First, lets start with the description. Describe your image to me in this format only and do not generate anything else:
+Let's begin by describing the TARGET ROOM. Reply strictly in the following format and provide no additional text-
 DESCRIPTION: your description of the image
+

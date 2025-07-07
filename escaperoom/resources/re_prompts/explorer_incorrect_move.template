@@ -1,12 +1,13 @@
-The move you made is invalid. Take a closer look at available directions. We are still in this room, choose one of three actions:
+The move you made is invalid. Please carefully review the available directions again. We remain in the current room.
+You can now choose one of the following three actions:
 
-1. If your current image matches your memory of the Escape Room description, reply with only one word
+1) If your current image matches your memory of the Escape Room description, reply with only one word
 ESCAPE
 
-2. If you need more information to verify if it’s the same room, reply -
+2) If you need more information to verify if it’s the same room, reply -
 QUESTION: your question here
 
-3. If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -
+3) If your current room is definitely a different room, pick a direction from $DIRECTIONS$ to move, and reply -
 MOVE: direction you chose
 
 Do not generate any additional text.

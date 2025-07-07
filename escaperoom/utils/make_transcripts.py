@@ -5,7 +5,7 @@ import glob
 from io import BytesIO
 import requests
 from PIL import Image, ImageDraw, ImageFont
-import networkx as nx
+from tqdm import tqdm
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import textwrap
@@ -144,7 +144,7 @@ def process_interactions():
         exp['name']: {inst['game_id']: inst for inst in exp['game_instances']}
         for exp in data['experiments']
     }
-    for path in glob.glob(INTERACTIONS_PATTERN):
+    for path in tqdm(glob.glob(INTERACTIONS_PATTERN)):
         with open(path) as f:
             inter = json.load(f)
         meta = inter['meta']
@@ -164,6 +164,8 @@ def process_interactions():
         oracle_img = oracle_img.resize(ORACLE_IMG_SIZE, resample=Image.LANCZOS)
         last_guide, last_explorer = None, None
         out_dir = os.path.join(os.path.dirname(path), 'combined_graphs')
+        if os.path.exists(out_dir):
+            continue
         os.makedirs(out_dir, exist_ok=True)
         for idx, turn in enumerate(inter['turns']):
             updated = False
@@ -197,7 +199,6 @@ def process_interactions():
                 )
                 out = os.path.join(out_dir, f'combined_{idx}.png')
                 combined.save(out)
-                print(f"Saved {out}")
 
 if __name__ == '__main__':
     process_interactions()
