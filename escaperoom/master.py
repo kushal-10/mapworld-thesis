@@ -367,6 +367,7 @@ class EscapeRoom(DialogueGameMaster):
                 if self.reprompt_fail:
                     # Skip updating environment, pass same image,moves, but different reprompt
                     next_moves = self.game_map.get_next_moves()  # Update next possible moves
+                    stdout_logger.info(f"Next Moves: {next_moves}")
                     self.explorer_failed_reprompt = self.explorer_base_failed_reprompt.replace(self.directions_tag,
                                                                                           next_moves)
                     self.set_context_for(self.explorer, self.explorer_failed_reprompt,

@@ -3,6 +3,7 @@ import ast
 import json
 import requests
 from io import BytesIO
+from collections import defaultdict, Counter
 
 from tqdm import tqdm
 from PIL import Image
@@ -57,6 +58,10 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
         x2, y2 = positions[v]
         ax.plot([x1, x2], [y1, y2], linewidth=1, color='gray')
 
+    all_categories = [metadata['node_to_category'].get(node, "Unknown") for node in positions]
+    total_counts = Counter(all_categories)
+    category_instance_counter = defaultdict(int)
+
     # Draw nodes as resized image squares
     for node, (x, y) in positions.items():
         url = metadata['node_to_image'][node]
@@ -65,6 +70,26 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
             im = OffsetImage(img, zoom=zoom)
             ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5))
             ax.add_artist(ab)
+
+            # Get the category
+            category = metadata['node_to_category'].get(node, "Unknown")
+            category_instance_counter[category] += 1
+            count = category_instance_counter[category]
+
+            # Format label
+            if total_counts[category] == 1:
+                label = category  # Only one instance, no number
+            else:
+                label = f"{category}{count}"  # Multiple instances, use numbering
+
+            # Decide label position (above or below)
+            label_y_offset = 0.15
+            max_y = max(pos[1] for pos in positions.values())
+            y_offset = -label_y_offset if y > 0.8 * max_y else label_y_offset
+
+            # Add text label
+            ax.text(x, y + y_offset, label, ha='center', va='center', fontsize=8)
+
         except Exception as e:
             print(f"Failed to load or resize image for node {node}: {e}")
 
