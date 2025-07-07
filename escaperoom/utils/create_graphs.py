@@ -1,15 +1,14 @@
 import os
 import ast
 import json
-import glob
 import requests
 from io import BytesIO
+
+from tqdm import tqdm
 from PIL import Image
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-
-
 
 def fetch_and_resize_image(url, size=(100, 100)):
     """Fetches an image from a URL, resizes it to 'size', and returns a PIL Image."""
@@ -75,41 +74,20 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
 
 
 def main():
-    # Load all instances
-    instances_path = os.path.join('escaperoom', 'in', 'instances.json')
-    with open(instances_path, 'r') as f:
-        data = json.load(f)
-
-    # Build lookup: exp_name -> {game_id: metadata}
-    lookup = {}
-    for exp in data.get('experiments', []):
-        name = exp.get('name')
-        lookup[name] = {inst['game_id']: inst for inst in exp.get('game_instances', [])}
-
-    # Find all interactions.json files
-    pattern = os.path.join('results', '*', 'escape_room', '*', 'episode_*', 'interactions.json')
-    for interactions_path in glob.glob(pattern):
-        # Derive experiment folder and episode
-        parts = interactions_path.split(os.sep)
-        exp_folder = parts[-3]
-        episode_folder = parts[-2]
-        # Extract experiment name and game_id
-        _, exp_name = exp_folder.split('_', 1)
-        instance_file = interactions_path.replace("interactions.json", "instance.json")
-        with open(instance_file, 'r') as f:
-            inst_data = json.load(f)
-        game_id = inst_data["game_id"]
-
-        # Lookup metadata
-        metadata = lookup.get(exp_name, {}).get(game_id)
-        if not metadata:
-            print(f"Metadata not found for {exp_folder}, game {game_id}")
-            continue
-
-        # Save graph.png alongside interactions.json
-        output_png = os.path.join(os.path.dirname(interactions_path), 'graph.png')
-        print(f"Drawing graph for experiment - {exp_name}, game_id - {game_id}-> {output_png}")
-        draw_graph(metadata, output_png)
+    instance_path = os.path.join("escaperoom", "in", "instances.json")
+    out_dir = os.path.join("escaperoom", "in", "instance_images")
+    os.makedirs(out_dir, exist_ok=True)
+    with open(instance_path) as f:
+        instances = json.load(f)
+    for exp in tqdm(instances["experiments"]):
+        exp_name = exp["name"]
+        game_instances = exp["game_instances"]
+        for metadata in game_instances:
+            id = metadata["game_id"]
+            out_sub_dir = os.path.join(out_dir, exp_name)
+            os.makedirs(out_sub_dir, exist_ok=True)
+            output_png = os.path.join(out_sub_dir, f"{id}.png")
+            draw_graph(metadata, output_png)
 
 if __name__ == '__main__':
     main()

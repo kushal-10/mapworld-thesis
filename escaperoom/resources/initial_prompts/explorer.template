@@ -9,12 +9,14 @@ Using the image you see and your memory of the TARGET ROOM description, you can 
 1) If the current room exactly matches the description of the TARGET ROOM, reply with exactly -
 ESCAPE
 
-2) If the current room appears similar to the TARGET ROOM, but you need more information to confirm the match,
-ask me a clarifying question comparing a detail from your current observed image to the description I provided -
-QUESTION: Does the TARGET ROOM have [describe a specific detail you see in your current image]?
+2) If the current room appears similar to my description, but you need more information to confirm the match,
+ask me a clarifying question comparing a detail from your current image - in this format
+QUESTION: your question here
+[example - QUESTION: I see object A in my image, do you have object A in your image?]
 
 3) If the current room is definitely not the TARGET ROOM, choose a direction from the available directions: $DIRECTIONS$
 reply strictly in this format:
 MOVE: chosen direction
+[example - MOVE: north]
 
 Do not include any additional explanations or text.

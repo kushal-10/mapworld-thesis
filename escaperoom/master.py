@@ -72,9 +72,9 @@ class EscapeRoom(DialogueGameMaster):
         self.game_map = MapWorldEnv(render_mode="rgb_array", size=self.m, map_metadata=self.game_instance)
 
         # Prompts
-        self.explorer_prompt: str = self.game_instance["explorer_prompt"]
-        self.explorer_reprompt: str = self.game_instance["explorer_reprompt"]
-        self.explorer_failed_reprompt: str = self.game_instance["explorer_failed_reprompt"]
+        self.explorer_base_prompt: str = self.game_instance["explorer_prompt"]
+        self.explorer_base_reprompt: str = self.game_instance["explorer_reprompt"]
+        self.explorer_base_failed_reprompt: str = self.game_instance["explorer_failed_reprompt"]
         self.guide_prompt: str = self.game_instance["guide_prompt"]
 
         # Initialize Players
@@ -99,7 +99,7 @@ class EscapeRoom(DialogueGameMaster):
         self.initial_description_tag = LANG_CFG["initial_description_tag"]
         self.directions_tag = LANG_CFG["directions_tag"]
         # Set possible Moves for Explorer
-        self.explorer_prompt = self.explorer_prompt.replace(self.directions_tag, moves)
+        self.explorer_prompt = self.explorer_base_prompt.replace(self.directions_tag, moves)
         self.explorer_target = self.game_instance["target_node"]
 
         # Setup for Guide/Player2
@@ -344,7 +344,7 @@ class EscapeRoom(DialogueGameMaster):
         self.start_next_round = True
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
-                self.explorer_prompt = self.explorer_prompt.replace(self.initial_description_tag, utterance)
+                self.explorer_prompt = self.explorer_base_prompt.replace(self.initial_description_tag, utterance)
                 stdout_logger.info(f"First prompt for Explorer: {self.explorer_prompt}")
                 stdout_logger.info(f"Image for Explorer: {self.explorer_image}")
                 # Pass the response from Guide to Explorer
@@ -367,7 +367,7 @@ class EscapeRoom(DialogueGameMaster):
                 if self.reprompt_fail:
                     # Skip updating environment, pass same image,moves, but different reprompt
                     next_moves = self.game_map.get_next_moves()  # Update next possible moves
-                    self.explorer_failed_reprompt = self.explorer_failed_reprompt.replace(self.directions_tag,
+                    self.explorer_failed_reprompt = self.explorer_base_failed_reprompt.replace(self.directions_tag,
                                                                                           next_moves)
                     self.set_context_for(self.explorer, self.explorer_failed_reprompt,
                                          image=[self.explorer_image])  # Pass the updated str
@@ -384,7 +384,7 @@ class EscapeRoom(DialogueGameMaster):
                     self.explorer_image = self.game_instance["node_to_image"][str(tuple(self.game_map._agent_location))]
                     next_moves = self.game_map.get_next_moves() # Update next possible moves
                     stdout_logger.info(f"Next Moves: {next_moves}")
-                    self.explorer_reprompt = self.explorer_reprompt.replace(self.directions_tag, next_moves)
+                    self.explorer_reprompt = self.explorer_base_reprompt.replace(self.directions_tag, next_moves)
                     # Pass the updated str
                     self.set_context_for(self.explorer, self.explorer_reprompt, image=[self.explorer_image])
                     self.log_to_self("image", {"image": [self.explorer_image]})

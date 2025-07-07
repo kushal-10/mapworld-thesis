@@ -1,0 +1,22 @@
+Results a100->local
+
+rsync -avz --progress \
+  --exclude '*.tmp' \
+  --exclude 'debug_logs/' \
+  a100:project/kkoshti/thesis/mapworld-thesis/results/ \
+  ~/WORK/CLEM/mapworld-thesis/results
+
+local -> a100
+Escaperoom and engine
+
+rsync -avz --progress \
+  --exclude '*.tmp' \
+  --exclude 'debug_logs/' \
+  ~/WORK/CLEM/mapworld-thesis/escaperoom/ \
+  a100:project/kkoshti/thesis/mapworld-thesis/escaperoom
+
+rsync -avz --progress \
+  --exclude '*.tmp' \
+  --exclude 'debug_logs/' \
+  ~/WORK/CLEM/mapworld-thesis/engine/ \
+  a100:project/kkoshti/thesis/mapworld-thesis/engine

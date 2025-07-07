@@ -176,9 +176,10 @@ cython_debug/
 
 # MapWorld
 EXP
-NOTES
+NOTES1
 escaperoom/clean_instances.py
 key.json
 results_v1.9
 *.DS_Store
 images
+resultsbug_1
