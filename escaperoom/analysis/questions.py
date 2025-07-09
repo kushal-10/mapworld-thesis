@@ -44,8 +44,8 @@ def walk_results():
             episode_interactions = json.load(f)
 
         qa, mm, em, fe, se = analyse(episode_interactions)
-
-        print(file, qa, mm, em, fe, se)
+        if qa:
+            print(file, qa, mm, em, fe, se)
 
 
 if __name__ == '__main__':
