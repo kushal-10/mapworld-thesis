@@ -5,14 +5,14 @@
             "game_instances": [
                 {
                     "game_id": 6,
-                    "graph_id": "50c51b60b61h",
+                    "graph_id": "50b51b60b61r",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Childs room",
-                        "Bedroom",
-                        "Bedroom",
-                        "Hotel room"
+                        "Basement",
+                        "Bathroom",
+                        "Bathroom",
+                        "Reading room"
                     ],
                     "unnamed_nodes": [
                         "(5, 0)",
@@ -22,20 +22,20 @@
                     ],
                     "named_edges": [
                         [
-                            "Childs room",
-                            "Bedroom"
+                            "Basement",
+                            "Bathroom"
                         ],
                         [
-                            "Childs room",
-                            "Bedroom"
+                            "Basement",
+                            "Bathroom"
                         ],
                         [
-                            "Bedroom",
-                            "Hotel room"
+                            "Bathroom",
+                            "Reading room"
                         ],
                         [
-                            "Bedroom",
-                            "Hotel room"
+                            "Bathroom",
+                            "Reading room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -57,26 +57,26 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(5, 0)": "Childs room",
-                        "(5, 1)": "Bedroom",
-                        "(6, 0)": "Bedroom",
-                        "(6, 1)": "Hotel room"
+                        "(5, 0)": "Basement",
+                        "(5, 1)": "Bathroom",
+                        "(6, 0)": "Bathroom",
+                        "(6, 1)": "Reading room"
                     },
                     "category_to_node": {
-                        "Childs room": "(5, 0)",
-                        "Bedroom": "(6, 0)",
-                        "Hotel room": "(6, 1)"
+                        "Basement": "(5, 0)",
+                        "Bathroom": "(6, 0)",
+                        "Reading room": "(6, 1)"
                     },
                     "node_to_image": {
-                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005525.jpg",
-                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003638.jpg",
-                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003447.jpg",
-                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009608.jpg"
+                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002499.jpg",
+                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002733.jpg",
+                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002641.jpg",
+                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015703.jpg"
                     },
                     "category_to_image": {
-                        "Childs room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005525.jpg",
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003447.jpg",
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009608.jpg"
+                        "Basement": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002499.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002641.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015703.jpg"
                     },
                     "start_node": "(6, 0)",
                     "target_node": "(5, 1)",
@@ -92,16 +92,16 @@
             "game_instances": [
                 {
                     "game_id": 3,
-                    "graph_id": "24b25s34b35d44s45r",
+                    "graph_id": "24b25m34b35a44c45l",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Bedroom",
-                        "Sewing room",
-                        "Bedroom",
-                        "Dining room",
-                        "Shower",
-                        "Reading room"
+                        "Bathroom",
+                        "Music studio",
+                        "Bathroom",
+                        "Attic",
+                        "Computer room",
+                        "Living room"
                     ],
                     "unnamed_nodes": [
                         "(2, 4)",
@@ -113,28 +113,28 @@
                     ],
                     "named_edges": [
                         [
-                            "Bedroom",
-                            "Bedroom"
+                            "Bathroom",
+                            "Bathroom"
                         ],
                         [
-                            "Bedroom",
-                            "Sewing room"
+                            "Bathroom",
+                            "Music studio"
                         ],
                         [
-                            "Sewing room",
-                            "Dining room"
+                            "Music studio",
+                            "Attic"
                         ],
                         [
-                            "Bedroom",
-                            "Shower"
+                            "Bathroom",
+                            "Computer room"
                         ],
                         [
-                            "Dining room",
-                            "Reading room"
+                            "Attic",
+                            "Living room"
                         ],
                         [
-                            "Shower",
-                            "Reading room"
+                            "Computer room",
+                            "Living room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -164,34 +164,34 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 4)": "Bedroom",
-                        "(2, 5)": "Sewing room",
-                        "(3, 4)": "Bedroom",
-                        "(3, 5)": "Dining room",
-                        "(4, 4)": "Shower",
-                        "(4, 5)": "Reading room"
+                        "(2, 4)": "Bathroom",
+                        "(2, 5)": "Music studio",
+                        "(3, 4)": "Bathroom",
+                        "(3, 5)": "Attic",
+                        "(4, 4)": "Computer room",
+                        "(4, 5)": "Living room"
                     },
                     "category_to_node": {
-                        "Bedroom": "(3, 4)",
-                        "Sewing room": "(2, 5)",
-                        "Dining room": "(3, 5)",
-                        "Shower": "(4, 4)",
-                        "Reading room": "(4, 5)"
+                        "Bathroom": "(3, 4)",
+                        "Music studio": "(2, 5)",
+                        "Attic": "(3, 5)",
+                        "Computer room": "(4, 4)",
+                        "Living room": "(4, 5)"
                     },
                     "node_to_image": {
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004173.jpg",
-                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016181.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003583.jpg",
-                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007024.jpg",
-                        "(4, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016287.jpg",
-                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015698.jpg"
+                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002991.jpg",
+                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012275.jpg",
+                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002707.jpg",
+                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001922.jpg",
+                        "(4, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005948.jpg",
+                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000808.jpg"
                     },
                     "category_to_image": {
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003583.jpg",
-                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016181.jpg",
-                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007024.jpg",
-                        "Shower": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016287.jpg",
-                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015698.jpg"
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002707.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012275.jpg",
+                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001922.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005948.jpg",
+                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000808.jpg"
                     },
                     "start_node": "(3, 5)",
                     "target_node": "(2, 4)",
@@ -207,18 +207,18 @@
             "game_instances": [
                 {
                     "game_id": 7,
-                    "graph_id": "42u43j52h53p62s63r72r73g",
+                    "graph_id": "42d43h52b53b62r63r72r73s",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Utility room",
-                        "Jacuzzi indoor",
+                        "Dining room",
                         "Home office",
-                        "Parlor",
-                        "Storage room",
+                        "Bathroom",
+                        "Basement",
+                        "Reading room",
                         "Reception",
                         "Reception",
-                        "Game room"
+                        "Sewing room"
                     ],
                     "unnamed_nodes": [
                         "(4, 2)",
@@ -232,36 +232,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Utility room",
+                            "Dining room",
+                            "Bathroom"
+                        ],
+                        [
+                            "Dining room",
                             "Home office"
                         ],
                         [
-                            "Utility room",
-                            "Jacuzzi indoor"
-                        ],
-                        [
-                            "Jacuzzi indoor",
-                            "Parlor"
-                        ],
-                        [
                             "Home office",
-                            "Storage room"
+                            "Basement"
                         ],
                         [
-                            "Parlor",
+                            "Bathroom",
+                            "Reading room"
+                        ],
+                        [
+                            "Basement",
                             "Reception"
                         ],
                         [
-                            "Storage room",
+                            "Reading room",
                             "Reception"
                         ],
                         [
                             "Reception",
-                            "Game room"
+                            "Sewing room"
                         ],
                         [
                             "Reception",
-                            "Game room"
+                            "Sewing room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -299,45 +299,45 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(4, 2)": "Utility room",
-                        "(4, 3)": "Jacuzzi indoor",
-                        "(5, 2)": "Home office",
-                        "(5, 3)": "Parlor",
-                        "(6, 2)": "Storage room",
+                        "(4, 2)": "Dining room",
+                        "(4, 3)": "Home office",
+                        "(5, 2)": "Bathroom",
+                        "(5, 3)": "Basement",
+                        "(6, 2)": "Reading room",
                         "(6, 3)": "Reception",
                         "(7, 2)": "Reception",
-                        "(7, 3)": "Game room"
+                        "(7, 3)": "Sewing room"
                     },
                     "category_to_node": {
-                        "Utility room": "(4, 2)",
-                        "Jacuzzi indoor": "(4, 3)",
-                        "Home office": "(5, 2)",
-                        "Parlor": "(5, 3)",
-                        "Storage room": "(6, 2)",
+                        "Dining room": "(4, 2)",
+                        "Home office": "(4, 3)",
+                        "Bathroom": "(5, 2)",
+                        "Basement": "(5, 3)",
+                        "Reading room": "(6, 2)",
                         "Reception": "(7, 2)",
-                        "Game room": "(7, 3)"
+                        "Sewing room": "(7, 3)"
                     },
                     "node_to_image": {
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019428.jpg",
-                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009957.jpg",
-                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009333.jpg",
-                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015152.jpg",
-                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016854.jpg",
-                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015715.jpg",
-                        "(7, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg",
-                        "(7, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008370.jpg"
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007090.jpg",
+                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009319.jpg",
+                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002566.jpg",
+                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002484.jpg",
+                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015701.jpg",
+                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015714.jpg",
+                        "(7, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015758.jpg",
+                        "(7, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg"
                     },
                     "category_to_image": {
-                        "Utility room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019428.jpg",
-                        "Jacuzzi indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009957.jpg",
-                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009333.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015152.jpg",
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016854.jpg",
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg",
-                        "Game room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008370.jpg"
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007090.jpg",
+                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009319.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002566.jpg",
+                        "Basement": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002484.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015701.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015758.jpg",
+                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg"
                     },
-                    "start_node": "(4, 3)",
-                    "target_node": "(6, 3)",
+                    "start_node": "(5, 2)",
+                    "target_node": "(7, 2)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -350,18 +350,18 @@
             "game_instances": [
                 {
                     "game_id": 4,
-                    "graph_id": "01a02b11b12h21c22k31b32m",
+                    "graph_id": "01k02b11a12d21h22c31b32h",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Attic",
-                        "Bathroom",
-                        "Breakroom",
-                        "Home office",
-                        "Computer room",
                         "Kitchen",
                         "Bedroom",
-                        "Music studio"
+                        "Art studio",
+                        "Dining room",
+                        "Hotel room",
+                        "Computer room",
+                        "Bathroom",
+                        "Home theater"
                     ],
                     "unnamed_nodes": [
                         "(0, 1)",
@@ -375,36 +375,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Attic",
-                            "Breakroom"
-                        ],
-                        [
-                            "Attic",
-                            "Bathroom"
-                        ],
-                        [
-                            "Bathroom",
-                            "Home office"
-                        ],
-                        [
-                            "Breakroom",
-                            "Computer room"
-                        ],
-                        [
-                            "Home office",
-                            "Kitchen"
-                        ],
-                        [
-                            "Computer room",
-                            "Bedroom"
+                            "Kitchen",
+                            "Art studio"
                         ],
                         [
                             "Kitchen",
-                            "Music studio"
+                            "Bedroom"
                         ],
                         [
                             "Bedroom",
-                            "Music studio"
+                            "Dining room"
+                        ],
+                        [
+                            "Art studio",
+                            "Hotel room"
+                        ],
+                        [
+                            "Dining room",
+                            "Computer room"
+                        ],
+                        [
+                            "Hotel room",
+                            "Bathroom"
+                        ],
+                        [
+                            "Computer room",
+                            "Home theater"
+                        ],
+                        [
+                            "Bathroom",
+                            "Home theater"
                         ]
                     ],
                     "unnamed_edges": [
@@ -442,44 +442,44 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(0, 1)": "Attic",
-                        "(0, 2)": "Bathroom",
-                        "(1, 1)": "Breakroom",
-                        "(1, 2)": "Home office",
-                        "(2, 1)": "Computer room",
-                        "(2, 2)": "Kitchen",
-                        "(3, 1)": "Bedroom",
-                        "(3, 2)": "Music studio"
+                        "(0, 1)": "Kitchen",
+                        "(0, 2)": "Bedroom",
+                        "(1, 1)": "Art studio",
+                        "(1, 2)": "Dining room",
+                        "(2, 1)": "Hotel room",
+                        "(2, 2)": "Computer room",
+                        "(3, 1)": "Bathroom",
+                        "(3, 2)": "Home theater"
                     },
                     "category_to_node": {
-                        "Attic": "(0, 1)",
-                        "Bathroom": "(0, 2)",
-                        "Breakroom": "(1, 1)",
-                        "Home office": "(1, 2)",
-                        "Computer room": "(2, 1)",
-                        "Kitchen": "(2, 2)",
-                        "Bedroom": "(3, 1)",
-                        "Music studio": "(3, 2)"
+                        "Kitchen": "(0, 1)",
+                        "Bedroom": "(0, 2)",
+                        "Art studio": "(1, 1)",
+                        "Dining room": "(1, 2)",
+                        "Hotel room": "(2, 1)",
+                        "Computer room": "(2, 2)",
+                        "Bathroom": "(3, 1)",
+                        "Home theater": "(3, 2)"
                     },
                     "node_to_image": {
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001911.jpg",
-                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002861.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004518.jpg",
-                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009337.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005957.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010691.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003531.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012282.jpg"
+                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00000610.jpg",
+                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00000533.jpg",
+                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001798.jpg",
+                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007221.jpg",
+                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009599.jpg",
+                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005951.jpg",
+                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002600.jpg",
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009417.jpg"
                     },
                     "category_to_image": {
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001911.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002861.jpg",
-                        "Breakroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004518.jpg",
-                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009337.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005957.jpg",
-                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010691.jpg",
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003531.jpg",
-                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012282.jpg"
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00000610.jpg",
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00000533.jpg",
+                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001798.jpg",
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007221.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009599.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005951.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002600.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009417.jpg"
                     },
                     "start_node": "(2, 1)",
                     "target_node": "(3, 2)",
@@ -495,18 +495,18 @@
             "game_instances": [
                 {
                     "game_id": 6,
-                    "graph_id": "40w41k50l51s60k61h70h71h",
+                    "graph_id": "40l41a50m51h60b61r70r71r",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Waiting room",
-                        "Kitchen",
                         "Locker room",
-                        "Storage room",
-                        "Kindergarden classroom",
-                        "Hotel room",
-                        "Hotel room",
-                        "Hotel room"
+                        "Attic",
+                        "Music studio",
+                        "Home office",
+                        "Bedroom",
+                        "Reading room",
+                        "Reading room",
+                        "Reading room"
                     ],
                     "unnamed_nodes": [
                         "(4, 0)",
@@ -520,36 +520,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Waiting room",
-                            "Locker room"
-                        ],
-                        [
-                            "Waiting room",
-                            "Kitchen"
-                        ],
-                        [
-                            "Kitchen",
-                            "Storage room"
+                            "Locker room",
+                            "Music studio"
                         ],
                         [
                             "Locker room",
-                            "Kindergarden classroom"
+                            "Attic"
                         ],
                         [
-                            "Storage room",
-                            "Hotel room"
+                            "Attic",
+                            "Home office"
                         ],
                         [
-                            "Kindergarden classroom",
-                            "Hotel room"
+                            "Music studio",
+                            "Bedroom"
                         ],
                         [
-                            "Hotel room",
-                            "Hotel room"
+                            "Home office",
+                            "Reading room"
                         ],
                         [
-                            "Hotel room",
-                            "Hotel room"
+                            "Bedroom",
+                            "Reading room"
+                        ],
+                        [
+                            "Reading room",
+                            "Reading room"
+                        ],
+                        [
+                            "Reading room",
+                            "Reading room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -587,43 +587,43 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(4, 0)": "Waiting room",
-                        "(4, 1)": "Kitchen",
-                        "(5, 0)": "Locker room",
-                        "(5, 1)": "Storage room",
-                        "(6, 0)": "Kindergarden classroom",
-                        "(6, 1)": "Hotel room",
-                        "(7, 0)": "Hotel room",
-                        "(7, 1)": "Hotel room"
+                        "(4, 0)": "Locker room",
+                        "(4, 1)": "Attic",
+                        "(5, 0)": "Music studio",
+                        "(5, 1)": "Home office",
+                        "(6, 0)": "Bedroom",
+                        "(6, 1)": "Reading room",
+                        "(7, 0)": "Reading room",
+                        "(7, 1)": "Reading room"
                     },
                     "category_to_node": {
-                        "Waiting room": "(4, 0)",
-                        "Kitchen": "(4, 1)",
-                        "Locker room": "(5, 0)",
-                        "Storage room": "(5, 1)",
-                        "Kindergarden classroom": "(6, 0)",
-                        "Hotel room": "(7, 1)"
+                        "Locker room": "(4, 0)",
+                        "Attic": "(4, 1)",
+                        "Music studio": "(5, 0)",
+                        "Home office": "(5, 1)",
+                        "Bedroom": "(6, 0)",
+                        "Reading room": "(7, 1)"
                     },
                     "node_to_image": {
-                        "(4, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019669.jpg",
-                        "(4, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010336.jpg",
-                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011592.jpg",
-                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016853.jpg",
-                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010119.jpg",
-                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009558.jpg",
-                        "(7, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009619.jpg",
-                        "(7, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009527.jpg"
+                        "(4, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011594.jpg",
+                        "(4, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001887.jpg",
+                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012270.jpg",
+                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009400.jpg",
+                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003901.jpg",
+                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015703.jpg",
+                        "(7, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015709.jpg",
+                        "(7, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015696.jpg"
                     },
                     "category_to_image": {
-                        "Waiting room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019669.jpg",
-                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010336.jpg",
-                        "Locker room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011592.jpg",
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016853.jpg",
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010119.jpg",
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009527.jpg"
+                        "Locker room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011594.jpg",
+                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001887.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012270.jpg",
+                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009400.jpg",
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003901.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015696.jpg"
                     },
-                    "start_node": "(4, 1)",
-                    "target_node": "(6, 1)",
+                    "start_node": "(6, 0)",
+                    "target_node": "(7, 1)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -636,17 +636,17 @@
             "game_instances": [
                 {
                     "game_id": 9,
-                    "graph_id": "63s64s73b74s83s84w93m94c",
+                    "graph_id": "63m64m73b74m83m84l93h94c",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Sewing room",
-                        "Sewing room",
-                        "Bathroom",
-                        "Sewing room",
-                        "Sewing room",
-                        "Wine cellar bottle storage",
                         "Music studio",
+                        "Music studio",
+                        "Bathroom",
+                        "Music studio",
+                        "Music studio",
+                        "Living room",
+                        "Home theater",
                         "Closet"
                     ],
                     "unnamed_nodes": [
@@ -661,35 +661,35 @@
                     ],
                     "named_edges": [
                         [
-                            "Sewing room",
+                            "Music studio",
                             "Bathroom"
                         ],
                         [
-                            "Sewing room",
-                            "Sewing room"
-                        ],
-                        [
-                            "Sewing room",
-                            "Sewing room"
-                        ],
-                        [
-                            "Bathroom",
-                            "Sewing room"
-                        ],
-                        [
-                            "Sewing room",
-                            "Wine cellar bottle storage"
-                        ],
-                        [
-                            "Sewing room",
+                            "Music studio",
                             "Music studio"
                         ],
                         [
-                            "Wine cellar bottle storage",
-                            "Closet"
+                            "Music studio",
+                            "Music studio"
+                        ],
+                        [
+                            "Bathroom",
+                            "Music studio"
                         ],
                         [
                             "Music studio",
+                            "Living room"
+                        ],
+                        [
+                            "Music studio",
+                            "Home theater"
+                        ],
+                        [
+                            "Living room",
+                            "Closet"
+                        ],
+                        [
+                            "Home theater",
                             "Closet"
                         ]
                     ],
@@ -728,37 +728,37 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(6, 3)": "Sewing room",
-                        "(6, 4)": "Sewing room",
+                        "(6, 3)": "Music studio",
+                        "(6, 4)": "Music studio",
                         "(7, 3)": "Bathroom",
-                        "(7, 4)": "Sewing room",
-                        "(8, 3)": "Sewing room",
-                        "(8, 4)": "Wine cellar bottle storage",
-                        "(9, 3)": "Music studio",
+                        "(7, 4)": "Music studio",
+                        "(8, 3)": "Music studio",
+                        "(8, 4)": "Living room",
+                        "(9, 3)": "Home theater",
                         "(9, 4)": "Closet"
                     },
                     "category_to_node": {
-                        "Sewing room": "(8, 3)",
+                        "Music studio": "(8, 3)",
                         "Bathroom": "(7, 3)",
-                        "Wine cellar bottle storage": "(8, 4)",
-                        "Music studio": "(9, 3)",
+                        "Living room": "(8, 4)",
+                        "Home theater": "(9, 3)",
                         "Closet": "(9, 4)"
                     },
                     "node_to_image": {
-                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016180.jpg",
-                        "(6, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg",
+                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012272.jpg",
+                        "(6, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012284.jpg",
                         "(7, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000035.jpg",
-                        "(7, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016186.jpg",
-                        "(8, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016185.jpg",
-                        "(8, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/wine_cellar__bottle_storage/ADE_train_00000969.jpg",
-                        "(9, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012270.jpg",
+                        "(7, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012288.jpg",
+                        "(8, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012285.jpg",
+                        "(8, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000664.jpg",
+                        "(9, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009410.jpg",
                         "(9, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005729.jpg"
                     },
                     "category_to_image": {
-                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016185.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012285.jpg",
                         "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000035.jpg",
-                        "Wine cellar bottle storage": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/wine_cellar__bottle_storage/ADE_train_00000969.jpg",
-                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012270.jpg",
+                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00000664.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009410.jpg",
                         "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005729.jpg"
                     },
                     "start_node": "(9, 4)",
@@ -775,18 +775,18 @@
             "game_instances": [
                 {
                     "game_id": 2,
-                    "graph_id": "22r23c32a33a42s43k52c53k",
+                    "graph_id": "22c23h32k33k42c43m52h53m",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Reception",
                         "Computer room",
-                        "Attic",
-                        "Attic",
-                        "Shower",
-                        "Kindergarden classroom",
+                        "Hotel room",
+                        "Kitchen",
+                        "Kitchen",
                         "Closet",
-                        "Kindergarden classroom"
+                        "Music studio",
+                        "Home theater",
+                        "Music studio"
                     ],
                     "unnamed_nodes": [
                         "(2, 2)",
@@ -800,36 +800,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Reception",
-                            "Attic"
-                        ],
-                        [
-                            "Reception",
-                            "Computer room"
+                            "Computer room",
+                            "Kitchen"
                         ],
                         [
                             "Computer room",
-                            "Attic"
+                            "Hotel room"
                         ],
                         [
-                            "Attic",
-                            "Shower"
+                            "Hotel room",
+                            "Kitchen"
                         ],
                         [
-                            "Attic",
-                            "Kindergarden classroom"
-                        ],
-                        [
-                            "Shower",
+                            "Kitchen",
                             "Closet"
                         ],
                         [
-                            "Kindergarden classroom",
-                            "Kindergarden classroom"
+                            "Kitchen",
+                            "Music studio"
                         ],
                         [
                             "Closet",
-                            "Kindergarden classroom"
+                            "Home theater"
+                        ],
+                        [
+                            "Music studio",
+                            "Music studio"
+                        ],
+                        [
+                            "Home theater",
+                            "Music studio"
                         ]
                     ],
                     "unnamed_edges": [
@@ -867,43 +867,43 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 2)": "Reception",
-                        "(2, 3)": "Computer room",
-                        "(3, 2)": "Attic",
-                        "(3, 3)": "Attic",
-                        "(4, 2)": "Shower",
-                        "(4, 3)": "Kindergarden classroom",
-                        "(5, 2)": "Closet",
-                        "(5, 3)": "Kindergarden classroom"
+                        "(2, 2)": "Computer room",
+                        "(2, 3)": "Hotel room",
+                        "(3, 2)": "Kitchen",
+                        "(3, 3)": "Kitchen",
+                        "(4, 2)": "Closet",
+                        "(4, 3)": "Music studio",
+                        "(5, 2)": "Home theater",
+                        "(5, 3)": "Music studio"
                     },
                     "category_to_node": {
-                        "Reception": "(2, 2)",
-                        "Computer room": "(2, 3)",
-                        "Attic": "(3, 3)",
-                        "Shower": "(4, 2)",
-                        "Kindergarden classroom": "(5, 3)",
-                        "Closet": "(5, 2)"
+                        "Computer room": "(2, 2)",
+                        "Hotel room": "(2, 3)",
+                        "Kitchen": "(3, 3)",
+                        "Closet": "(4, 2)",
+                        "Music studio": "(5, 3)",
+                        "Home theater": "(5, 2)"
                     },
                     "node_to_image": {
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015744.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005942.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001894.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001935.jpg",
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016285.jpg",
-                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010113.jpg",
-                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005731.jpg",
-                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010111.jpg"
+                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005958.jpg",
+                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009610.jpg",
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010216.jpg",
+                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010174.jpg",
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005745.jpg",
+                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012276.jpg",
+                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009417.jpg",
+                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg"
                     },
                     "category_to_image": {
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015744.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005942.jpg",
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001935.jpg",
-                        "Shower": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016285.jpg",
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010111.jpg",
-                        "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005731.jpg"
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005958.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009610.jpg",
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010174.jpg",
+                        "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005745.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009417.jpg"
                     },
-                    "start_node": "(5, 2)",
-                    "target_node": "(4, 3)",
+                    "start_node": "(2, 2)",
+                    "target_node": "(3, 3)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -916,18 +916,18 @@
             "game_instances": [
                 {
                     "game_id": 6,
-                    "graph_id": "40s41w50w51w60l61h70h71h",
+                    "graph_id": "40h41l50l51l60m61r70r71r",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Storage room",
-                        "Waiting room",
-                        "Waiting room",
-                        "Waiting room",
+                        "Home office",
                         "Locker room",
-                        "Hotel room",
-                        "Hotel room",
-                        "Hotel room"
+                        "Locker room",
+                        "Locker room",
+                        "Music studio",
+                        "Reading room",
+                        "Reading room",
+                        "Reading room"
                     ],
                     "unnamed_nodes": [
                         "(4, 0)",
@@ -941,36 +941,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Storage room",
-                            "Waiting room"
-                        ],
-                        [
-                            "Storage room",
-                            "Waiting room"
-                        ],
-                        [
-                            "Waiting room",
-                            "Waiting room"
-                        ],
-                        [
-                            "Waiting room",
+                            "Home office",
                             "Locker room"
                         ],
                         [
-                            "Waiting room",
-                            "Hotel room"
+                            "Home office",
+                            "Locker room"
                         ],
                         [
                             "Locker room",
-                            "Hotel room"
+                            "Locker room"
                         ],
                         [
-                            "Hotel room",
-                            "Hotel room"
+                            "Locker room",
+                            "Music studio"
                         ],
                         [
-                            "Hotel room",
-                            "Hotel room"
+                            "Locker room",
+                            "Reading room"
+                        ],
+                        [
+                            "Music studio",
+                            "Reading room"
+                        ],
+                        [
+                            "Reading room",
+                            "Reading room"
+                        ],
+                        [
+                            "Reading room",
+                            "Reading room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1008,39 +1008,39 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(4, 0)": "Storage room",
-                        "(4, 1)": "Waiting room",
-                        "(5, 0)": "Waiting room",
-                        "(5, 1)": "Waiting room",
-                        "(6, 0)": "Locker room",
-                        "(6, 1)": "Hotel room",
-                        "(7, 0)": "Hotel room",
-                        "(7, 1)": "Hotel room"
+                        "(4, 0)": "Home office",
+                        "(4, 1)": "Locker room",
+                        "(5, 0)": "Locker room",
+                        "(5, 1)": "Locker room",
+                        "(6, 0)": "Music studio",
+                        "(6, 1)": "Reading room",
+                        "(7, 0)": "Reading room",
+                        "(7, 1)": "Reading room"
                     },
                     "category_to_node": {
-                        "Storage room": "(4, 0)",
-                        "Waiting room": "(5, 1)",
-                        "Locker room": "(6, 0)",
-                        "Hotel room": "(7, 1)"
+                        "Home office": "(4, 0)",
+                        "Locker room": "(5, 1)",
+                        "Music studio": "(6, 0)",
+                        "Reading room": "(7, 1)"
                     },
                     "node_to_image": {
-                        "(4, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016855.jpg",
-                        "(4, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019610.jpg",
-                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019669.jpg",
-                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019640.jpg",
-                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011592.jpg",
-                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009577.jpg",
-                        "(7, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009631.jpg",
-                        "(7, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009558.jpg"
+                        "(4, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009319.jpg",
+                        "(4, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011595.jpg",
+                        "(5, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011591.jpg",
+                        "(5, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011592.jpg",
+                        "(6, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg",
+                        "(6, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015706.jpg",
+                        "(7, 0)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015698.jpg",
+                        "(7, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015705.jpg"
                     },
                     "category_to_image": {
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016855.jpg",
-                        "Waiting room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019640.jpg",
+                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009319.jpg",
                         "Locker room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011592.jpg",
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009558.jpg"
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015705.jpg"
                     },
-                    "start_node": "(4, 1)",
-                    "target_node": "(6, 1)",
+                    "start_node": "(5, 0)",
+                    "target_node": "(4, 1)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -1053,15 +1053,15 @@
             "game_instances": [
                 {
                     "game_id": 7,
-                    "graph_id": "42s43r52s53s62s63r72r73r",
+                    "graph_id": "42r43r52r53r62r63r72r73r",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Storage room",
+                        "Reading room",
                         "Reception",
-                        "Storage room",
-                        "Storage room",
-                        "Storage room",
+                        "Reading room",
+                        "Reading room",
+                        "Reading room",
                         "Reception",
                         "Reception",
                         "Reception"
@@ -1078,27 +1078,27 @@
                     ],
                     "named_edges": [
                         [
-                            "Storage room",
-                            "Storage room"
+                            "Reading room",
+                            "Reading room"
                         ],
                         [
-                            "Storage room",
+                            "Reading room",
                             "Reception"
                         ],
                         [
                             "Reception",
-                            "Storage room"
+                            "Reading room"
                         ],
                         [
-                            "Storage room",
-                            "Storage room"
+                            "Reading room",
+                            "Reading room"
                         ],
                         [
-                            "Storage room",
+                            "Reading room",
                             "Reception"
                         ],
                         [
-                            "Storage room",
+                            "Reading room",
                             "Reception"
                         ],
                         [
@@ -1145,35 +1145,35 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(4, 2)": "Storage room",
+                        "(4, 2)": "Reading room",
                         "(4, 3)": "Reception",
-                        "(5, 2)": "Storage room",
-                        "(5, 3)": "Storage room",
-                        "(6, 2)": "Storage room",
+                        "(5, 2)": "Reading room",
+                        "(5, 3)": "Reading room",
+                        "(6, 2)": "Reading room",
                         "(6, 3)": "Reception",
                         "(7, 2)": "Reception",
                         "(7, 3)": "Reception"
                     },
                     "category_to_node": {
-                        "Storage room": "(6, 2)",
+                        "Reading room": "(6, 2)",
                         "Reception": "(7, 3)"
                     },
                     "node_to_image": {
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016853.jpg",
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015700.jpg",
                         "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015728.jpg",
-                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016856.jpg",
-                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016852.jpg",
-                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016851.jpg",
-                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015746.jpg",
-                        "(7, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015715.jpg",
-                        "(7, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg"
+                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015709.jpg",
+                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015711.jpg",
+                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015699.jpg",
+                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015761.jpg",
+                        "(7, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015766.jpg",
+                        "(7, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015723.jpg"
                     },
                     "category_to_image": {
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016851.jpg",
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg"
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015699.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015723.jpg"
                     },
-                    "start_node": "(4, 3)",
-                    "target_node": "(5, 2)",
+                    "start_node": "(5, 3)",
+                    "target_node": "(4, 2)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -1186,18 +1186,18 @@
             "game_instances": [
                 {
                     "game_id": 4,
-                    "graph_id": "55h56m57b67b66b65a64a54c",
+                    "graph_id": "55d56h57b67a66b65k64k54h",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Home office",
-                        "Music studio",
-                        "Bedroom",
-                        "Breakroom",
+                        "Dining room",
+                        "Home theater",
                         "Bathroom",
-                        "Attic",
-                        "Attic",
-                        "Computer room"
+                        "Art studio",
+                        "Bedroom",
+                        "Kitchen",
+                        "Kitchen",
+                        "Hotel room"
                     ],
                     "unnamed_nodes": [
                         "(5, 5)",
@@ -1211,32 +1211,32 @@
                     ],
                     "named_edges": [
                         [
-                            "Home office",
-                            "Music studio"
+                            "Dining room",
+                            "Home theater"
                         ],
                         [
-                            "Music studio",
-                            "Bedroom"
-                        ],
-                        [
-                            "Bedroom",
-                            "Breakroom"
-                        ],
-                        [
-                            "Breakroom",
+                            "Home theater",
                             "Bathroom"
                         ],
                         [
                             "Bathroom",
-                            "Attic"
+                            "Art studio"
                         ],
                         [
-                            "Attic",
-                            "Attic"
+                            "Art studio",
+                            "Bedroom"
                         ],
                         [
-                            "Attic",
-                            "Computer room"
+                            "Bedroom",
+                            "Kitchen"
+                        ],
+                        [
+                            "Kitchen",
+                            "Kitchen"
+                        ],
+                        [
+                            "Kitchen",
+                            "Hotel room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1270,45 +1270,45 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(5, 5)": "Home office",
-                        "(5, 6)": "Music studio",
-                        "(5, 7)": "Bedroom",
-                        "(6, 7)": "Breakroom",
-                        "(6, 6)": "Bathroom",
-                        "(6, 5)": "Attic",
-                        "(6, 4)": "Attic",
-                        "(5, 4)": "Computer room"
+                        "(5, 5)": "Dining room",
+                        "(5, 6)": "Home theater",
+                        "(5, 7)": "Bathroom",
+                        "(6, 7)": "Art studio",
+                        "(6, 6)": "Bedroom",
+                        "(6, 5)": "Kitchen",
+                        "(6, 4)": "Kitchen",
+                        "(5, 4)": "Hotel room"
                     },
                     "category_to_node": {
-                        "Home office": "(5, 5)",
-                        "Music studio": "(5, 6)",
-                        "Bedroom": "(5, 7)",
-                        "Breakroom": "(6, 7)",
-                        "Bathroom": "(6, 6)",
-                        "Attic": "(6, 4)",
-                        "Computer room": "(5, 4)"
+                        "Dining room": "(5, 5)",
+                        "Home theater": "(5, 6)",
+                        "Bathroom": "(5, 7)",
+                        "Art studio": "(6, 7)",
+                        "Bedroom": "(6, 6)",
+                        "Kitchen": "(6, 4)",
+                        "Hotel room": "(5, 4)"
                     },
                     "node_to_image": {
-                        "(5, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009321.jpg",
-                        "(5, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012276.jpg",
-                        "(5, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003901.jpg",
-                        "(6, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004518.jpg",
-                        "(6, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000170.jpg",
-                        "(6, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001967.jpg",
-                        "(6, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001964.jpg",
-                        "(5, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005948.jpg"
+                        "(5, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006974.jpg",
+                        "(5, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009426.jpg",
+                        "(5, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000023.jpg",
+                        "(6, 7)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001735.jpg",
+                        "(6, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004153.jpg",
+                        "(6, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010691.jpg",
+                        "(6, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010418.jpg",
+                        "(5, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009621.jpg"
                     },
                     "category_to_image": {
-                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009321.jpg",
-                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012276.jpg",
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003901.jpg",
-                        "Breakroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004518.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000170.jpg",
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001964.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005948.jpg"
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006974.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009426.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00000023.jpg",
+                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001735.jpg",
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004153.jpg",
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010418.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009621.jpg"
                     },
-                    "start_node": "(6, 6)",
-                    "target_node": "(6, 4)",
+                    "start_node": "(6, 7)",
+                    "target_node": "(6, 5)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -1321,18 +1321,18 @@
             "game_instances": [
                 {
                     "game_id": 3,
-                    "graph_id": "14u15s24s25r34p35w44d45s",
+                    "graph_id": "14d15m24m25l34r35l44a45r",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Utility room",
-                        "Sewing room",
-                        "Sewing room",
-                        "Reading room",
-                        "Parlor",
-                        "Waiting room",
                         "Dining room",
-                        "Storage room"
+                        "Music studio",
+                        "Music studio",
+                        "Living room",
+                        "Reception",
+                        "Locker room",
+                        "Attic",
+                        "Reading room"
                     ],
                     "unnamed_nodes": [
                         "(1, 4)",
@@ -1346,44 +1346,44 @@
                     ],
                     "named_edges": [
                         [
-                            "Utility room",
-                            "Sewing room"
-                        ],
-                        [
-                            "Utility room",
-                            "Sewing room"
-                        ],
-                        [
-                            "Sewing room",
-                            "Reading room"
-                        ],
-                        [
-                            "Sewing room",
-                            "Parlor"
-                        ],
-                        [
-                            "Sewing room",
-                            "Reading room"
-                        ],
-                        [
-                            "Reading room",
-                            "Waiting room"
-                        ],
-                        [
-                            "Parlor",
-                            "Dining room"
-                        ],
-                        [
-                            "Parlor",
-                            "Waiting room"
-                        ],
-                        [
-                            "Waiting room",
-                            "Storage room"
+                            "Dining room",
+                            "Music studio"
                         ],
                         [
                             "Dining room",
-                            "Storage room"
+                            "Music studio"
+                        ],
+                        [
+                            "Music studio",
+                            "Living room"
+                        ],
+                        [
+                            "Music studio",
+                            "Reception"
+                        ],
+                        [
+                            "Music studio",
+                            "Living room"
+                        ],
+                        [
+                            "Living room",
+                            "Locker room"
+                        ],
+                        [
+                            "Reception",
+                            "Attic"
+                        ],
+                        [
+                            "Reception",
+                            "Locker room"
+                        ],
+                        [
+                            "Locker room",
+                            "Reading room"
+                        ],
+                        [
+                            "Attic",
+                            "Reading room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1429,42 +1429,42 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(1, 4)": "Utility room",
-                        "(1, 5)": "Sewing room",
-                        "(2, 4)": "Sewing room",
-                        "(2, 5)": "Reading room",
-                        "(3, 4)": "Parlor",
-                        "(3, 5)": "Waiting room",
-                        "(4, 4)": "Dining room",
-                        "(4, 5)": "Storage room"
+                        "(1, 4)": "Dining room",
+                        "(1, 5)": "Music studio",
+                        "(2, 4)": "Music studio",
+                        "(2, 5)": "Living room",
+                        "(3, 4)": "Reception",
+                        "(3, 5)": "Locker room",
+                        "(4, 4)": "Attic",
+                        "(4, 5)": "Reading room"
                     },
                     "category_to_node": {
-                        "Utility room": "(1, 4)",
-                        "Sewing room": "(2, 4)",
-                        "Reading room": "(2, 5)",
-                        "Parlor": "(3, 4)",
-                        "Waiting room": "(3, 5)",
-                        "Dining room": "(4, 4)",
-                        "Storage room": "(4, 5)"
+                        "Dining room": "(1, 4)",
+                        "Music studio": "(2, 4)",
+                        "Living room": "(2, 5)",
+                        "Reception": "(3, 4)",
+                        "Locker room": "(3, 5)",
+                        "Attic": "(4, 4)",
+                        "Reading room": "(4, 5)"
                     },
                     "node_to_image": {
-                        "(1, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019409.jpg",
-                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016181.jpg",
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg",
-                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015701.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015190.jpg",
-                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019683.jpg",
-                        "(4, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006894.jpg",
-                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016855.jpg"
+                        "(1, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006938.jpg",
+                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012276.jpg",
+                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012284.jpg",
+                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011115.jpg",
+                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015743.jpg",
+                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011597.jpg",
+                        "(4, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001894.jpg",
+                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015706.jpg"
                     },
                     "category_to_image": {
-                        "Utility room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019409.jpg",
-                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg",
-                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015701.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015190.jpg",
-                        "Waiting room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/waiting_room/ADE_train_00019683.jpg",
-                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006894.jpg",
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016855.jpg"
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006938.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012284.jpg",
+                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011115.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015743.jpg",
+                        "Locker room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/locker_room/ADE_train_00011597.jpg",
+                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001894.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015706.jpg"
                     },
                     "start_node": "(3, 5)",
                     "target_node": "(1, 5)",
@@ -1480,18 +1480,18 @@
             "game_instances": [
                 {
                     "game_id": 7,
-                    "graph_id": "25k26m24p35l15s45b34p33s",
+                    "graph_id": "25b26h24r35d15h45b34b33h",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Kitchen",
-                        "Music studio",
-                        "Parlor",
-                        "Living room",
-                        "Shower",
                         "Bedroom",
-                        "Playroom",
-                        "Shower"
+                        "Home theater",
+                        "Reception",
+                        "Dining room",
+                        "Hotel room",
+                        "Bathroom",
+                        "Basement",
+                        "Hotel room"
                     ],
                     "unnamed_nodes": [
                         "(2, 5)",
@@ -1505,32 +1505,32 @@
                     ],
                     "named_edges": [
                         [
-                            "Kitchen",
-                            "Music studio"
+                            "Bedroom",
+                            "Home theater"
                         ],
                         [
-                            "Kitchen",
-                            "Parlor"
+                            "Bedroom",
+                            "Reception"
                         ],
                         [
-                            "Kitchen",
-                            "Living room"
+                            "Bedroom",
+                            "Dining room"
                         ],
                         [
-                            "Kitchen",
-                            "Shower"
+                            "Bedroom",
+                            "Hotel room"
                         ],
                         [
-                            "Living room",
-                            "Bedroom"
+                            "Dining room",
+                            "Bathroom"
                         ],
                         [
-                            "Living room",
-                            "Playroom"
+                            "Dining room",
+                            "Basement"
                         ],
                         [
-                            "Playroom",
-                            "Shower"
+                            "Basement",
+                            "Hotel room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1564,42 +1564,42 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 5)": "Kitchen",
-                        "(2, 6)": "Music studio",
-                        "(2, 4)": "Parlor",
-                        "(3, 5)": "Living room",
-                        "(1, 5)": "Shower",
-                        "(4, 5)": "Bedroom",
-                        "(3, 4)": "Playroom",
-                        "(3, 3)": "Shower"
+                        "(2, 5)": "Bedroom",
+                        "(2, 6)": "Home theater",
+                        "(2, 4)": "Reception",
+                        "(3, 5)": "Dining room",
+                        "(1, 5)": "Hotel room",
+                        "(4, 5)": "Bathroom",
+                        "(3, 4)": "Basement",
+                        "(3, 3)": "Hotel room"
                     },
                     "category_to_node": {
-                        "Kitchen": "(2, 5)",
-                        "Music studio": "(2, 6)",
-                        "Parlor": "(2, 4)",
-                        "Living room": "(3, 5)",
-                        "Shower": "(3, 3)",
-                        "Bedroom": "(4, 5)",
-                        "Playroom": "(3, 4)"
+                        "Bedroom": "(2, 5)",
+                        "Home theater": "(2, 6)",
+                        "Reception": "(2, 4)",
+                        "Dining room": "(3, 5)",
+                        "Hotel room": "(3, 3)",
+                        "Bathroom": "(4, 5)",
+                        "Basement": "(3, 4)"
                     },
                     "node_to_image": {
-                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010334.jpg",
-                        "(2, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012278.jpg",
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015153.jpg",
-                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011377.jpg",
-                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016290.jpg",
-                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004004.jpg",
-                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015412.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016285.jpg"
+                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003351.jpg",
+                        "(2, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009418.jpg",
+                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015714.jpg",
+                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007178.jpg",
+                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009626.jpg",
+                        "(4, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002910.jpg",
+                        "(3, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002495.jpg",
+                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009571.jpg"
                     },
                     "category_to_image": {
-                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010334.jpg",
-                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012278.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015153.jpg",
-                        "Living room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/living_room/ADE_train_00011377.jpg",
-                        "Shower": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016285.jpg",
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004004.jpg",
-                        "Playroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/playroom/ADE_train_00015412.jpg"
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003351.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009418.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015714.jpg",
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007178.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009571.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002910.jpg",
+                        "Basement": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002495.jpg"
                     },
                     "start_node": "(2, 6)",
                     "target_node": "(2, 4)",
@@ -1615,18 +1615,18 @@
             "game_instances": [
                 {
                     "game_id": 7,
-                    "graph_id": "25c15c24r26j35p14s05u16g",
+                    "graph_id": "25b15b24r26h35b14r05d16s",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Childs room",
-                        "Childs room",
+                        "Basement",
+                        "Basement",
                         "Reception",
-                        "Jacuzzi indoor",
-                        "Parlor",
-                        "Storage room",
-                        "Utility room",
-                        "Game room"
+                        "Home office",
+                        "Bathroom",
+                        "Reading room",
+                        "Dining room",
+                        "Sewing room"
                     ],
                     "unnamed_nodes": [
                         "(2, 5)",
@@ -1640,32 +1640,32 @@
                     ],
                     "named_edges": [
                         [
-                            "Childs room",
-                            "Childs room"
+                            "Basement",
+                            "Basement"
                         ],
                         [
-                            "Childs room",
+                            "Basement",
                             "Reception"
                         ],
                         [
-                            "Childs room",
-                            "Jacuzzi indoor"
+                            "Basement",
+                            "Home office"
                         ],
                         [
-                            "Childs room",
-                            "Parlor"
+                            "Basement",
+                            "Bathroom"
                         ],
                         [
-                            "Childs room",
-                            "Storage room"
+                            "Basement",
+                            "Reading room"
                         ],
                         [
-                            "Childs room",
-                            "Utility room"
+                            "Basement",
+                            "Dining room"
                         ],
                         [
-                            "Childs room",
-                            "Game room"
+                            "Basement",
+                            "Sewing room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1699,45 +1699,45 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 5)": "Childs room",
-                        "(1, 5)": "Childs room",
+                        "(2, 5)": "Basement",
+                        "(1, 5)": "Basement",
                         "(2, 4)": "Reception",
-                        "(2, 6)": "Jacuzzi indoor",
-                        "(3, 5)": "Parlor",
-                        "(1, 4)": "Storage room",
-                        "(0, 5)": "Utility room",
-                        "(1, 6)": "Game room"
+                        "(2, 6)": "Home office",
+                        "(3, 5)": "Bathroom",
+                        "(1, 4)": "Reading room",
+                        "(0, 5)": "Dining room",
+                        "(1, 6)": "Sewing room"
                     },
                     "category_to_node": {
-                        "Childs room": "(1, 5)",
+                        "Basement": "(1, 5)",
                         "Reception": "(2, 4)",
-                        "Jacuzzi indoor": "(2, 6)",
-                        "Parlor": "(3, 5)",
-                        "Storage room": "(1, 4)",
-                        "Utility room": "(0, 5)",
-                        "Game room": "(1, 6)"
+                        "Home office": "(2, 6)",
+                        "Bathroom": "(3, 5)",
+                        "Reading room": "(1, 4)",
+                        "Dining room": "(0, 5)",
+                        "Sewing room": "(1, 6)"
                     },
                     "node_to_image": {
-                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005482.jpg",
-                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005523.jpg",
-                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015766.jpg",
-                        "(2, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009928.jpg",
-                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015152.jpg",
-                        "(1, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016854.jpg",
-                        "(0, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019404.jpg",
-                        "(1, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008366.jpg"
+                        "(2, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002491.jpg",
+                        "(1, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002475.jpg",
+                        "(2, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg",
+                        "(2, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009348.jpg",
+                        "(3, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002625.jpg",
+                        "(1, 4)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015694.jpg",
+                        "(0, 5)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007178.jpg",
+                        "(1, 6)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg"
                     },
                     "category_to_image": {
-                        "Childs room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/childs_room/ADE_train_00005523.jpg",
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015766.jpg",
-                        "Jacuzzi indoor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/sports_and_leisure/jacuzzi__indoor/ADE_train_00009928.jpg",
-                        "Parlor": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/parlor/ADE_train_00015152.jpg",
-                        "Storage room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/storage_room/ADE_train_00016854.jpg",
-                        "Utility room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/utility_room/ADE_train_00019404.jpg",
-                        "Game room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/game_room/ADE_train_00008366.jpg"
+                        "Basement": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002475.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015730.jpg",
+                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009348.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002625.jpg",
+                        "Reading room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reading_room/ADE_train_00015694.jpg",
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00007178.jpg",
+                        "Sewing room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/sewing_room/ADE_train_00016184.jpg"
                     },
-                    "start_node": "(2, 4)",
-                    "target_node": "(3, 5)",
+                    "start_node": "(0, 5)",
+                    "target_node": "(1, 6)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
@@ -1750,18 +1750,18 @@
             "game_instances": [
                 {
                     "game_id": 2,
-                    "graph_id": "22s23c32a33a42c43k52h53r",
+                    "graph_id": "22c23h32k33k42h43m52r53c",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Shower",
                         "Closet",
-                        "Attic",
-                        "Attic",
-                        "Computer room",
-                        "Kindergarden classroom",
+                        "Home theater",
+                        "Kitchen",
+                        "Kitchen",
                         "Hotel room",
-                        "Reception"
+                        "Music studio",
+                        "Reception",
+                        "Computer room"
                     ],
                     "unnamed_nodes": [
                         "(2, 2)",
@@ -1775,36 +1775,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Shower",
-                            "Attic"
-                        ],
-                        [
-                            "Shower",
-                            "Closet"
+                            "Closet",
+                            "Kitchen"
                         ],
                         [
                             "Closet",
-                            "Attic"
+                            "Home theater"
                         ],
                         [
-                            "Attic",
-                            "Computer room"
+                            "Home theater",
+                            "Kitchen"
                         ],
                         [
-                            "Attic",
-                            "Kindergarden classroom"
-                        ],
-                        [
-                            "Computer room",
+                            "Kitchen",
                             "Hotel room"
                         ],
                         [
-                            "Kindergarden classroom",
-                            "Reception"
+                            "Kitchen",
+                            "Music studio"
                         ],
                         [
                             "Hotel room",
                             "Reception"
+                        ],
+                        [
+                            "Music studio",
+                            "Computer room"
+                        ],
+                        [
+                            "Reception",
+                            "Computer room"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1842,42 +1842,42 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(2, 2)": "Shower",
-                        "(2, 3)": "Closet",
-                        "(3, 2)": "Attic",
-                        "(3, 3)": "Attic",
-                        "(4, 2)": "Computer room",
-                        "(4, 3)": "Kindergarden classroom",
-                        "(5, 2)": "Hotel room",
-                        "(5, 3)": "Reception"
+                        "(2, 2)": "Closet",
+                        "(2, 3)": "Home theater",
+                        "(3, 2)": "Kitchen",
+                        "(3, 3)": "Kitchen",
+                        "(4, 2)": "Hotel room",
+                        "(4, 3)": "Music studio",
+                        "(5, 2)": "Reception",
+                        "(5, 3)": "Computer room"
                     },
                     "category_to_node": {
-                        "Shower": "(2, 2)",
-                        "Closet": "(2, 3)",
-                        "Attic": "(3, 3)",
-                        "Computer room": "(4, 2)",
-                        "Kindergarden classroom": "(4, 3)",
-                        "Hotel room": "(5, 2)",
-                        "Reception": "(5, 3)"
+                        "Closet": "(2, 2)",
+                        "Home theater": "(2, 3)",
+                        "Kitchen": "(3, 3)",
+                        "Hotel room": "(4, 2)",
+                        "Music studio": "(4, 3)",
+                        "Reception": "(5, 2)",
+                        "Computer room": "(5, 3)"
                     },
                     "node_to_image": {
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016282.jpg",
-                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005712.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001935.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001913.jpg",
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005946.jpg",
-                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010113.jpg",
-                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009560.jpg",
-                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015748.jpg"
+                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005744.jpg",
+                        "(2, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009413.jpg",
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010174.jpg",
+                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010474.jpg",
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009573.jpg",
+                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg",
+                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015733.jpg",
+                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005944.jpg"
                     },
                     "category_to_image": {
-                        "Shower": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016282.jpg",
-                        "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005712.jpg",
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001913.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005946.jpg",
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010113.jpg",
-                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009560.jpg",
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015748.jpg"
+                        "Closet": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/closet/ADE_train_00005744.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009413.jpg",
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010474.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009573.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012277.jpg",
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015733.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005944.jpg"
                     },
                     "start_node": "(4, 3)",
                     "target_node": "(3, 3)",
@@ -1893,18 +1893,18 @@
             "game_instances": [
                 {
                     "game_id": 5,
-                    "graph_id": "32b33s42a43n52c53c62k63r",
+                    "graph_id": "32r33b42c43k52h53h62m63h",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Basement",
-                        "Shower",
-                        "Attic",
-                        "Nursery",
+                        "Reception",
+                        "Bedroom",
                         "Computer room",
-                        "Computer room",
-                        "Kindergarden classroom",
-                        "Reception"
+                        "Kitchen",
+                        "Hotel room",
+                        "Hotel room",
+                        "Music studio",
+                        "Home office"
                     ],
                     "unnamed_nodes": [
                         "(3, 2)",
@@ -1918,36 +1918,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Basement",
-                            "Attic"
-                        ],
-                        [
-                            "Basement",
-                            "Shower"
-                        ],
-                        [
-                            "Shower",
-                            "Nursery"
-                        ],
-                        [
-                            "Attic",
+                            "Reception",
                             "Computer room"
                         ],
                         [
-                            "Nursery",
-                            "Computer room"
+                            "Reception",
+                            "Bedroom"
+                        ],
+                        [
+                            "Bedroom",
+                            "Kitchen"
                         ],
                         [
                             "Computer room",
-                            "Kindergarden classroom"
+                            "Hotel room"
                         ],
                         [
-                            "Computer room",
-                            "Reception"
+                            "Kitchen",
+                            "Hotel room"
                         ],
                         [
-                            "Kindergarden classroom",
-                            "Reception"
+                            "Hotel room",
+                            "Music studio"
+                        ],
+                        [
+                            "Hotel room",
+                            "Home office"
+                        ],
+                        [
+                            "Music studio",
+                            "Home office"
                         ]
                     ],
                     "unnamed_edges": [
@@ -1985,42 +1985,42 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(3, 2)": "Basement",
-                        "(3, 3)": "Shower",
-                        "(4, 2)": "Attic",
-                        "(4, 3)": "Nursery",
-                        "(5, 2)": "Computer room",
-                        "(5, 3)": "Computer room",
-                        "(6, 2)": "Kindergarden classroom",
-                        "(6, 3)": "Reception"
+                        "(3, 2)": "Reception",
+                        "(3, 3)": "Bedroom",
+                        "(4, 2)": "Computer room",
+                        "(4, 3)": "Kitchen",
+                        "(5, 2)": "Hotel room",
+                        "(5, 3)": "Hotel room",
+                        "(6, 2)": "Music studio",
+                        "(6, 3)": "Home office"
                     },
                     "category_to_node": {
-                        "Basement": "(3, 2)",
-                        "Shower": "(3, 3)",
-                        "Attic": "(4, 2)",
-                        "Nursery": "(4, 3)",
-                        "Computer room": "(5, 3)",
-                        "Kindergarden classroom": "(6, 2)",
-                        "Reception": "(6, 3)"
+                        "Reception": "(3, 2)",
+                        "Bedroom": "(3, 3)",
+                        "Computer room": "(4, 2)",
+                        "Kitchen": "(4, 3)",
+                        "Hotel room": "(5, 3)",
+                        "Music studio": "(6, 2)",
+                        "Home office": "(6, 3)"
                     },
                     "node_to_image": {
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002484.jpg",
-                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016283.jpg",
-                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001937.jpg",
-                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013921.jpg",
-                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005944.jpg",
-                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005951.jpg",
-                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010119.jpg",
-                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015766.jpg"
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015724.jpg",
+                        "(3, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003681.jpg",
+                        "(4, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005957.jpg",
+                        "(4, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010264.jpg",
+                        "(5, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009619.jpg",
+                        "(5, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009628.jpg",
+                        "(6, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012289.jpg",
+                        "(6, 3)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009368.jpg"
                     },
                     "category_to_image": {
-                        "Basement": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/basement/ADE_train_00002484.jpg",
-                        "Shower": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/shower/ADE_train_00016283.jpg",
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001937.jpg",
-                        "Nursery": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/nursery/ADE_train_00013921.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005951.jpg",
-                        "Kindergarden classroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/kindergarden_classroom/ADE_train_00010119.jpg",
-                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015766.jpg"
+                        "Reception": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/reception/ADE_train_00015724.jpg",
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00003681.jpg",
+                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005957.jpg",
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010264.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009628.jpg",
+                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012289.jpg",
+                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009368.jpg"
                     },
                     "start_node": "(3, 2)",
                     "target_node": "(5, 3)",
@@ -2036,18 +2036,18 @@
             "game_instances": [
                 {
                     "game_id": 4,
-                    "graph_id": "01a02m11b12h21c22b31b32m",
+                    "graph_id": "01k02h11a12d21h22b31b32h",
                     "m": 10,
                     "n": 10,
                     "named_nodes": [
-                        "Attic",
-                        "Music studio",
-                        "Breakroom",
-                        "Home office",
-                        "Computer room",
-                        "Bathroom",
+                        "Kitchen",
+                        "Home theater",
+                        "Art studio",
+                        "Dining room",
+                        "Hotel room",
                         "Bedroom",
-                        "Music studio"
+                        "Bathroom",
+                        "Home theater"
                     ],
                     "unnamed_nodes": [
                         "(0, 1)",
@@ -2061,36 +2061,36 @@
                     ],
                     "named_edges": [
                         [
-                            "Attic",
-                            "Breakroom"
+                            "Kitchen",
+                            "Art studio"
                         ],
                         [
-                            "Attic",
-                            "Music studio"
+                            "Kitchen",
+                            "Home theater"
                         ],
                         [
-                            "Music studio",
-                            "Home office"
+                            "Home theater",
+                            "Dining room"
                         ],
                         [
-                            "Breakroom",
-                            "Computer room"
+                            "Art studio",
+                            "Hotel room"
                         ],
                         [
-                            "Home office",
-                            "Bathroom"
-                        ],
-                        [
-                            "Computer room",
+                            "Dining room",
                             "Bedroom"
                         ],
                         [
-                            "Bathroom",
-                            "Music studio"
+                            "Hotel room",
+                            "Bathroom"
                         ],
                         [
                             "Bedroom",
-                            "Music studio"
+                            "Home theater"
+                        ],
+                        [
+                            "Bathroom",
+                            "Home theater"
                         ]
                     ],
                     "unnamed_edges": [
@@ -2128,45 +2128,45 @@
                         ]
                     ],
                     "node_to_category": {
-                        "(0, 1)": "Attic",
-                        "(0, 2)": "Music studio",
-                        "(1, 1)": "Breakroom",
-                        "(1, 2)": "Home office",
-                        "(2, 1)": "Computer room",
-                        "(2, 2)": "Bathroom",
-                        "(3, 1)": "Bedroom",
-                        "(3, 2)": "Music studio"
+                        "(0, 1)": "Kitchen",
+                        "(0, 2)": "Home theater",
+                        "(1, 1)": "Art studio",
+                        "(1, 2)": "Dining room",
+                        "(2, 1)": "Hotel room",
+                        "(2, 2)": "Bedroom",
+                        "(3, 1)": "Bathroom",
+                        "(3, 2)": "Home theater"
                     },
                     "category_to_node": {
-                        "Attic": "(0, 1)",
-                        "Music studio": "(3, 2)",
-                        "Breakroom": "(1, 1)",
-                        "Home office": "(1, 2)",
-                        "Computer room": "(2, 1)",
-                        "Bathroom": "(2, 2)",
-                        "Bedroom": "(3, 1)"
+                        "Kitchen": "(0, 1)",
+                        "Home theater": "(3, 2)",
+                        "Art studio": "(1, 1)",
+                        "Dining room": "(1, 2)",
+                        "Hotel room": "(2, 1)",
+                        "Bedroom": "(2, 2)",
+                        "Bathroom": "(3, 1)"
                     },
                     "node_to_image": {
-                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001891.jpg",
-                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012276.jpg",
-                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004524.jpg",
-                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009316.jpg",
-                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005943.jpg",
-                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002982.jpg",
-                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004112.jpg",
-                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012279.jpg"
+                        "(0, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010300.jpg",
+                        "(0, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009426.jpg",
+                        "(1, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001716.jpg",
+                        "(1, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006946.jpg",
+                        "(2, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009671.jpg",
+                        "(2, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004112.jpg",
+                        "(3, 1)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002681.jpg",
+                        "(3, 2)": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009423.jpg"
                     },
                     "category_to_image": {
-                        "Attic": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/attic/ADE_train_00001891.jpg",
-                        "Music studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/music_studio/ADE_train_00012279.jpg",
-                        "Breakroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/shopping_and_dining/breakroom/ADE_train_00004524.jpg",
-                        "Home office": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_office/ADE_train_00009316.jpg",
-                        "Computer room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/work_place/computer_room/ADE_train_00005943.jpg",
-                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002982.jpg",
-                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004112.jpg"
+                        "Kitchen": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/kitchen/ADE_train_00010300.jpg",
+                        "Home theater": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/home_theater/ADE_train_00009423.jpg",
+                        "Art studio": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/cultural/art_studio/ADE_train_00001716.jpg",
+                        "Dining room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/dining_room/ADE_train_00006946.jpg",
+                        "Hotel room": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/hotel_room/ADE_train_00009671.jpg",
+                        "Bedroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bedroom/ADE_train_00004112.jpg",
+                        "Bathroom": "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/home_or_hotel/bathroom/ADE_train_00002681.jpg"
                     },
-                    "start_node": "(0, 1)",
-                    "target_node": "(3, 2)",
+                    "start_node": "(3, 1)",
+                    "target_node": "(0, 2)",
                     "explorer_prompt": "You are the SEEKER in MapWorld, a network of interconnected rooms.\n\nYour objective is to find and reach the TARGET ROOM.\n\nI have the image of the TARGET ROOM and will describe it to you.\n\nAt each step, you will be shown an image of your current room.\n\nYou may perform only one of the following actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nHere is the description of the TARGET ROOM:\n$INITIAL_DESCRIPTION$\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",
                     "guide_prompt": "You are the GUIDE in MapWorld, a network of interconnected rooms.\n\nYour role is to assist me in reaching the TARGET ROOM.\nYou have access to a single image: the TARGET ROOM.\nI do not know what this room looks like.\nYou do not know the map layout or my current location.\n\nAt each step, you may only respond in one of the following formats:\n\n1. If I ask a question about the TARGET ROOM, reply strictly as:\nANSWER: your answer\n\n2. If I request a description of the TARGET ROOM, reply strictly as:\nDESCRIPTION: your description of the image\n\nDo not respond in any other format. Do not provide any commentary or clarification.\n\nLet’s begin.\n\nPlease describe the TARGET ROOM using:\nDESCRIPTION: your description\n",
                     "explorer_reprompt": "Now you made a move to this room, you can choose one of the following three actions:\n\n1. If the current room exactly matches the TARGET ROOM based on my description, respond strictly with -\nESCAPE\n\n2. If the current room seems similar but you are uncertain, ask me a clarifying question, reply strictly with -\nQUESTION: your question\n\n3. If the current room is definitely not the TARGET ROOM, choose a direction from the available options: $DIRECTIONS$\nreply strictly with -\nMOVE: chosen direction\n\nWhat action do you choose?\n\nYou must follow the above format rules exactly.\nDo not respond in any other format. Do not provide any commentary or clarification.\n\n",

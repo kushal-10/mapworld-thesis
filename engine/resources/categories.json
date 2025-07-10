@@ -4,19 +4,12 @@
         "bedroom",
         "kitchen",
         "basement",
-        "nursery",
         "attic",
-        "childs_room",
-        "playroom",
         "dining_room",
         "home_office",
-        "utility_room",
         "living_room",
-        "jacuzzi__indoor",
         "locker_room",
-        "wine_cellar__bottle_storage",
-        "reading_room",
-        "waiting_room"
+        "reading_room"
     ],
     "outdoors": [
         "garage__outdoor",
@@ -48,22 +41,12 @@
     ],
     "distractors": [
         "home_theater",
-        "storage_room",
         "hotel_room",
         "music_studio",
         "computer_room",
-        "tearoom",
         "art_studio",
-        "kindergarden_classroom",
         "sewing_room",
-        "shower",
-        "breakroom",
-        "restroom__indoor",
-        "workroom",
-        "game_room",
-        "cloakroom__room",
         "closet",
-        "parlor",
         "reception"
     ]
 }

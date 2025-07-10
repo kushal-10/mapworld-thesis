@@ -9,6 +9,7 @@ from tqdm import tqdm
 from PIL import Image
 import matplotlib.pyplot as plt
 import networkx as nx
+from matplotlib.patches import FancyBboxPatch
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 def fetch_and_resize_image(url, size=(100, 100)):
@@ -62,13 +63,24 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
     total_counts = Counter(all_categories)
     category_instance_counter = defaultdict(int)
 
+    start_node = metadata.get('start_node')
+    target_node = metadata.get('target_node')
+
     # Draw nodes as resized image squares
     for node, (x, y) in positions.items():
         url = metadata['node_to_image'][node]
         try:
             img = fetch_and_resize_image(url, size=img_size)
             im = OffsetImage(img, zoom=zoom)
-            ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5))
+            if node == start_node:
+                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5),
+                                    bboxprops=dict(edgecolor='blue', linewidth=2, facecolor='none'))
+            elif node == target_node:
+                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5),
+                                    bboxprops=dict(edgecolor='orange', linewidth=2, facecolor='none'))
+            else:
+                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5))
+
             ax.add_artist(ab)
 
             # Get the category
@@ -83,7 +95,7 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
                 label = f"{category}{count}"  # Multiple instances, use numbering
 
             # Decide label position (above or below)
-            label_y_offset = 0.15
+            label_y_offset = 0.4
             max_y = max(pos[1] for pos in positions.values())
             y_offset = -label_y_offset if y > 0.8 * max_y else label_y_offset
 
@@ -100,7 +112,7 @@ def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
 
 def main():
     instance_path = os.path.join("escaperoom", "in", "instances.json")
-    out_dir = os.path.join("escaperoom", "in", "instance_images")
+    out_dir = os.path.join("escaperoom", "in", "instance_images_higher_label")
     os.makedirs(out_dir, exist_ok=True)
     with open(instance_path) as f:
         instances = json.load(f)
@@ -113,6 +125,7 @@ def main():
             os.makedirs(out_sub_dir, exist_ok=True)
             output_png = os.path.join(out_sub_dir, f"{id}.png")
             draw_graph(metadata, output_png)
+
 
 if __name__ == '__main__':
     main()
