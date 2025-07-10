@@ -8,6 +8,16 @@ from clemcore.clemgame import metrics as ms
 
 logger = logging.getLogger(__name__)
 
+# Define min_q for ambiguous rooms
+min_q_mapping = {
+    "no_ambiguity": 0,
+    "medium_ambiguity": 3,
+    "high_ambiguity": 4,
+    "low_dual_ambiguity": 4,
+    "medium_dual_ambiguity": 6,
+    "high_dual_ambiguity": 8,
+}
+
 def get_neighbors(agent_room: Tuple, edges: List):
     """
 
@@ -143,6 +153,12 @@ class EscapeRoomScorer(GameScorer):
         success = False
         aborted = False
 
+        exp_name = episode_interactions['meta']["experiment_name"]
+        if exp_name in min_q_mapping:
+            min_q = min_q_mapping[exp_name]
+        else:
+            min_q = 2
+
         all_turn_scores = []
         for turn_idx, turn in enumerate(episode_interactions["turns"]):
             turn_score_dict = {
@@ -201,12 +217,12 @@ class EscapeRoomScorer(GameScorer):
                 self.log_episode_score(ms.METRIC_LOSE, 0)
 
                 if not total_questions:
-                    total_questions = max(1, total_questions) # Set to 1, if no questions asked
+                    total_questions = max(min_q, total_questions) # Set to min_q, if no questions asked
                 if not total_moves:
                     self.log_episode_score(ms.BENCH_SCORE, 0)
                 else:
                     move_efficiency = (efficient_moves * 100) /total_moves
-                    question_efficiency = 100/total_questions
+                    question_efficiency = 100*min_q/total_questions
                     quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
                     self.log_episode_score(ms.BENCH_SCORE, quality_score)
 

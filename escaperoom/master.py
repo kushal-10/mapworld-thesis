@@ -88,7 +88,7 @@ class EscapeRoom(DialogueGameMaster):
         self.explorer_image = self.game_instance["node_to_image"][self.explorer_pos]
         # Keep the nodes and edges as str in master (straightforward mapping) but pass as Tuples to the mapworld engine
 
-        self.max_explorer_retries = 2 # At max, Let the explorer make 2 wrong moves continuously from the same room
+        self.max_explorer_retries = 1 # At max, Let the explorer make 1 wrong move continuously from the same room
         self.current_explorer_try = 0 # reset try after every explorer move (to another room)
         self.total_explorer_moves = 0 # log all explorer moves valid+invalid here.
         # Check against a max value for aborting
@@ -111,6 +111,9 @@ class EscapeRoom(DialogueGameMaster):
         self.add_player(self.guide)
         self.add_player(self.explorer)
 
+        # Question Flag to keep track of - when explorer asks the questions, and if guide responds with answer
+        self.question_flag = 0
+
     def _on_before_game(self):
         """
         Pass initial message - first player (Guide), first turn
@@ -126,7 +129,7 @@ class EscapeRoom(DialogueGameMaster):
         """
         Fail cases for each turn, use init_flags/scorers etc...
         """
-        if self.aborted or self.current_round==21 or self.success or self.fail:
+        if self.aborted or self.current_round==25 or self.success or self.fail:
             return False
         else:
             return True
@@ -176,6 +179,7 @@ class EscapeRoom(DialogueGameMaster):
             splits = utterance.split(":")
             tag = splits[0]
             invalid_move = False
+            self.question_flag = 0
 
             if tag not in valid_tags:
                 self.aborted = True
@@ -189,8 +193,8 @@ class EscapeRoom(DialogueGameMaster):
                 self.total_explorer_moves += 1
                 stdout_logger.info(f"Current explorer move: {self.total_explorer_moves}")
                 if self.total_explorer_moves >= 14:
-                    self.aborted = True
-                    self.log_to_self("turns exceeded", "abort game: explorer")
+                    self.fail = True
+                    self.log_to_self("turns exceeded", "failed game: explorer")
 
                 stdout_logger.info(f"Move made from location - {self.game_map._agent_location}")
                 move = splits[1]
@@ -216,8 +220,8 @@ class EscapeRoom(DialogueGameMaster):
                     self.current_explorer_try += 1
                     invalid_move = True
                     if self.current_explorer_try == self.max_explorer_retries:
-                        self.aborted = True
-                        self.log_to_self("turns exceeded", "abort game: explorer")
+                        self.fail = True
+                        self.log_to_self("turns exceeded", "failed game: explorer")
                 else:
                     stdout_logger.info(f"Valid move: {move}")
                     # self.log_to_self("move", "valid")
@@ -265,6 +269,7 @@ class EscapeRoom(DialogueGameMaster):
 
             # tag == "question"
             else:
+                self.question_flag = 1
                 self.pass_turn = True
                 stdout_logger.info(f"Explorer asked Question - {utterance}")
                 self.log_to_self("question", "explorer")
@@ -276,11 +281,16 @@ class EscapeRoom(DialogueGameMaster):
             1) DESCRIPTION: 
             2) ANSWER:
             """
-
             utterance = utterance.lower()
             splits = utterance.split(":")
             tag = splits[0]
             valid_tags = ["description", "answer"]
+
+            if "description:" in utterance and "answer:" in utterance:
+                self.aborted = True
+                stdout_logger.info(f"Invalid Response for Guide: Expected DESCRIPTION/ANSWER tag, got both - {utterance}")
+                self.log_to_self("invalid value", "abort game: guide")  # Violated request count
+                return False
 
             if tag not in valid_tags:
                 self.aborted = True
@@ -289,6 +299,11 @@ class EscapeRoom(DialogueGameMaster):
                 return False
 
             if tag == "description":
+                if self.question_flag == 1:
+                    self.fail = True
+                    self.log_to_self("description", "wrong response")
+                    stdout_logger.info(f"Description by Guide, but Explorer asked a Question: {utterance}")
+
                 stdout_logger.info(f"Description by Guide: {utterance}")
                 self.log_to_self("description", "guide")
                 return True

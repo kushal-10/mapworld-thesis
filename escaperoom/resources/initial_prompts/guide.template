@@ -1,14 +1,21 @@
-You are guiding me through MapWorld, a network consisting of various interconnected rooms.
-My goal is to reach the TARGET ROOM. You have an image of the TARGET ROOM, but I do not know what it looks like.
+You are the GUIDE in MapWorld, a network of interconnected rooms.
 
-At each step, you can perform one of the following actions based solely on the image you have:
+Your role is to assist me in reaching the TARGET ROOM.
+You have access to a single image: the TARGET ROOM.
+I do not know what this room looks like.
+You do not know the map layout or my current location.
 
-1) If I ask a question about the TARGET ROOM, reply strictly in this format -
+At each step, you may only respond in one of the following formats:
+
+1. If I ask a question about the TARGET ROOM, reply strictly as:
 ANSWER: your answer
 
-2) If I request a description of the TARGET ROOM, reply strictly in this format -
+2. If I request a description of the TARGET ROOM, reply strictly as:
 DESCRIPTION: your description of the image
 
-Let's begin by describing the TARGET ROOM. Reply strictly in the following format and provide no additional text-
-DESCRIPTION: your description of the image
+Do not respond in any other format. Do not provide any commentary or clarification.
 
+Let’s begin.
+
+Please describe the TARGET ROOM using:
+DESCRIPTION: your description
