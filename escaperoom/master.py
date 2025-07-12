@@ -22,7 +22,7 @@ from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
-logging.getLogger("huggingface.multimodal.api").disabled = True
+# logging.getLogger("huggingface.multimodal.api").disabled = True
 
 lang_config_path = os.path.join(os.path.dirname(__file__), "resources", "language_config.json")
 with open(lang_config_path) as f:
@@ -150,6 +150,7 @@ class EscapeRoom(DialogueGameMaster):
             response = response[:-1]
         return response.lower()
 
+    @staticmethod
     def clean_thinking_text(response: str) -> str:
         match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
         if match:
