@@ -10,6 +10,7 @@ from typing import List, Dict, Union
 import logging
 import os
 import json
+import re
 
 from clemcore.clemgame import Player, GameMaster, GameBenchmark, DialogueGameMaster, GameScorer, GameSpec
 from clemcore.backends import Model
@@ -149,6 +150,13 @@ class EscapeRoom(DialogueGameMaster):
             response = response[:-1]
         return response.lower()
 
+    def clean_thinking_text(response: str) -> str:
+        match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
+        if match:
+            return match.group(1).strip()
+        else:
+            return None
+
 
     def _validate_player_response(self, player, utterance: str) -> bool:
         """
@@ -161,6 +169,7 @@ class EscapeRoom(DialogueGameMaster):
         """
 
         utterance = self.clean_agent_response(utterance)
+        utterance = self.clean_thinking_text(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
 
         if type(player) == Explorer:
