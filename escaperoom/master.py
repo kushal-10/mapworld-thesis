@@ -22,7 +22,7 @@ from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
-# logging.getLogger("huggingface.multimodal.api").disabled = True
+logging.getLogger("huggingface.multimodal.api").disabled = True
 
 lang_config_path = os.path.join(os.path.dirname(__file__), "resources", "language_config.json")
 with open(lang_config_path) as f:
