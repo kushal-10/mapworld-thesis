@@ -152,11 +152,22 @@ class EscapeRoom(DialogueGameMaster):
 
     @staticmethod
     def clean_thinking_text(response: str) -> str:
+        # Try to extract between <answer>...</answer>
         match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
         if match:
-            return match.group(1).strip()
-        else:
-            return None
+            content = match.group(1).strip()
+            if content:  # Not empty
+                return content
+            # If empty, keep looking
+
+        # Try to extract between <\|begin_of_box\|>...\|end_of_box\|>
+        box_match = re.search(r"<\|begin_of_box\|>(.*?)<\|end_of_box\|>", response, re.DOTALL)
+        if box_match:
+            return box_match.group(1).strip()
+
+        # If neither found
+        print(f"No answer content found in response from GLM Thinking! - {response}")
+        return None
 
 
     def _validate_player_response(self, player, utterance: str) -> bool:
