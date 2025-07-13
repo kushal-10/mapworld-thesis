@@ -361,6 +361,7 @@ class EscapeRoom(DialogueGameMaster):
         # and the next possible moves are interpreted based on the guide's response
         stdout_logger.info(f"Current Round index: {self.current_round}. Current player: {player}")
         utterance = self.clean_agent_response(utterance)
+        utterance = self.clean_thinking_text(utterance)
 
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
