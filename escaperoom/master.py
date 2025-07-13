@@ -36,7 +36,11 @@ class Explorer(Player):
 
     def _custom_response(self, context: Dict) -> str:
         random_direction = np.random.choice(["north", "south", "east", "west"])
-        return f"MOVE: {random_direction}"
+        possible_responses = [
+            f"MOVE: {random_direction}",
+            "ESCAPE"
+        ]
+        return np.random.choice(possible_responses)
     
 class Guide(Player):
     def __init__(self, model: Model):
@@ -46,7 +50,7 @@ class Guide(Player):
 
 
     def _custom_response(self, context: Dict) -> str:
-        return "ANSWER: This is a sample description"
+        return "DESCRIPTION: This is a sample description"
 
 class EscapeRoom(DialogueGameMaster):
 
@@ -61,6 +65,11 @@ class EscapeRoom(DialogueGameMaster):
         self.fail = False  # Set when Explorer returns any invalid move
         self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
         self.reprompt_fail = False  # Set when Explorer returns a move to an invalid room
+
+        self.is_thinking = False
+        if player_models[0].__str__() == "thethinker":
+            self.is_thinking = True
+            print(f"Evaluating a Thinking Model - Custom thinking tags will be checked!!")
 
         # Pass Turn
         self.pass_turn = True
@@ -166,7 +175,7 @@ class EscapeRoom(DialogueGameMaster):
             return box_match.group(1).strip()
 
         # If neither found
-        print(f"No answer content found in response from GLM Thinking! - {response}")
+        print(f"No answer content found in response from GLM Thinking!")
         return None
 
 
@@ -181,7 +190,8 @@ class EscapeRoom(DialogueGameMaster):
         """
         stdout_logger.info(f"Generated player response: {utterance}")
         utterance = self.clean_agent_response(utterance)
-        utterance = self.clean_thinking_text(utterance)
+        if self.is_thinking:
+            utterance = self.clean_thinking_text(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
 
         if not utterance:
@@ -230,6 +240,13 @@ class EscapeRoom(DialogueGameMaster):
                 move = move.lower().strip()
                 self.pass_turn = False
 
+                if move not in valid_directions:
+                    self.aborted = True
+                    stdout_logger.info(f"Aborting the Game. Explorer generated invalid move {move}")
+                    stdout_logger.info(f"Invalid utterance: {utterance}")
+                    self.log_to_self("invalid value", "abort game: explorer")
+                    return False
+
                 next_node = get_next_node(tuple(self.game_map._agent_location), move)
                 next_node = tuple(next_node)
 
@@ -264,13 +281,6 @@ class EscapeRoom(DialogueGameMaster):
                 neighbors = get_neighbors(next_node, tuple_edges)
                 efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
                                                    target_observed=self.game_map.reached_target, map_edges=tuple_edges)
-
-                if move not in valid_directions:
-                    self.aborted = True
-                    stdout_logger.info(f"Aborting the Game. Explorer generated invalid move {move}")
-                    stdout_logger.info(f"Invalid utterance: {utterance}")
-                    self.log_to_self("invalid value", "abort game: explorer")
-                    return False
 
                 if not invalid_move:
                     if efficient_move:
@@ -332,13 +342,18 @@ class EscapeRoom(DialogueGameMaster):
                     self.fail = True
                     self.log_to_self("description", "wrong response")
                     stdout_logger.info(f"Description by Guide, but Explorer asked a Question: {utterance}")
-
-                stdout_logger.info(f"Description by Guide: {utterance}")
-                self.log_to_self("description", "guide")
+                else:
+                    stdout_logger.info(f"Description by Guide: {utterance}")
+                    self.log_to_self("description", "guide")
                 return True
             else:
-                stdout_logger.info(f"Answer by Guide: {utterance}")
-                self.log_to_self("answer", "guide")
+                if not self.question_flag == 1:
+                    self.fail = True
+                    self.log_to_self("answer", "wrong response")
+                    stdout_logger.info(f"Answer by Guide, but Explorer didn't asked a Question: {utterance}")
+                else:
+                    stdout_logger.info(f"Answer by Guide: {utterance}")
+                    self.log_to_self("answer", "guide")
                 return True
 
 
@@ -380,7 +395,8 @@ class EscapeRoom(DialogueGameMaster):
         # and the next possible moves are interpreted based on the guide's response
         stdout_logger.info(f"Current Round index: {self.current_round}. Current player: {player}")
         utterance = self.clean_agent_response(utterance)
-        utterance = self.clean_thinking_text(utterance)
+        if self.is_thinking:
+            utterance = self.clean_thinking_text(utterance)
 
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
