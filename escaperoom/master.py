@@ -168,7 +168,7 @@ class EscapeRoom(DialogueGameMaster):
         Returns:
             True if response format is valid, False otherwise
         """
-
+        print(f"Generated player response: {utterance}")
         utterance = self.clean_agent_response(utterance)
         utterance = self.clean_thinking_text(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
