@@ -184,6 +184,14 @@ class EscapeRoom(DialogueGameMaster):
         utterance = self.clean_thinking_text(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
 
+        if not utterance:
+            self.aborted = True
+            stdout_logger.info(f"Aborting the Game. Could not parse response from Player.")
+            stdout_logger.info(f"Invalid utterance: {utterance}")
+            self.log_to_self("invalid value", "abort game: explorer")
+            return False
+
+
         if type(player) == Explorer:
             """
             Explorer should respond only in one of the following format
