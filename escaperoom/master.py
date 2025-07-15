@@ -66,11 +66,6 @@ class EscapeRoom(DialogueGameMaster):
         self.success = False  # Set when Explorer returns - ESCAPE and explorer location == target location
         self.reprompt_fail = False  # Set when Explorer returns a move to an invalid room
 
-        self.is_thinking = False
-        if player_models[0].__str__() == "thethinker":
-            self.is_thinking = True
-            print(f"Evaluating a Thinking Model - Custom thinking tags will be checked!!")
-
         # Pass Turn
         self.pass_turn = True
 
@@ -159,26 +154,6 @@ class EscapeRoom(DialogueGameMaster):
             response = response[:-1]
         return response.lower()
 
-    @staticmethod
-    def clean_thinking_text(response: str) -> str:
-        # Try to extract between <answer>...</answer>
-        match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
-        if match:
-            content = match.group(1).strip()
-            if content:  # Not empty
-                return content
-            # If empty, keep looking
-
-        # Try to extract between <\|begin_of_box\|>...\|end_of_box\|>
-        box_match = re.search(r"<\|begin_of_box\|>(.*?)<\|end_of_box\|>", response, re.DOTALL)
-        if box_match:
-            return box_match.group(1).strip()
-
-        # If neither found
-        print(f"No answer content found in response from GLM Thinking!")
-        return None
-
-
     def _validate_player_response(self, player, utterance: str) -> bool:
         """
         Check Correct format/ tag etc... in each Player's response
@@ -190,8 +165,6 @@ class EscapeRoom(DialogueGameMaster):
         """
         stdout_logger.info(f"Generated player response: {utterance}")
         utterance = self.clean_agent_response(utterance)
-        if self.is_thinking:
-            utterance = self.clean_thinking_text(utterance)
         stdout_logger.info(f"Cleaned Player response {player.tag}: {utterance}")
 
         if not utterance:
@@ -395,8 +368,6 @@ class EscapeRoom(DialogueGameMaster):
         # and the next possible moves are interpreted based on the guide's response
         stdout_logger.info(f"Current Round index: {self.current_round}. Current player: {player}")
         utterance = self.clean_agent_response(utterance)
-        if self.is_thinking:
-            utterance = self.clean_thinking_text(utterance)
 
         if type(player) == Guide:
             if self.current_round==0: # First prompt to Explorer from Guide.
