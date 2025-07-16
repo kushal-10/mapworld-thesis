@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 # Define min_q for ambiguous rooms
 min_q_mapping = {
-    "no_ambiguity": 0,
+    "no_ambiguity": 1,
     "medium_ambiguity": 3,
     "high_ambiguity": 4,
     "low_dual_ambiguity": 4,

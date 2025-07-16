@@ -1,50 +1,67 @@
-"""
-Take a random instance from each experiment as a test sample.
-"""
-
-import os
 import json
+import os
+import pandas as pd
 
-def create_test(json_path: str) -> None:
-    """
-    Create a test file for a given instance*.json file
-    Args:
-        json_path: path to an instance*.json file
-    """
+base_dir = "results/KimiVL-A3B-Thinking-t0.0--KimiVL-A3B-Thinking-t0.0/escape_room"
 
-    with open(json_path, "r", encoding="utf-8") as f:
-        instance_data = json.load(f)
+exps_to_dir = {"large": '2_large', "star": '11_star', "ladder": '10_ladder', "medium_ambiguity": '4_medium_ambiguity',
+        "small": '0_small', "medium": '1_medium', "path": '9_path', "high_ambiguity": '5_high_ambiguity',
+        "tree": '12_tree', "low_dual_ambiguity": '6_low_dual_ambiguity', "no_ambiguity": '3_no_ambiguity',
+        "medium_dual_ambiguity": '7_medium_dual_ambiguity', "high_dual_ambiguity": '8_high_dual_ambiguity',
+        "adjacent": '13_adjacent'}
 
-    test_data = {
-        "experiments": []
-    }
-    experiments = instance_data["experiments"]
-    for exp in experiments:
+dirs_to_exp = {v: k for k, v in exps_to_dir.items()}
 
-        if exp["name"] == "large":
-            instance_data = {
-                "name": exp["name"],
-                "game_instances": [exp["game_instances"][2]],
-            }
+custom_instances = {"experiments": []}
 
-            test_data["experiments"].append(instance_data)
-
-        if exp["name"] == "near":
-            instance_data = {
-                "name": exp["name"],
-                "game_instances": [exp["game_instances"][1]],
-            }
-
-            test_data["experiments"].append(instance_data)
+raw_df = pd.read_csv("results/raw.csv")
 
 
-    save_path = json_path.replace("instances.json", "custom_instance.json")
+instance_paths = []
+for dirname,_, filenames in os.walk(base_dir):
+    for filename in filenames:
+        if filename.endswith("instance.json"):
+            instance_paths.append(os.path.join(dirname, filename))
 
-    with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(test_data, f, ensure_ascii=False, indent=4)
+aborted_files = []
+for i in range(len(raw_df)):
+    if raw_df.iloc[i]["model"] == "KimiVL-A3B-Thinking-t0.0--KimiVL-A3B-Thinking-t0.0":
+        if raw_df.iloc[i]["metric"] == "Aborted":
+            if raw_df.iloc[i]["value"] == 1.0:
+                episode = raw_df.iloc[i]["episode"]
+                experiment = raw_df.iloc[i]["experiment"]
+                file_path = os.path.join(base_dir, experiment, episode, "instance.json")
 
 
-if __name__ == "__main__":
+exp_data = {}
+for file in instance_paths:
+    interactions_file = file.replace("instance.json", "interactions.json")
+    if not os.path.exists(interactions_file):
+        exp_split = file.split("/")[-3]
+        exp_name = dirs_to_exp[exp_split]
+        with open(file) as json_file:
+            inst = json.load(json_file)
+        if exp_name not in exp_data:
+            exp_data[exp_name] = {"name": exp_name, "game_instances": [inst]}
+        else:
+            exp_data[exp_name]["game_instances"].append(inst)
 
-    json_path = os.path.join("escaperoom", "in", "instances.json")
-    create_test(json_path)
+# print(f"Found - {len(aborted_files)} aborted_files! Adding to custom_instances.json")
+# for file in aborted_files:
+#     exp_split = file.split("/")[-3]
+#     exp_name = dirs_to_exp[exp_split]
+#     with open(file) as json_file:
+#         inst = json.load(json_file)
+#     if exp_name not in exp_data:
+#         exp_data[exp_name] = {"name": exp_name, "game_instances": [inst]}
+#     else:
+#         exp_data[exp_name]["game_instances"].append(inst)
+
+
+# for k, v in exp_data.items():
+#     custom_instances["experiments"].append(v)
+#
+# with open(os.path.join("escaperoom", "in", "custom_instances.json"), "w") as f:
+#     json.dump(custom_instances, f, indent=4)
+#
+#
