@@ -21,17 +21,11 @@ instance_paths = []
 for dirname,_, filenames in os.walk(base_dir):
     for filename in filenames:
         if filename.endswith("instance.json"):
-            instance_paths.append(os.path.join(dirname, filename))
-
-aborted_files = []
-# for i in range(len(raw_df)):
-#     if raw_df.iloc[i]["model"] == "KimiVL-A3B-Thinking-t0.0--KimiVL-A3B-Thinking-t0.0":
-#         if raw_df.iloc[i]["metric"] == "Aborted":
-#             if raw_df.iloc[i]["value"] == 1.0:
-#                 episode = raw_df.iloc[i]["episode"]
-#                 experiment = raw_df.iloc[i]["experiment"]
-#                 file_path = os.path.join(base_dir, experiment, episode, "instance.json")
-#                 aborted_files.append(file_path)
+            file_path = os.path.join(dirname, filename)
+            if "o4-mini-t0.0--o4-mini-t0.0" in file_path:
+                interactions_file = file_path.replace("instance.json", "interactions.json")
+                if not os.path.exists(interactions_file):
+                    instance_paths.append(file_path)
 
 
 exp_data = {}
@@ -43,23 +37,12 @@ for file in instance_paths:
         exp_name = dirs_to_exp[exp_split]
         with open(file) as json_file:
             inst = json.load(json_file)
-        if exp_name not in exp_data:
-            exp_data[exp_name] = {"name": exp_name, "game_instances": [inst]}
-        else:
-            exp_data[exp_name]["game_instances"].append(inst)
+            if exp_name not in exp_data:
+                exp_data[exp_name] = {"name": exp_name, "game_instances": [inst]}
+            else:
+                exp_data[exp_name]["game_instances"].append(inst)
 
-print(f"Found - {len(aborted_files)} aborted_files! Adding to custom_instances.json")
-for file in aborted_files:
-    exp_split = file.split("/")[-3]
-    exp_name = dirs_to_exp[exp_split]
-    with open(file) as json_file:
-        inst = json.load(json_file)
-    if exp_name not in exp_data:
-        exp_data[exp_name] = {"name": exp_name, "game_instances": [inst]}
-    else:
-        exp_data[exp_name]["game_instances"].append(inst)
-
-
+print(len(instance_paths))
 for k, v in exp_data.items():
     custom_instances["experiments"].append(v)
 
