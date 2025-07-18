@@ -1,130 +1,167 @@
 import os
 import ast
 import json
-import requests
-from io import BytesIO
 from collections import defaultdict, Counter
 
-from tqdm import tqdm
+import requests
+from io import BytesIO
 from PIL import Image
 import matplotlib.pyplot as plt
 import networkx as nx
-from matplotlib.patches import FancyBboxPatch
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-def fetch_and_resize_image(url, size=(100, 100)):
+
+def fetch_and_resize_image(url, size=(200, 200)):
     """Fetches an image from a URL, resizes it to 'size', and returns a PIL Image."""
     response = requests.get(url)
     response.raise_for_status()
     img = Image.open(BytesIO(response.content)).convert("RGBA")
-    # Use LANCZOS resampling for resizing (ANTIALIAS deprecated)
     return img.resize(size, resample=Image.LANCZOS)
 
 
-def draw_graph(metadata, output_path, zoom=0.5, img_size=(100, 100)):
+def draw_graph(metadata, output_path, base_img_size=200, img_zoom=0.6, margin=0.1):
     """
-    Draws and saves a graph based on metadata.
+    Draws and saves a graph based on metadata, with dynamic sizing and tight layout.
 
-    - metadata: dict containing node_to_image and unnamed_edges
+    - metadata: dict containing node_to_image, node_to_category, unnamed_edges, start_node, target_node
     - output_path: path to save the generated figure
-    - zoom: scaling factor for node images
-    - img_size: tuple for resizing node images
+    - base_img_size: the pixel size for image resizing (increases node size)
+    - img_zoom: scaling factor when placing images
+    - margin: fraction of extra space around the extents
     """
+    # Build graph and positions
     G = nx.Graph()
     positions = {}
-
-    # Setup nodes
+    xs, ys = [], []
     for coord_str, url in metadata['node_to_image'].items():
         x, y = ast.literal_eval(coord_str)
         positions[coord_str] = (x, -y)
+        xs.append(x)
+        ys.append(-y)
         G.add_node(coord_str)
 
-    # Setup edges
+    # Edges
     for src, dst in metadata.get('unnamed_edges', []):
-        src_str = str(ast.literal_eval(src))
-        dst_str = str(ast.literal_eval(dst))
-        if src_str in G and dst_str in G:
-            G.add_edge(src_str, dst_str)
+        src_s = str(ast.literal_eval(src))
+        dst_s = str(ast.literal_eval(dst))
+        if src_s in G and dst_s in G:
+            G.add_edge(src_s, dst_s)
 
-    # Create output directory
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    # Compute grid extents and counts
+    x_vals = sorted(set(xs))
+    y_vals = sorted(set(ys))
+    num_cols = len(x_vals)
+    num_rows = len(y_vals)
 
-    # Plot
-    fig, ax = plt.subplots()
+    cell_size = 6
+    fig_w = num_cols * cell_size
+    fig_h = num_rows * cell_size
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
     ax.set_axis_off()
 
     # Draw edges
     for u, v in G.edges():
         x1, y1 = positions[u]
         x2, y2 = positions[v]
-        ax.plot([x1, x2], [y1, y2], linewidth=1, color='gray')
+        ax.plot([x1, x2], [y1, y2], lw=7.0, color='gray')
 
-    all_categories = [metadata['node_to_category'].get(node, "Unknown") for node in positions]
-    total_counts = Counter(all_categories)
-    category_instance_counter = defaultdict(int)
+    # Prepare labels
+    categories = list(metadata.get('node_to_category', {}).values())
+    total_per_cat = Counter(categories)
+    inst_counter = defaultdict(int)
 
-    start_node = metadata.get('start_node')
-    target_node = metadata.get('target_node')
+    start = metadata.get('start_node')
+    target = metadata.get('target_node')
 
-    # Draw nodes as resized image squares
+    # Place nodes
     for node, (x, y) in positions.items():
         url = metadata['node_to_image'][node]
         try:
-            img = fetch_and_resize_image(url, size=img_size)
-            im = OffsetImage(img, zoom=zoom)
-            if node == start_node:
-                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5),
-                                    bboxprops=dict(edgecolor='blue', linewidth=2, facecolor='none'))
-            elif node == target_node:
-                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5),
-                                    bboxprops=dict(edgecolor='orange', linewidth=2, facecolor='none'))
-            else:
-                ab = AnnotationBbox(im, (x, y), frameon=True, box_alignment=(0.5, 0.5))
+            img = fetch_and_resize_image(url, size=(base_img_size, base_img_size))
+            im = OffsetImage(img, zoom=img_zoom)
+            # Highlight start/target
+            boxprops = None
+            if node == start:
+                boxprops = dict(edgecolor='blue', linewidth=10, facecolor='none')
+            elif node == target:
+                boxprops = dict(edgecolor='yellow', linewidth=10, facecolor='none')
 
+            ab = AnnotationBbox(
+                im,
+                (x, y),
+                frameon=bool(boxprops),
+                bboxprops=boxprops,
+                box_alignment=(0.5, 0.5)
+            )
             ax.add_artist(ab)
 
-            # Get the category
-            category = metadata['node_to_category'].get(node, "Unknown")
-            category_instance_counter[category] += 1
-            count = category_instance_counter[category]
-
-            # Format label
-            if total_counts[category] == 1:
-                label = category  # Only one instance, no number
+            # Labeling
+            cat = metadata['node_to_category'].get(node, 'Unknown')
+            inst_counter[cat] += 1
+            cnt = inst_counter[cat]
+            label = f"{cat}{cnt}" if total_per_cat[cat] > 1 else cat
+            # y-offset above or below
+            yspan = max(ys) - min(ys)
+            if num_rows == 3:
+                offset = yspan * 0.235
+            elif num_rows == 2:
+                offset = yspan * 0.48
+            elif num_rows == 4:
+                offset = yspan * 0.170
+            elif num_rows == 5:
+                offset = yspan * 0.122
             else:
-                label = f"{category}{count}"  # Multiple instances, use numbering
-
-            # Decide label position (above or below)
-            label_y_offset = 0.4
-            max_y = max(pos[1] for pos in positions.values())
-            y_offset = -label_y_offset if y > 0.8 * max_y else label_y_offset
-
-            # Add text label
-            ax.text(x, y + y_offset, label, ha='center', va='center', fontsize=8)
+                offset = 0
+            # if near top, label below
+            # y_off = -offset if y > (min(ys) + 0.8 * yspan) else offset
+            y_off = offset
+            ax.text(x, y + y_off, label, ha='center', va='center', fontsize=42)
 
         except Exception as e:
-            print(f"Failed to load or resize image for node {node}: {e}")
+            print(f"Error loading image {url}: {e}")
 
-    # Save figure
-    fig.savefig(output_path, bbox_inches='tight')
+    # Tight layout: set limits with margin
+    x_min, x_max = min(xs), max(xs)
+    y_min, y_max = min(ys), max(ys)
+    x_margin = (x_max - x_min) * margin
+    y_margin = (y_max - y_min) * margin
+    ax.set_xlim(x_min - x_margin, x_max + x_margin)
+    ax.set_ylim(y_min - y_margin, y_max + y_margin)
+    plt.tight_layout()
+
+    # Ensure output dir
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    # fig.savefig(output_path, bbox_inches='tight', pad_inches=0)
+    fig.savefig(
+        output_path,
+        format='pdf',
+        dpi=1200,
+        bbox_inches='tight',
+        pad_inches=0
+    )
     plt.close(fig)
 
 
 def main():
-    instance_path = os.path.join("escaperoom", "in", "instances.json")
-    out_dir = os.path.join("escaperoom", "in", "instance_images_higher_label")
+    base_dir = os.path.join('escaperoom', 'in')
+    instances_file = os.path.join(base_dir, 'instances.json')
+    out_dir = os.path.join(base_dir, 'output_graphs')
     os.makedirs(out_dir, exist_ok=True)
-    with open(instance_path) as f:
-        instances = json.load(f)
-    for exp in tqdm(instances["experiments"]):
-        exp_name = exp["name"]
-        game_instances = exp["game_instances"]
-        for metadata in game_instances:
-            id = metadata["game_id"]
-            out_sub_dir = os.path.join(out_dir, exp_name)
-            os.makedirs(out_sub_dir, exist_ok=True)
-            output_png = os.path.join(out_sub_dir, f"{id}.png")
-            draw_graph(metadata, output_png)
+
+    with open(instances_file) as f:
+        data = json.load(f)
+
+    for exp in data['experiments']:
+        exp_name = exp['name']
+        print(exp_name)
+        for meta in exp['game_instances']:
+            gid = meta['game_id']
+            subdir = os.path.join(out_dir, exp_name)
+            os.makedirs(subdir, exist_ok=True)
+            out_path = os.path.join(subdir, f"{gid}.pdf")
+            if not os.path.exists(out_path):
+                draw_graph(meta, out_path, base_img_size=500)
+
 
 
 if __name__ == '__main__':

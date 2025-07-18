@@ -158,6 +158,7 @@ class EscapeRoomScorer(GameScorer):
             min_q = min_q_mapping[exp_name]
         else:
             min_q = 2
+        logger.info(f"Setting min_q to {min_q} for {exp_name}")
 
         all_turn_scores = []
         for turn_idx, turn in enumerate(episode_interactions["turns"]):
@@ -216,13 +217,18 @@ class EscapeRoomScorer(GameScorer):
                 self.log_episode_score(ms.METRIC_SUCCESS, 1)
                 self.log_episode_score(ms.METRIC_LOSE, 0)
 
-                if not total_questions:
-                    total_questions = max(min_q, total_questions) # Set to min_q, if no questions asked
+
+                total_questions = max(min_q, total_questions) # Set to min_q, if no questions asked
                 if not total_moves:
                     self.log_episode_score(ms.BENCH_SCORE, 0)
                 else:
                     move_efficiency = (efficient_moves * 100) /total_moves
+                    if move_efficiency > 100:
+                        logger.info(f"move_efficiency > 100 - {move_efficiency}")
+                        logger.info(f"")
                     question_efficiency = 100*min_q/total_questions
+                    if question_efficiency > 100:
+                        logger.info(f"question_efficiency > 100 - {question_efficiency}, total questions: {total_questions}")
                     quality_score = 2*move_efficiency*question_efficiency/(move_efficiency + question_efficiency)
                     self.log_episode_score(ms.BENCH_SCORE, quality_score)
 
