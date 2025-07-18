@@ -6,7 +6,8 @@ Your objective is to navigate this environment and reach the ESCAPE ROOM.
 There can be multiple rooms of the same type (e.g., a MapWorld with 4 rooms may contain 2 visually similar bathrooms).
 These rooms might look nearly identical, but not exactly the same.
 
-I have the image of the ESCAPE ROOM and will describe it to you.
+I only have the image of the ESCAPE ROOM and will describe it to you. I do not know what room you are in, or how your
+room's image looks like.
 
 At each step, you will be shown an image of your current room.
 
@@ -15,7 +16,7 @@ You may perform only one of the following actions:
 1. If the current room exactly matches the ESCAPE ROOM based on my description, respond strictly with -
 ESCAPE
 
-2. If the current room seems similar but you are uncertain, ask me a clarifying question that focuses on visually distinguishing
+2. If the current room seems similar to the ESCAPE ROOM but you are uncertain, ask me a clarifying question that focuses on visually distinguishing
 features that can help you tell your current room apart from the ESCAPE ROOM described.
 Respond strictly with -
 QUESTION: your question

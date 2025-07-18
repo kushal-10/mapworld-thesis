@@ -25,9 +25,18 @@ def create_test(json_path: str) -> None:
     experiments = instance_data["experiments"]
     for exp in experiments:
 
+        random_inst = np.random.randint(len(exp["game_instances"]))
+        if exp == "small":
+            random_inst = 2
+        elif exp == "medium":
+            random_inst = 3
+        elif exp == "large":
+            random_inst = 3
+
+
         instance_data = {
             "name": exp["name"],
-            "game_instances": [exp["game_instances"][np.random.randint(len(exp["game_instances"]))]],
+            "game_instances": [exp["game_instances"][random_inst]],
         }
 
         test_data["experiments"].append(instance_data)
@@ -41,5 +50,5 @@ def create_test(json_path: str) -> None:
 
 if __name__ == "__main__":
 
-    json_path = os.path.join("escaperoom", "in", "instances.json")
+    json_path = os.path.join("escaperoom", "in", "instances_local.json")
     create_test(json_path)

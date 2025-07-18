@@ -3,7 +3,7 @@ Now you made a move to this room, you can choose one of the following three acti
 1. If the current room exactly matches the ESCAPE ROOM based on my description, respond strictly with -
 ESCAPE
 
-2. If the current room seems similar but you are uncertain, ask me a clarifying question that focuses on visually distinguishing
+2. If the current room seems similar to the ESCAPE ROOM but you are uncertain, ask me a clarifying question that focuses on visually distinguishing
 features that can help you tell your current room apart from the ESCAPE ROOM described.
 Respond strictly with -
 QUESTION: your question
