@@ -32,7 +32,7 @@ def analyse(episode_interactions):
 def walk_results():
     interaction_files = []
 
-    base_dir = 'results_paper'
+    base_dir = 'results'
     for dirname, _, filenames in os.walk(base_dir):
         for filename in filenames:
             filepath = os.path.join(dirname, filename)

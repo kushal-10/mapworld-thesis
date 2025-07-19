@@ -1,6 +1,9 @@
+import json
 from typing import Tuple, Dict, List
 from collections import deque
 import logging
+import os
+import ast
 
 import numpy as np
 from clemcore.clemgame import GameScorer
@@ -18,27 +21,26 @@ min_q_mapping = {
     "high_dual_ambiguity": 8,
 }
 
-def get_neighbors(agent_room: Tuple, edges: List):
-    """
-
-    Args:
-        agent_room: Current position of Explorer agent
-        edges: All edges in the given graph
-
-    Returns:
-        A list of neighboring rooms of agent_room in the given graph
-    """
-
+def get_neighbors(current_node, edges):
     neighbors = []
-
-    for u, v in edges:
-        if u == agent_room:
-            neighbors.append(v)
-        elif v == agent_room:
-            neighbors.append(u)
+    for edge in edges:
+        node1 = ast.literal_eval(edge[0])
+        node2 = ast.literal_eval(edge[1])
+        if node1 == current_node:
+            if node2 not in neighbors:
+                neighbors.append(node2)
+        if node2 == current_node:
+            if node1 not in neighbors:
+                neighbors.append(node1)
 
     return neighbors
 
+def normalize_edges(raw_edges: List[List[str]]):
+    def parse(s: str):
+        # from "(4, 0)" → (4,0)
+        x, y = s.strip('()').split(',')
+        return (int(x), int(y))
+    return [(parse(a), parse(b)) for a,b in raw_edges]
 
 def unexplored_distance(neighbors: List[Tuple[int, int]],
                         visited_rooms: List[Tuple[int, int]],
@@ -129,6 +131,61 @@ def is_efficient_move(next_room: Tuple[int, int],
             return True
     return False
 
+def get_metadata(instances, exp_name, game_id):
+    metadata = None
+    for exp in instances["experiments"]:
+        if exp["name"] == exp_name:
+            all_instances = exp["game_instances"]
+            for inst in all_instances:
+                if inst["game_id"] == game_id:
+                    metadata = inst
+
+    return metadata
+
+def get_next_node(current_node, edges, move):
+    next_node = None
+    if move == 'north':
+        next_node = (current_node[0], current_node[1]-1)
+    elif move == 'south':
+        next_node = (current_node[0], current_node[1]+1)
+    elif move == 'east':
+        next_node = (current_node[0]+1, current_node[1])
+    elif move == 'west':
+        next_node = (current_node[0]-1, current_node[1])
+    else:
+        print("Invalid move! - Expected - north, south, east, west, got - {}".format(move))
+
+    return next_node
+
+
+def get_efficient_moves(instances, exp_name, game_id, moves_made):
+    metadata = get_metadata(instances, exp_name, game_id)
+    unnamed_edges = metadata["unnamed_edges"]
+    start_node = ast.literal_eval(metadata["start_node"])
+    current_node = start_node
+    target_observed = False
+
+    visited_rooms = [list(start_node)]
+    total_moves = 0
+    eff_moves = 0
+    for move in moves_made:
+        next_node = get_next_node(current_node, unnamed_edges, move)
+        if next_node is not None:
+            neighbors = get_neighbors(current_node, unnamed_edges)
+            eff_move = is_efficient_move(next_node, neighbors, visited_rooms, target_observed, unnamed_edges)
+            if eff_move:
+                eff_moves += 1
+            if str(next_node) == metadata["target_node"]:
+                target_observed = True
+            current_node = next_node
+            if next_node not in visited_rooms:
+                visited_rooms.append(next_node)
+            total_moves += 1
+        else:
+            print(f"Invalid response for a model - {exp_name, game_id, moves_made}")
+
+    return total_moves, eff_moves
+
 
 class EscapeRoomScorer(GameScorer):
     """
@@ -154,6 +211,12 @@ class EscapeRoomScorer(GameScorer):
         aborted = False
 
         exp_name = episode_interactions['meta']["experiment_name"]
+        game_id = episode_interactions['meta']["game_id"]
+        instance_file = os.path.join("escaperoom", "in", "instances.json")
+        with open(instance_file, "r") as f:
+            instances = json.load(f)
+
+
         if exp_name in min_q_mapping:
             min_q = min_q_mapping[exp_name]
         else:
@@ -169,6 +232,7 @@ class EscapeRoomScorer(GameScorer):
             }
 
             # Walk through log_to_self items from DGM
+            moves_made = []
             for event in turn:
                 action = event["action"]
                 turn_score_dict["request_count"] += 1
@@ -177,14 +241,20 @@ class EscapeRoomScorer(GameScorer):
                     aborted = True
                 else:
                     turn_score_dict["parsed_request_count"] += 1
-                    if action["type"] == "move":
-                        total_moves += 1
-                        if action["content"] == "efficient":
-                            efficient_moves += 1
-                    elif action["type"] == "question":
+                    # if action["type"] == "move":
+                    #     total_moves += 1
+                        # if action["content"] == "efficient":
+                            # efficient_moves += 1
+                    if action["type"] == "question":
                         total_questions += 1
                     elif action["type"] == "escape" and action["content"] == "success":
                         success = True
+                    elif action["type"] == "get message":
+                        action_content = action["content"].lower()
+                        if action_content.startswith("move"):
+                            move = action_content[5:].strip()
+                            moves_made.append(move)
+
 
             # log turn request scores
             self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT_VIOLATED, turn_score_dict["violated_request_count"])
@@ -204,6 +274,8 @@ class EscapeRoomScorer(GameScorer):
         self.log_episode_score(ms.METRIC_REQUEST_COUNT, ep_request_count)
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_VIOLATED, ep_violated_request_count)
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_PARSED, ep_parsed_request_count)
+
+        total_moves, efficient_moves = get_efficient_moves(instances, exp_name, game_id, moves_made)
 
         if aborted:
             self.log_episode_score(ms.METRIC_ABORTED, 1)
