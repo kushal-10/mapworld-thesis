@@ -155,7 +155,15 @@ def get_next_node(current_node, edges, move):
     else:
         print("Invalid move! - Expected - north, south, east, west, got - {}".format(move))
 
-    return next_node
+    edge1 = [str(current_node), str(next_node)]
+    edge2 = [str(next_node), str(current_node)]
+
+    if edge1 in edges:
+        return next_node
+    if edge2 in edges:
+        return next_node
+
+    return None
 
 
 def get_efficient_moves(instances, exp_name, game_id, moves_made):
@@ -168,7 +176,8 @@ def get_efficient_moves(instances, exp_name, game_id, moves_made):
     visited_rooms = [list(start_node)]
     total_moves = 0
     eff_moves = 0
-    for move in moves_made:
+    for i in range(len(moves_made)):
+        move = moves_made[i]
         next_node = get_next_node(current_node, unnamed_edges, move)
         if next_node is not None:
             neighbors = get_neighbors(current_node, unnamed_edges)
@@ -182,7 +191,8 @@ def get_efficient_moves(instances, exp_name, game_id, moves_made):
                 visited_rooms.append(next_node)
             total_moves += 1
         else:
-            print(f"Invalid response for a model - {exp_name, game_id, moves_made}")
+            if i!=len(moves_made)-1:
+                print(f"Invalid response for a model - {exp_name, game_id, moves_made} for move {move}")
 
     return total_moves, eff_moves
 
@@ -216,7 +226,8 @@ class EscapeRoomScorer(GameScorer):
         with open(instance_file, "r") as f:
             instances = json.load(f)
 
-
+        model_name = episode_interactions['meta']["dialogue_pair"]
+        # print(f"Computing scores for {model_name}")
         if exp_name in min_q_mapping:
             min_q = min_q_mapping[exp_name]
         else:
@@ -224,6 +235,7 @@ class EscapeRoomScorer(GameScorer):
         logger.info(f"Setting min_q to {min_q} for {exp_name}")
 
         all_turn_scores = []
+        moves_made = []
         for turn_idx, turn in enumerate(episode_interactions["turns"]):
             turn_score_dict = {
                 "request_count": 0,
@@ -232,7 +244,6 @@ class EscapeRoomScorer(GameScorer):
             }
 
             # Walk through log_to_self items from DGM
-            moves_made = []
             for event in turn:
                 action = event["action"]
                 turn_score_dict["request_count"] += 1
