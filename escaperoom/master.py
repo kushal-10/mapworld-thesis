@@ -18,7 +18,7 @@ import numpy as np
 
 from engine.environment import MapWorldEnv
 from engine.utils import get_next_node
-from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors
+from escaperoom.scorer import EscapeRoomScorer,is_efficient_move, get_neighbors_str
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
@@ -251,7 +251,7 @@ class EscapeRoom(DialogueGameMaster):
                 for edge in edges:
                     tuple_edges.append((tuple(ast.literal_eval(edge[0])), tuple(ast.literal_eval(edge[1]))))
 
-                neighbors = get_neighbors(next_node, tuple_edges)
+                neighbors = get_neighbors_str(next_node, tuple_edges)
                 efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
                                                    target_observed=self.game_map.reached_target, map_edges=tuple_edges)
 

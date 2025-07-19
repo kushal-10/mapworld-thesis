@@ -35,6 +35,28 @@ def get_neighbors(current_node, edges):
 
     return neighbors
 
+def get_neighbors_str(agent_room: Tuple, edges: List):
+    """
+
+    Args:
+        agent_room: Current position of Explorer agent
+        edges: All edges in the given graph
+
+    Returns:
+        A list of neighboring rooms of agent_room in the given graph
+    """
+
+    neighbors = []
+
+    for u, v in edges:
+        if u == agent_room:
+            neighbors.append(v)
+        elif v == agent_room:
+            neighbors.append(u)
+
+    return neighbors
+
+
 def normalize_edges(raw_edges: List[List[str]]):
     def parse(s: str):
         # from "(4, 0)" → (4,0)
