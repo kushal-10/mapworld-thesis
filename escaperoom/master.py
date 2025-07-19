@@ -251,17 +251,17 @@ class EscapeRoom(DialogueGameMaster):
                 for edge in edges:
                     tuple_edges.append((tuple(ast.literal_eval(edge[0])), tuple(ast.literal_eval(edge[1]))))
 
-                neighbors = get_neighbors_str(next_node, tuple_edges)
-                efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
-                                                   target_observed=self.game_map.reached_target, map_edges=tuple_edges)
+                # neighbors = get_neighbors_str(next_node, tuple_edges)
+                # efficient_move = is_efficient_move(next_room=next_node, neighbors=neighbors, visited_rooms=self.game_map.visited,
+                #                                    target_observed=self.game_map.reached_target, map_edges=tuple_edges)
 
-                if not invalid_move:
-                    if efficient_move:
-                        stdout_logger.info(f" Efficient Move : {move}")
-                        self.log_to_self("move", "efficient")
-                    else:
-                        stdout_logger.info(f" Inefficient Move : {move}")
-                        self.log_to_self("move", "inefficient")
+                # if not invalid_move:
+                #     if efficient_move:
+                #         stdout_logger.info(f" Efficient Move : {move}")
+                #         self.log_to_self("move", "efficient")
+                #     else:
+                #         stdout_logger.info(f" Inefficient Move : {move}")
+                #         self.log_to_self("move", "inefficient")
                 return True
 
             # Episodic Success case

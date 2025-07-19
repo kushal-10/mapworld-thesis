@@ -518,8 +518,30 @@
         }
     },
   {
-        "model_name": "mistral-small-3.2-24b-instruct-or",
-        "model_id": "mistralai/mistral-small-3.2-24b-instruct:free",
+        "model_name": "gemma-3-27b-it-or",
+        "model_id": "google/gemma-3-27b-it:free",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "200k",
+        "license": {},
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+  {
+        "model_name": "llama-3.2-11b-vision-instruct",
+        "model_id": "meta-llama/llama-3.2-11b-vision-instruct:free",
         "backend": "openai_compatible",
         "release_date": "2025-03-19",
         "open_weight": true,
