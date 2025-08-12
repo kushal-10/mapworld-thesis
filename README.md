@@ -6,7 +6,7 @@ modal grounding constraints in Large Mulimodal (Reasoning) Models.
 
 ## WIP
 
-This thesis builds over ```clemcore==2.1.0```. The migration to `v3.3` will be active in `dev` branch soon
+This work builds over ```clemcore==2.1.0```. The migration to `v3.3` will be active in `dev` branch soon
 
 
 ---
