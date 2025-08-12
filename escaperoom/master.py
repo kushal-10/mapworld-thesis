@@ -35,12 +35,11 @@ class Explorer(Player):
         self.tag: str = "Explorer"
 
     def _custom_response(self, context: Dict) -> str:
-        random_direction = np.random.choice(["north", "south", "east", "west"])
-        possible_responses = [
-            f"MOVE: {random_direction}",
-            "ESCAPE"
-        ]
-        return np.random.choice(possible_responses)
+        random_move = np.random.choice(["north", "south", "east", "west", "escape"])
+        if random_move == "escape":
+            return "ESCAPE"
+        else:
+            return f"MOVE: {random_move}"
     
 class Guide(Player):
     def __init__(self, model: Model):

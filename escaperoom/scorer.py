@@ -189,6 +189,7 @@ def get_next_node(current_node, edges, move):
 
 
 def get_efficient_moves(instances, exp_name, game_id, moves_made):
+    aborted = False
     metadata = get_metadata(instances, exp_name, game_id)
     unnamed_edges = metadata["unnamed_edges"]
     start_node = ast.literal_eval(metadata["start_node"])
@@ -215,8 +216,9 @@ def get_efficient_moves(instances, exp_name, game_id, moves_made):
         else:
             if i!=len(moves_made)-1:
                 print(f"Invalid response for a model - {exp_name, game_id, moves_made} for move {move}")
+                aborted = True
 
-    return total_moves, eff_moves
+    return total_moves, eff_moves, aborted
 
 
 class EscapeRoomScorer(GameScorer):
@@ -272,6 +274,8 @@ class EscapeRoomScorer(GameScorer):
                 if action["type"] == "invalid value":
                     turn_score_dict["violated_request_count"] += 1
                     aborted = True
+                elif action["type"] == "turns exceeded":
+                    aborted = True
                 else:
                     turn_score_dict["parsed_request_count"] += 1
                     # if action["type"] == "move":
@@ -295,6 +299,9 @@ class EscapeRoomScorer(GameScorer):
             self.log_turn_score(turn_idx, ms.METRIC_REQUEST_COUNT, turn_score_dict["request_count"])
             all_turn_scores.append(turn_score_dict)
 
+        last_turn = episode_interactions["turns"][-1][-1]
+        if not aborted and last_turn["action"]["type"] != "escape":
+            aborted = True
         # Log episodic scores
         ep_request_count = 0
         ep_violated_request_count = 0
@@ -308,8 +315,9 @@ class EscapeRoomScorer(GameScorer):
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_VIOLATED, ep_violated_request_count)
         self.log_episode_score(ms.METRIC_REQUEST_COUNT_PARSED, ep_parsed_request_count)
 
-        total_moves, efficient_moves = get_efficient_moves(instances, exp_name, game_id, moves_made)
-
+        total_moves, efficient_moves, aborted_temp = get_efficient_moves(instances, exp_name, game_id, moves_made)
+        if aborted_temp and not aborted:
+            aborted = True
         if aborted:
             self.log_episode_score(ms.METRIC_ABORTED, 1)
             self.log_episode_score(ms.METRIC_SUCCESS, 0)

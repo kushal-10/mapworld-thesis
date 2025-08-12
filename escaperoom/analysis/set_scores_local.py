@@ -4,8 +4,8 @@ import sys
 import pandas as pd
 
 def main():
-    raw_path = os.path.join("results", "raw.csv")
-    out_path = os.path.join("results", "scores.html")
+    raw_path = os.path.join("results_local", "raw.csv")
+    out_path = os.path.join("results_local", "scores.html")
 
     if not os.path.exists(raw_path):
         print(f"Error: Could not find {raw_path}", file=sys.stderr)

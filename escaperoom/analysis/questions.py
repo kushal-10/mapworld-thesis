@@ -39,14 +39,17 @@ def walk_results():
             if filename.endswith("interactions.json"):
                 interaction_files.append(filepath)
 
+    ints = 0
     for file in interaction_files:
         with open(file, 'r') as f:
             episode_interactions = json.load(f)
 
         qa, mm, em, fe, se = analyse(episode_interactions)
         if qa:
+            ints += 1
             print(file, qa, mm, em, fe, se)
 
+    print(ints)
 
 if __name__ == '__main__':
     walk_results()

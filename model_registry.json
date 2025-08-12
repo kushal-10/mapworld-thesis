@@ -540,8 +540,8 @@
         }
     },
   {
-        "model_name": "llama-3.2-11b-vision-instruct",
-        "model_id": "meta-llama/llama-3.2-11b-vision-instruct:free",
+        "model_name": "grok-4",
+        "model_id": "x-ai/grok-4",
         "backend": "openai_compatible",
         "release_date": "2025-03-19",
         "open_weight": true,
@@ -551,6 +551,94 @@
             "de"
         ],
         "context_size": "200k",
+        "license": {},
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+  {
+        "model_name": "claude-sonnet-4",
+        "model_id": "anthropic/claude-sonnet-4",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "200k",
+        "license": {},
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+  {
+        "model_name": "llama-4-maverick",
+        "model_id": "meta-llama/llama-4-maverick",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "200k",
+        "license": {},
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+  {
+        "model_name": "gemini-2.5-pro",
+        "model_id": "google/gemini-2.5-pro",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "200k",
+        "license": {},
+        "model_config": {
+            "multimodality": {
+                "single_image": true,
+                "multiple_images": true,
+                "audio": false,
+                "video": false
+            }
+        }
+    },
+  {
+        "model_name": "mistral-small-3.1-24b-instruct",
+        "model_id": "mistralai/mistral-small-3.1-24b-instruct",
+        "backend": "openai_compatible",
+        "release_date": "2025-03-19",
+        "open_weight": true,
+        "parameters": "27B",
+        "languages": [
+            "en",
+            "de"
+        ],
+        "context_size": "128k",
         "license": {},
         "model_config": {
             "multimodality": {

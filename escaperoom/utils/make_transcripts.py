@@ -17,10 +17,10 @@ INTERACTIONS_PATTERN = os.path.join(
 )
 ROBOT_PATH = 'engine/resources/robot.png'
 ORACLE_PATH = 'engine/resources/oracle.png'
-NODE_IMG_SIZE = (100, 100)
-ROBOT_IMG_SIZE = (96, 96)      # increased explorer/robot size
-ORACLE_IMG_SIZE = (96, 96)     # increased guide/oracle size
-GRAPH_ZOOM = 0.6               # zoom in a bit
+NODE_IMG_SIZE = (125, 125)
+ROBOT_IMG_SIZE = (110, 110)      # increased explorer/robot size
+ORACLE_IMG_SIZE = (110, 110)     # increased guide/oracle size
+GRAPH_ZOOM = 0.75         # zoom in a bit
 
 # To change the font, substitute a TTF path and size here:
 try:
@@ -30,7 +30,7 @@ except IOError:
 
 PADDING = 20                   # margin padding around elements
 LINE_SPACING = 4               # reduced vertical space between lines
-TEXT_WIDTH = 30                # narrower text wrap for clarity
+TEXT_WIDTH = 42               # narrower text wrap for clarity
 
 # Direction mapping according to GymEnv
 dir_map = {
@@ -69,7 +69,7 @@ def render_graph_image(positions, edges, node_imgs,
     for node, (x, y) in positions.items():
         img = node_imgs[node]
         if node == target_node:
-            edge_color, lw = 'green', 3
+            edge_color, lw = 'yellow', 3
         elif node == current_node:
             edge_color, lw = 'blue', 3
         else:
