@@ -2,7 +2,7 @@
 
 This repository contains **MapWorld** — a graph-based environment generator — and **EscapeRoom**, test-bed designed to probe
 spatial reasoning, graph reasoning, and collaborative dialogue under multi-
-modal grounding constraints in Large Mulimodal (Reasoning) Models.
+modal grounding constraints in Large Multimodal (Reasoning) Models.
 
 ## WIP
 
